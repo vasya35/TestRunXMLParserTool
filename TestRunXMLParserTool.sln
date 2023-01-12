@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunXMLParserTool", "TestRunXMLParserTool\TestRunXMLParserTool.csproj", "{826F3F6C-7B42-4066-8972-74C381E7925D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRunXMLParserToolLibrary", "TestRunXMLParserToolLibrary\TestRunXMLParserToolLibrary.csproj", "{5A129E7D-2255-4E64-9B0B-A5A42F321120}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{826F3F6C-7B42-4066-8972-74C381E7925D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{826F3F6C-7B42-4066-8972-74C381E7925D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{826F3F6C-7B42-4066-8972-74C381E7925D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{826F3F6C-7B42-4066-8972-74C381E7925D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A129E7D-2255-4E64-9B0B-A5A42F321120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A129E7D-2255-4E64-9B0B-A5A42F321120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A129E7D-2255-4E64-9B0B-A5A42F321120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A129E7D-2255-4E64-9B0B-A5A42F321120}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB1735C6-F80A-42D1-B2AE-FEF222430797}
+	EndGlobalSection
+EndGlobal
