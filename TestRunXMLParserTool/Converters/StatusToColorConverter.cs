@@ -18,9 +18,9 @@ namespace TestRunXMLParserTool.Converters
 			switch (date)
 			{
 				case "PASS":
-					return "Green";
+					return "LightGreen";
 				case "FAIL":
-					return "Red";
+					return "IndianRed";
 				default:
 					return "Yellow";
 			}
@@ -29,6 +29,7 @@ namespace TestRunXMLParserTool.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
+			
 		}
 	}
 }

@@ -11,13 +11,14 @@ namespace TestRunXMLParserTool
 		private int? duration;
 		private DateTime startedAt;
 		private DateTime finishedAt;
+		private bool isSelected;
 
 		/// <summary>
 		/// Name
 		/// </summary>
-		public string Name
+		public string? Name
 		{
-			get { return name; }
+			get => name;
 			set
 			{
 				name = value;
@@ -77,7 +78,17 @@ namespace TestRunXMLParserTool
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public bool IsSelected
+		{
+			get { return isSelected; }
+			set
+			{
+				isSelected = value;
+				OnPropertyChanged("IsSelected");
+			}
+		}
+
+		public event PropertyChangedEventHandler? PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName] string prop = "")
 		{
 			if (PropertyChanged != null)
