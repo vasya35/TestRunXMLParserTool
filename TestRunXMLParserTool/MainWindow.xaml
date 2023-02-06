@@ -18,7 +18,7 @@
 
 		<local:SortAndFilterUserControl Grid.Column="0" Grid.Row="0" DataContext="{Binding}"/>
 
-		<ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding FilteredTestCaseResults}" SelectedItem="{Binding SelectedTestCaseResult}" HorizontalContentAlignment="Stretch" >
+		<ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding DisplayedTestCaseResults}" SelectedItem="{Binding SelectedTestCaseResult}" HorizontalContentAlignment="Stretch" >
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<local:TestCaseResultUserControl DataContext="{Binding}"/>

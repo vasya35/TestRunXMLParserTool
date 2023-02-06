@@ -13,9 +13,9 @@
 			<CheckBox Name="FailedCheckbox"
 					  IsChecked="{Binding Path=FailedSelected}"
 					  >FAIL</CheckBox>
-			<CheckBox Name="UndefinedCheckbox"
-					  IsChecked="{Binding Path=UndefinedSelected}"
-					  >Undefine</CheckBox>
+			<CheckBox Name="SkippedCheckbox"
+					  IsChecked="{Binding Path=SkippedSelected}"
+					  >SKIP</CheckBox>
 			<CheckBox Name="SortCheckbox"
 					  IsChecked="{Binding Path=SortSelected}"
 					  >Sort</CheckBox>

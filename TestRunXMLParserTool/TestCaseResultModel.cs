@@ -105,7 +105,7 @@ namespace TestRunXMLParserTool
 
 		private void setTestCaseNumber(string name)
 		{
-			int res = 0;
+			int res;
 			int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T' }), out res);
 			ticketNumber = res;
 		}

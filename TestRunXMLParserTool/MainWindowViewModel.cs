@@ -17,10 +17,10 @@ namespace TestRunXMLParserTool
 		{
 			var test = new XMLParser();
 			OriginalTestCaseResults = test.Parse("testng-results_tkfd.xml");
-			FilteredTestCaseResults = OriginalTestCaseResults;
+			DisplayedTestCaseResults = OriginalTestCaseResults;
 			passedSelected = true;
 			failedSelected = true;
-			undefinedSelected = true;
+			skippedSelected = true;
 			sortSelected = false;
 		}
 
@@ -28,22 +28,22 @@ namespace TestRunXMLParserTool
 
 		#region fields
 		private TestCaseResultModel selectedTestCaseResult { get; set; }
-		private ObservableCollection<TestCaseResultModel> filteredTestCaseResults { get; set; }
+		private ObservableCollection<TestCaseResultModel> displayedTestCaseResults { get; set; }
 		private bool passedSelected { get; set; }
 		private bool failedSelected { get; set; }
-		private bool undefinedSelected { get; set; }
+		private bool skippedSelected { get; set; }
 		private bool sortSelected { get; set; }
 		#endregion
 
 		#region Properties
 		public ObservableCollection<TestCaseResultModel> OriginalTestCaseResults { get; set; }
-		public ObservableCollection<TestCaseResultModel> FilteredTestCaseResults 
+		public ObservableCollection<TestCaseResultModel> DisplayedTestCaseResults 
 		{ 
-			get { return filteredTestCaseResults; }
+			get { return displayedTestCaseResults; }
 			set
 			{
-				filteredTestCaseResults = value;
-				OnPropertyChanged("FilteredTestCaseResults");
+				displayedTestCaseResults = value;
+				OnPropertyChanged("DisplayedTestCaseResults");
 			} 
 		}
 
@@ -63,6 +63,7 @@ namespace TestRunXMLParserTool
 			set
 			{
 				passedSelected = value;
+				updateFilteredAndSortData();
 				OnPropertyChanged("PassedSelected");
 			}
 		}
@@ -73,17 +74,19 @@ namespace TestRunXMLParserTool
 			set
 			{
 				failedSelected = value;
+				updateFilteredAndSortData();
 				OnPropertyChanged("FailedSelected");
 			}
 		}
 
-		public bool UndefinedSelected
+		public bool SkippedSelected
 		{
-			get { return undefinedSelected; }
+			get { return skippedSelected; }
 			set
 			{
-				undefinedSelected = value;
-				OnPropertyChanged("UndefinedSelected");
+				skippedSelected = value;
+				updateFilteredAndSortData();
+				OnPropertyChanged("SkippedSelected");
 			}
 		}
 
@@ -93,14 +96,7 @@ namespace TestRunXMLParserTool
 			set
 			{
 				sortSelected = value;
-				if (value)
-				{
-					sortData();
-				}
-				else
-				{
-					unsortData();
-				}
+				updateFilteredAndSortData();
 				OnPropertyChanged("SortSelected");				
 			}
 		}		
@@ -117,14 +113,41 @@ namespace TestRunXMLParserTool
 
 		#region Private methods
 		
-		private void sortData()
+		private ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
 		{
-			FilteredTestCaseResults = new ObservableCollection<TestCaseResultModel>(OriginalTestCaseResults.OrderBy(x => x.getTestCaseNumber()));
+			return new ObservableCollection<TestCaseResultModel>(filteredData.OrderBy(x => x.getTestCaseNumber()));
 		}
 
-		private void unsortData()
+
+		private void updateFilteredAndSortData()
 		{
-			FilteredTestCaseResults = OriginalTestCaseResults;
+			List<string> filteredStatus = new List<string>();
+
+			if (PassedSelected)
+			{
+				filteredStatus.Add(new string("PASS"));
+			}
+
+			if (FailedSelected)
+			{
+				filteredStatus.Add(new string("FAIL"));
+			}
+
+			if (SkippedSelected)
+			{
+				filteredStatus.Add(new string("SKIP"));
+			}
+
+			var filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result)==true).ToList());
+
+			if (sortSelected)
+			{
+				DisplayedTestCaseResults = sortData(filteredData);
+			}
+			else
+			{
+				DisplayedTestCaseResults = filteredData;
+			}
 		}
 
 		#endregion
