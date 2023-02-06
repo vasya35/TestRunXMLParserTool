@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -7,6 +8,7 @@ namespace TestRunXMLParserTool
 	public class TestCaseResultModel : INotifyPropertyChanged
 	{
 		private string? name;
+		private int ticketNumber;
 		private string? result;
 		private int? duration;
 		private DateTime startedAt;
@@ -22,6 +24,7 @@ namespace TestRunXMLParserTool
 			set
 			{
 				name = value;
+				setTestCaseNumber(value);
 				OnPropertyChanged("Name");
 			}
 		}
@@ -95,5 +98,21 @@ namespace TestRunXMLParserTool
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
 
+		public static implicit operator TestCaseResultModel(ObservableCollection<TestCaseResultModel> v)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void setTestCaseNumber(string name)
+		{
+			int res = 0;
+			int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T' }), out res);
+			ticketNumber = res;
+		}
+
+		public int getTestCaseNumber()
+		{
+			return ticketNumber;
+		}
 	}
 }

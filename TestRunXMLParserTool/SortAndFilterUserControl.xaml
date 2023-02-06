@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="TestRunXMLParserTool.SortAndFilterUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestRunXMLParserTool"
+             mc:Ignorable="d">
+    <Grid>
+		<DockPanel>
+			<CheckBox Name="PassCheckbox"
+					  IsChecked="{Binding Path=PassedSelected}"
+					  >PASS</CheckBox>
+			<CheckBox Name="FailedCheckbox"
+					  IsChecked="{Binding Path=FailedSelected}"
+					  >FAIL</CheckBox>
+			<CheckBox Name="UndefinedCheckbox"
+					  IsChecked="{Binding Path=UndefinedSelected}"
+					  >Undefine</CheckBox>
+			<CheckBox Name="SortCheckbox"
+					  IsChecked="{Binding Path=SortSelected}"
+					  >Sort</CheckBox>
+		</DockPanel>
+    </Grid>
+</UserControl>
