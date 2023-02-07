@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using TestRunXMLParserTool.Commands;
 
 namespace TestRunXMLParserTool
 {
@@ -33,6 +35,17 @@ namespace TestRunXMLParserTool
 		private bool failedSelected { get; set; }
 		private bool skippedSelected { get; set; }
 		private bool sortSelected { get; set; }
+
+		private ICommand genXMLCommand;
+		public ICommand GenXMLCommand
+		{
+			get
+			{
+				if (genXMLCommand == null)
+					genXMLCommand = new GenerateXMLCommand();
+				return genXMLCommand;
+			}
+		}
 		#endregion
 
 		#region Properties

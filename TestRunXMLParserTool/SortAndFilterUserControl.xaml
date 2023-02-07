@@ -8,17 +8,31 @@
     <Grid>
 		<DockPanel>
 			<CheckBox Name="PassCheckbox"
+					  Margin="5,5,5,5" 
+					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=PassedSelected}"
 					  >PASS</CheckBox>
 			<CheckBox Name="FailedCheckbox"
+					  Margin="5,5,5,5" 
+					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=FailedSelected}"
 					  >FAIL</CheckBox>
 			<CheckBox Name="SkippedCheckbox"
+					  Margin="5,5,5,5" 
+					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=SkippedSelected}"
 					  >SKIP</CheckBox>
 			<CheckBox Name="SortCheckbox"
+					  Margin="5,5,5,5" 
+					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=SortSelected}"
 					  >Sort</CheckBox>
+			<Button Margin="5,5,5,5" Command="{Binding GenXMLCommand}" CommandParameter="{Binding DisplayedTestCaseResults}">
+				Generate xml for rerun
+			</Button>
+			<Button Margin="5,5,5,5" Command="{Binding GenJQueryScriptCommand}">
+				Generate jquery script
+			</Button>
 		</DockPanel>
     </Grid>
 </UserControl>

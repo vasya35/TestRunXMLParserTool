@@ -11,14 +11,11 @@
 			<RowDefinition Height="0.1*" />
 			<RowDefinition Height="0.9*" />
 		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="0.8*" />
-			<ColumnDefinition Width="0.2*" />
-		</Grid.ColumnDefinitions>
 
-		<local:SortAndFilterUserControl Grid.Column="0" Grid.Row="0" DataContext="{Binding}"/>
 
-		<ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding DisplayedTestCaseResults}" SelectedItem="{Binding SelectedTestCaseResult}" HorizontalContentAlignment="Stretch" >
+		<local:SortAndFilterUserControl Grid.Row="0" DataContext="{Binding}"/>
+
+		<ListBox Grid.Row="1" ItemsSource="{Binding DisplayedTestCaseResults}" SelectedItem="{Binding SelectedTestCaseResult}" HorizontalContentAlignment="Stretch" >
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<local:TestCaseResultUserControl DataContext="{Binding}"/>
