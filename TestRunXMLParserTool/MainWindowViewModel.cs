@@ -134,7 +134,7 @@ namespace TestRunXMLParserTool
 
 		private void updateFilteredAndSortData()
 		{
-			List<string> filteredStatus = new List<string>();
+			List<string> filteredStatus = new();
 
 			if (PassedSelected)
 			{
