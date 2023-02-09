@@ -6,7 +6,11 @@ namespace TestRunXMLParserTool.Models
 {
 	public class XMLGeneratorModel
 	{
-		public void Generate(ObservableCollection<TestCaseResultModel>? selectedTestCases)
+		/// <summary>
+		/// Generate xml file with selected test cases
+		/// </summary>
+		/// <param name="selectedTestCases"></param>
+		public void Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			var defaultFileName = "SelectedTestCases";
 			var defaultExtensionFileName = ".xml";
@@ -58,7 +62,6 @@ namespace TestRunXMLParserTool.Models
 				writer.WriteEndDocument();
 				writer.Flush();
 			}
-
 		}
 	}
 }

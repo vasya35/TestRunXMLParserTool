@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace TestRunXMLParserTool.Models
 {
@@ -9,7 +8,7 @@ namespace TestRunXMLParserTool.Models
 		{
 		}
 
-		internal void Generate(ObservableCollection<TestCaseResultModel>? selectedTestCases)
+		internal void Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			return;
 		}

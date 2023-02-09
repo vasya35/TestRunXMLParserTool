@@ -12,18 +12,21 @@ namespace TestRunXMLParserTool.ViewModels
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{
 		#region .ctor
-
 		public MainWindowViewModel()
 		{
-			var test = new XMLParserModel();
-			OriginalTestCaseResults = test.Parse("testng-results_tkfd.xml");
-			DisplayedTestCaseResults = OriginalTestCaseResults;
+			selectedTestCaseResult = new TestCaseResultModel();
+			displayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
 			passedSelected = true;
 			failedSelected = true;
 			skippedSelected = true;
 			sortSelected = false;
-		}
+			genXMLCommand = new XMLGeneratorCommand();
+			genJQueryScriptCommand = new JQueryScriptGeneratorCommand();
 
+			var testCase = new XMLParserModel();
+			OriginalTestCaseResults = testCase.Parse("testng-results_tkfd.xml");
+			DisplayedTestCaseResults = OriginalTestCaseResults;
+		}
 		#endregion
 
 		#region fields
@@ -36,25 +39,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private ICommand genXMLCommand;
 		private ICommand genJQueryScriptCommand;
-		public ICommand GenXMLCommand
-		{
-			get
-			{
-				if (genXMLCommand == null)
-					genXMLCommand = new GenerateXMLCommand();
-				return genXMLCommand;
-			}
-		}
 
-		public ICommand GenJQueryScriptCommand
-		{
-			get
-			{
-				if (genJQueryScriptCommand == null)
-					genJQueryScriptCommand = new GenerateJQueryScriptCommand();
-				return genJQueryScriptCommand;
-			}
-		}
 		#endregion
 
 		#region Properties
@@ -122,6 +107,26 @@ namespace TestRunXMLParserTool.ViewModels
 				OnPropertyChanged("SortSelected");
 			}
 		}
+
+		public ICommand GenXMLCommand
+		{
+			get
+			{
+				if (genXMLCommand == null)
+					genXMLCommand = new XMLGeneratorCommand();
+				return genXMLCommand;
+			}
+		}
+
+		public ICommand GenJQueryScriptCommand
+		{
+			get
+			{
+				if (genJQueryScriptCommand == null)
+					genJQueryScriptCommand = new JQueryScriptGeneratorCommand();
+				return genJQueryScriptCommand;
+			}
+		}
 		#endregion
 
 		#region Implementation INotifyPropertyChanged
@@ -135,7 +140,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		#region Private methods
 
-		private ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
+		private static ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
 		{
 			return new ObservableCollection<TestCaseResultModel>(filteredData.OrderBy(x => x.getTestCaseNumber()));
 		}

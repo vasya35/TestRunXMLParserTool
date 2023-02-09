@@ -5,7 +5,7 @@ using TestRunXMLParserTool.Models;
 
 namespace TestRunXMLParserTool.Commands
 {
-	public class GenerateXMLCommand : ICommand
+	public class XMLGeneratorCommand : ICommand
 	{
 		public event EventHandler CanExecuteChanged
 		{
