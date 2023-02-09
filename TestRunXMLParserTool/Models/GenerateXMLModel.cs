@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Xml;
 
-namespace TestRunXMLParserTool
+namespace TestRunXMLParserTool.Models
 {
 	public class GenerateXMLModel
 	{

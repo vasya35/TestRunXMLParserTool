@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TestRunXMLParserTool
+namespace TestRunXMLParserTool.Models
 {
 	public class TestCaseResultModel : INotifyPropertyChanged
 	{

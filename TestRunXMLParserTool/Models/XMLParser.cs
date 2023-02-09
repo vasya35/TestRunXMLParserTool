@@ -2,11 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Xml;
 
-namespace TestRunXMLParserTool
+namespace TestRunXMLParserTool.Models
 {
 	public class XMLParser
 	{
-		public ObservableCollection<TestCaseResultModel> Parse(String path)
+		public ObservableCollection<TestCaseResultModel> Parse(string path)
 		{
 			ObservableCollection<TestCaseResultModel> testCaseResults = new ObservableCollection<TestCaseResultModel>();
 			XmlDocument xDoc = new XmlDocument();

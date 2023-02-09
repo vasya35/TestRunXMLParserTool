@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using TestRunXMLParserTool.Models;
 
 namespace TestRunXMLParserTool.Commands
 {

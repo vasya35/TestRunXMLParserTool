@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TestRunXMLParserTool.Commands;
+using TestRunXMLParserTool.Models;
 
 namespace TestRunXMLParserTool
 {
@@ -61,14 +59,14 @@ namespace TestRunXMLParserTool
 
 		#region Properties
 		public ObservableCollection<TestCaseResultModel> OriginalTestCaseResults { get; set; }
-		public ObservableCollection<TestCaseResultModel> DisplayedTestCaseResults 
-		{ 
+		public ObservableCollection<TestCaseResultModel> DisplayedTestCaseResults
+		{
 			get { return displayedTestCaseResults; }
 			set
 			{
 				displayedTestCaseResults = value;
 				OnPropertyChanged("DisplayedTestCaseResults");
-			} 
+			}
 		}
 
 		public TestCaseResultModel SelectedTestCaseResult
@@ -121,9 +119,9 @@ namespace TestRunXMLParserTool
 			{
 				sortSelected = value;
 				updateFilteredAndSortData();
-				OnPropertyChanged("SortSelected");				
+				OnPropertyChanged("SortSelected");
 			}
-		}		
+		}
 		#endregion
 
 		#region Implementation INotifyPropertyChanged
@@ -136,7 +134,7 @@ namespace TestRunXMLParserTool
 		#endregion
 
 		#region Private methods
-		
+
 		private ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
 		{
 			return new ObservableCollection<TestCaseResultModel>(filteredData.OrderBy(x => x.getTestCaseNumber()));
@@ -162,7 +160,7 @@ namespace TestRunXMLParserTool
 				filteredStatus.Add(new string("SKIP"));
 			}
 
-			var filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result)==true).ToList());
+			var filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result) == true).ToList());
 
 			if (sortSelected)
 			{
