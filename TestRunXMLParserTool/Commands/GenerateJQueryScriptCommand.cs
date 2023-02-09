@@ -21,7 +21,7 @@ namespace TestRunXMLParserTool.Commands
 		public void Execute(object? parameter)
 		{
 			var selectedTestCases = (ObservableCollection<TestCaseResultModel>)parameter;
-			var jqueryScriptGenerator = new JqueryScriptGenerator();
+			var jqueryScriptGenerator = new JqueryScriptGeneratorModel();
 			jqueryScriptGenerator.Generate(selectedTestCases);
 		}
 	}

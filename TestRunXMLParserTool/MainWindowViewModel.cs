@@ -15,7 +15,7 @@ namespace TestRunXMLParserTool
 
 		public MainWindowViewModel()
 		{
-			var test = new XMLParser();
+			var test = new XMLParserModel();
 			OriginalTestCaseResults = test.Parse("testng-results_tkfd.xml");
 			DisplayedTestCaseResults = OriginalTestCaseResults;
 			passedSelected = true;

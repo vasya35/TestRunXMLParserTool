@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 
 namespace TestRunXMLParserTool.Models
 {
-	internal class JqueryScriptGenerator
+	internal class JqueryScriptGeneratorModel
 	{
-		public JqueryScriptGenerator()
+		public JqueryScriptGeneratorModel()
 		{
 		}
 

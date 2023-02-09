@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace TestRunXMLParserTool.Models
 {
-	public class GenerateXMLModel
+	public class XMLGeneratorModel
 	{
 		public void Generate(ObservableCollection<TestCaseResultModel>? selectedTestCases)
 		{

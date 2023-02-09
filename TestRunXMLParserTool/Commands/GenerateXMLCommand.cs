@@ -21,7 +21,7 @@ namespace TestRunXMLParserTool.Commands
 		public void Execute(object? parameter)
 		{
 			var selectedTestCases = (ObservableCollection<TestCaseResultModel>)parameter;
-			var xmlGenerator = new GenerateXMLModel();
+			var xmlGenerator = new XMLGeneratorModel();
 			xmlGenerator.Generate(selectedTestCases);
 		}
 	}

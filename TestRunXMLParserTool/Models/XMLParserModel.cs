@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Xml;
 
 namespace TestRunXMLParserTool.Models
 {
-	public class XMLParser
+	public class XMLParserModel
 	{
 		public ObservableCollection<TestCaseResultModel> Parse(string path)
 		{
