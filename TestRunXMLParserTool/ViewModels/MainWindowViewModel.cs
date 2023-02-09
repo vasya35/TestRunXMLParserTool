@@ -7,7 +7,7 @@ using System.Windows.Input;
 using TestRunXMLParserTool.Commands;
 using TestRunXMLParserTool.Models;
 
-namespace TestRunXMLParserTool
+namespace TestRunXMLParserTool.ViewModels
 {
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{

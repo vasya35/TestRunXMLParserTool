@@ -14,14 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="TestCaseResultUserControl.xaml">
+    <Page Update="Views\TestCaseResultUserControl.xaml">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>
