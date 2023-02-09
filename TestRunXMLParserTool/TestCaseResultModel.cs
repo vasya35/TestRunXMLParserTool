@@ -1,86 +1,94 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace TestRunXMLParserTool
 {
 	public class TestCaseResultModel : INotifyPropertyChanged
 	{
-		private string? name;
-		private int ticketNumber;
-		private string? result;
-		private int? duration;
-		private DateTime startedAt;
-		private DateTime finishedAt;
+		#region fields
+
+		private string name;
+		private int testCaseNumber;
+		private string result;
+		private string xmlPath;
+		private string methodName;
 		private bool isSelected;
 
+		#endregion
+
+		#region .ctor
+		public TestCaseResultModel()
+		{
+			name = "";
+			result = "";
+			xmlPath = "";
+			methodName = "";
+		}
+		#endregion
+
+		#region Properties
 		/// <summary>
 		/// Name
 		/// </summary>
-		public string? Name
+		public string Name
 		{
 			get => name;
 			set
 			{
-				name = value;
-				setTestCaseNumber(value);
-				OnPropertyChanged("Name");
+				if (value != null)
+				{
+					name = value;
+					setTestCaseNumber(value);
+					OnPropertyChanged("Name");
+				}
 			}
 		}
 
 		/// <summary>
-		/// Result: PASS, FAIL, Undefined
+		/// Result: PASS, FAIL, SKIP
 		/// </summary>
-		public string? Result
+		public string Result
 		{
 			get { return result; }
 			set
 			{
-				result = value;
-				OnPropertyChanged("Result");
+				if (value != null)
+				{
+					result = value;
+					OnPropertyChanged("Result");
+				}
 			}
 		}
 
 		/// <summary>
-		/// Duration in ms
+		/// XML path in project
 		/// </summary>
-		public int? Duration
+		public string XMLPath
 		{
-			get { return duration; }
+			get { return xmlPath; }
 			set
 			{
-				duration = value;
-				OnPropertyChanged("Duration");
+				xmlPath = value;
+				OnPropertyChanged("XMLPath");
 			}
 		}
 
 		/// <summary>
-		/// Started at 
+		/// Method name
 		/// </summary>
-		public DateTime StartedAt
+		public string MethodName
 		{
-			get { return startedAt; }
+			get { return methodName; }
 			set
 			{
-				startedAt = value;
-				OnPropertyChanged("StartedAt");
+				methodName = value;
+				OnPropertyChanged("MethodName");
 			}
 		}
 
 		/// <summary>
-		/// Finished at 
+		/// Selected for operation (generate new xml or generate jquery script)
 		/// </summary>
-		public DateTime FinishedAt
-		{
-			get { return finishedAt; }
-			set
-			{
-				finishedAt = value;
-				OnPropertyChanged("FinishedAt");
-			}
-		}
-
 		public bool IsSelected
 		{
 			get { return isSelected; }
@@ -91,28 +99,31 @@ namespace TestRunXMLParserTool
 			}
 		}
 
+		#endregion
+
+		#region implement INotifyPropertyChanged
 		public event PropertyChangedEventHandler? PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName] string prop = "")
 		{
 			if (PropertyChanged != null)
 				PropertyChanged(this, new PropertyChangedEventArgs(prop));
 		}
+		#endregion
 
-		public static implicit operator TestCaseResultModel(ObservableCollection<TestCaseResultModel> v)
-		{
-			throw new NotImplementedException();
-		}
-
+		#region Private methods
 		private void setTestCaseNumber(string name)
 		{
 			int res;
 			int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T' }), out res);
-			ticketNumber = res;
+			testCaseNumber = res;
 		}
+		#endregion
 
+		#region Public methods
 		public int getTestCaseNumber()
 		{
-			return ticketNumber;
+			return testCaseNumber;
 		}
+		#endregion
 	}
 }

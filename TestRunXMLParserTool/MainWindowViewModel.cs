@@ -37,6 +37,7 @@ namespace TestRunXMLParserTool
 		private bool sortSelected { get; set; }
 
 		private ICommand genXMLCommand;
+		private ICommand genJQueryScriptCommand;
 		public ICommand GenXMLCommand
 		{
 			get
@@ -44,6 +45,16 @@ namespace TestRunXMLParserTool
 				if (genXMLCommand == null)
 					genXMLCommand = new GenerateXMLCommand();
 				return genXMLCommand;
+			}
+		}
+
+		public ICommand GenJQueryScriptCommand
+		{
+			get
+			{
+				if (genJQueryScriptCommand == null)
+					genJQueryScriptCommand = new GenerateJQueryScriptCommand();
+				return genJQueryScriptCommand;
 			}
 		}
 		#endregion

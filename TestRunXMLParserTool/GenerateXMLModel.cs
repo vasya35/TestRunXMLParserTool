@@ -43,12 +43,10 @@ namespace TestRunXMLParserTool
 					writer.WriteAttributeString("name", testCase.Name);
 					writer.WriteStartElement("classes");
 					writer.WriteStartElement("class");
-					//TODO: add path for test case
-					writer.WriteAttributeString("name", "PATH");
+					writer.WriteAttributeString("name", testCase.XMLPath);
 					writer.WriteStartElement("methods");
 					writer.WriteStartElement("include");
-					// TODO: add testcase name
-					writer.WriteAttributeString("name", "testSaleSingleEvent");
+					writer.WriteAttributeString("name", testCase.MethodName);
 					writer.WriteEndElement();
 					writer.WriteEndElement();
 					writer.WriteEndElement();

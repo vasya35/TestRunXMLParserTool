@@ -27,12 +27,20 @@
 					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=SortSelected}"
 					  >Sort</CheckBox>
-			<Button Margin="5,5,5,5" Command="{Binding GenXMLCommand}" CommandParameter="{Binding DisplayedTestCaseResults}">
+			<Button Margin="5,5,5,5" 
+					MaxWidth="150"
+					MaxHeight="50"
+					Command="{Binding GenXMLCommand}" 
+					CommandParameter="{Binding DisplayedTestCaseResults}">
 				Generate xml for rerun
 			</Button>
-			<Button Margin="5,5,5,5" Command="{Binding GenJQueryScriptCommand}">
+			<Button Margin="5,5,5,5" 
+					Command="{Binding GenJQueryScriptCommand}"
+					MaxWidth="150"
+					MaxHeight="50">
 				Generate jquery script
 			</Button>
+			<Grid/>
 		</DockPanel>
     </Grid>
 </UserControl>

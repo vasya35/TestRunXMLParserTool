@@ -1,24 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace TestRunXMLParserTool.Commands
 {
 	internal class GenerateJQueryScriptCommand : ICommand
 	{
-		public event EventHandler? CanExecuteChanged;
+		public event EventHandler CanExecuteChanged
+		{
+			add { CommandManager.RequerySuggested += value; }
+			remove { CommandManager.RequerySuggested -= value; }
+		}
 
 		public bool CanExecute(object? parameter)
 		{
-			throw new NotImplementedException();
+			return true;
 		}
 
 		public void Execute(object? parameter)
 		{
-			throw new NotImplementedException();
+			var selectedTestCases = (ObservableCollection<TestCaseResultModel>)parameter;
+			var jqueryScriptGenerator = new JqueryScriptGenerator();
+			jqueryScriptGenerator.Generate(selectedTestCases);
 		}
 	}
 }

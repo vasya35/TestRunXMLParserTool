@@ -6,8 +6,6 @@ namespace TestRunXMLParserTool.Commands
 {
 	public class GenerateXMLCommand : ICommand
 	{
-
-
 		public event EventHandler CanExecuteChanged
 		{
 			add { CommandManager.RequerySuggested += value; }
@@ -22,8 +20,8 @@ namespace TestRunXMLParserTool.Commands
 		public void Execute(object? parameter)
 		{
 			var selectedTestCases = (ObservableCollection<TestCaseResultModel>)parameter;
-			var generator = new GenerateXMLModel();
-			generator.Generate(selectedTestCases);
+			var xmlGenerator = new GenerateXMLModel();
+			xmlGenerator.Generate(selectedTestCases);
 		}
 	}
 }

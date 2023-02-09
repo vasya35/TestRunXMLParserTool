@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Xml;
-using TestRunXMLParserTool;
 
 namespace TestRunXMLParserTool
 {
@@ -9,37 +8,42 @@ namespace TestRunXMLParserTool
 	{
 		public ObservableCollection<TestCaseResultModel> Parse(String path)
 		{
-            ObservableCollection<TestCaseResultModel> testCaseResults = new ObservableCollection<TestCaseResultModel> ();
-            XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(path);
-            // получим корневой элемент
-            XmlElement? xRoot = xDoc.DocumentElement;
-            if (xRoot != null)
-            {
-                XmlNodeList tests = xRoot.GetElementsByTagName("test");
+			ObservableCollection<TestCaseResultModel> testCaseResults = new ObservableCollection<TestCaseResultModel>();
+			XmlDocument xDoc = new XmlDocument();
+			xDoc.Load(path);
+			// Get root element
+			XmlElement? xRoot = xDoc.DocumentElement;
+			if (xRoot != null)
+			{
+				XmlNodeList tests = xRoot.GetElementsByTagName("test");
 
-				// обход всех тестов
+				// Testcases traversal
 				foreach (XmlNode test in tests)
 				{
-                    var testCaseResult = new TestCaseResultModel();
-                    testCaseResult.Name = test.Attributes.GetNamedItem("name").Value;
+					var testCaseResult = new TestCaseResultModel();
+					testCaseResult.Name = test.Attributes.GetNamedItem("name").Value;
 
-                    // обходим все дочерние узлы элемента user
-                    XmlNodeList? testMethods = test.SelectNodes("class/test-method");
+					XmlNodeList? testClass = test.SelectNodes("class");
+					if (testClass.Count < 1) continue;
+
+					testCaseResult.XMLPath = testClass[0].Attributes.GetNamedItem("name").Value;
+
+					XmlNodeList? testMethods = testClass[0].SelectNodes("test-method");
 
 					foreach (XmlNode testMethod in testMethods)
 					{
 						if (testMethod.Attributes.GetNamedItem("is-config") == null)
 						{
-                            testCaseResult.Result = testMethod.Attributes.GetNamedItem("status")?.Value;
-                        }
-						
+							testCaseResult.Result = testMethod.Attributes.GetNamedItem("status")?.Value;
+							testCaseResult.MethodName = testMethod.Attributes.GetNamedItem("name")?.Value;
+						}
 					}
 
-                    testCaseResults.Add(testCaseResult);
-                }
-            }
-            return testCaseResults;
-        }
+					testCaseResults.Add(testCaseResult);
+
+				}
+			}
+			return testCaseResults;
+		}
 	}
 }
