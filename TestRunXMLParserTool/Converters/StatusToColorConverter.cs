@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace TestRunXMLParserTool.Converters
 {
@@ -14,8 +9,8 @@ namespace TestRunXMLParserTool.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			string date = (string)value;
-			switch (date)
+			string data = (string)value;
+			switch (data)
 			{
 				case "PASS":
 					return "LightGreen";
@@ -28,8 +23,16 @@ namespace TestRunXMLParserTool.Converters
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			throw new NotImplementedException();
-			
+			string data = (string)value;
+			switch (data)
+			{
+				case "LightGreen":
+					return "PASS";
+				case "IndianRed":
+					return "FAIL";
+				default:
+					return "SKIP";
+			}
 		}
 	}
 }

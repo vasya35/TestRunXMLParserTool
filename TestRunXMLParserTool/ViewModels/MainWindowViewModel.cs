@@ -149,7 +149,6 @@ namespace TestRunXMLParserTool.ViewModels
 			return new ObservableCollection<TestCaseResultModel>(filteredData.OrderBy(x => x.getTestCaseNumber()));
 		}
 
-
 		private void updateFilteredAndSortData(bool isSelectedEnabled)
 		{
 			List<string> filteredStatus = new();
@@ -174,7 +173,7 @@ namespace TestRunXMLParserTool.ViewModels
 			if (isSelectedEnabled)
 			{
 				foreach (var item in filteredData) item.IsSelected = true;
-			}			
+			}
 
 			if (sortSelected)
 			{
