@@ -20,7 +20,9 @@ namespace TestRunXMLParserTool.Commands
 
 		public void Execute(object? parameter)
 		{
-			var selectedTestCases = (ObservableCollection<TestCaseResultModel>)parameter;
+			var selectedTestCases = parameter as ObservableCollection<TestCaseResultModel>;
+			if (selectedTestCases == null) return;
+
 			var xmlGenerator = new XMLGeneratorModel();
 			xmlGenerator.Generate(selectedTestCases);
 		}
