@@ -33,6 +33,7 @@ namespace TestRunXMLParserTool.Models
 				string testCasesList = "";
 				foreach (var testCase in selectedTestCases)
 				{
+					if (!testCase.IsSelected) continue;
 					testCasesList += $"'{testCase.TestRailNumber}', ";
 				}
 				if (testCasesList.Length > 2)

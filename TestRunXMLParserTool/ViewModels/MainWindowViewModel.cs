@@ -16,9 +16,9 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			selectedTestCaseResult = new TestCaseResultModel();
 			displayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
-			passedSelected = true;
-			failedSelected = true;
-			skippedSelected = true;
+			passedSelected = false;
+			failedSelected = false;
+			skippedSelected = false;
 			sortSelected = false;
 			genXMLCommand = new XMLGeneratorCommand();
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
@@ -26,6 +26,10 @@ namespace TestRunXMLParserTool.ViewModels
 			var testCase = new XMLParserModel();
 			OriginalTestCaseResults = testCase.Parse("testng-results_tkfd.xml");
 			DisplayedTestCaseResults = OriginalTestCaseResults;
+
+			PassedSelected = true;
+			FailedSelected = true;
+			SkippedSelected = true;
 		}
 		#endregion
 
@@ -70,7 +74,7 @@ namespace TestRunXMLParserTool.ViewModels
 			set
 			{
 				passedSelected = value;
-				updateFilteredAndSortData();
+				updateFilteredAndSortData(true);
 				OnPropertyChanged("PassedSelected");
 			}
 		}
@@ -81,7 +85,7 @@ namespace TestRunXMLParserTool.ViewModels
 			set
 			{
 				failedSelected = value;
-				updateFilteredAndSortData();
+				updateFilteredAndSortData(true);
 				OnPropertyChanged("FailedSelected");
 			}
 		}
@@ -92,7 +96,7 @@ namespace TestRunXMLParserTool.ViewModels
 			set
 			{
 				skippedSelected = value;
-				updateFilteredAndSortData();
+				updateFilteredAndSortData(true);
 				OnPropertyChanged("SkippedSelected");
 			}
 		}
@@ -103,7 +107,7 @@ namespace TestRunXMLParserTool.ViewModels
 			set
 			{
 				sortSelected = value;
-				updateFilteredAndSortData();
+				updateFilteredAndSortData(false);
 				OnPropertyChanged("SortSelected");
 			}
 		}
@@ -146,7 +150,7 @@ namespace TestRunXMLParserTool.ViewModels
 		}
 
 
-		private void updateFilteredAndSortData()
+		private void updateFilteredAndSortData(bool isSelectedEnabled)
 		{
 			List<string> filteredStatus = new();
 
@@ -166,6 +170,11 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 
 			var filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result) == true).ToList());
+
+			if (isSelectedEnabled)
+			{
+				foreach (var item in filteredData) item.IsSelected = true;
+			}			
 
 			if (sortSelected)
 			{

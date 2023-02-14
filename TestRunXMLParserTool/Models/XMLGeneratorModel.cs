@@ -43,6 +43,8 @@ namespace TestRunXMLParserTool.Models
 
 				foreach (var testCase in selectedTestCases)
 				{
+					if (!testCase.IsSelected) continue;
+					
 					writer.WriteStartElement("test");
 					writer.WriteAttributeString("name", testCase.Name);
 					writer.WriteStartElement("classes");
