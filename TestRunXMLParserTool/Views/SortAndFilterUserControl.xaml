@@ -36,9 +36,10 @@
 			</Button>
 			<Button Margin="5,5,5,5" 
 					Command="{Binding GenJQueryScriptCommand}"
+					CommandParameter="{Binding DisplayedTestCaseResults}"
 					MaxWidth="150"
 					MaxHeight="50">
-				Generate jquery script
+				Generate js testrail selector script
 			</Button>
 			<Grid/>
 		</DockPanel>

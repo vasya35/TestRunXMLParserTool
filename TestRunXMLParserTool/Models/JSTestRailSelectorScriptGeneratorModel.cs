@@ -1,16 +1,53 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Win32;
+using System.Collections.ObjectModel;
+using System.IO;
 
 namespace TestRunXMLParserTool.Models
 {
-	internal class JqueryScriptGeneratorModel
+	internal class JSTestRailSelectorScriptGeneratorModel
 	{
-		public JqueryScriptGeneratorModel()
+		public JSTestRailSelectorScriptGeneratorModel()
 		{
 		}
 
 		internal void Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
-			return;
+			var defaultFileName = "JSTestRailSelector";
+			var defaultExtensionFileName = ".js";
+			string filename = $"{defaultFileName}{defaultExtensionFileName}";
+
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+			saveFileDialog.FileName = defaultFileName;
+			saveFileDialog.DefaultExt = defaultExtensionFileName;
+			saveFileDialog.Filter = "Text documents (.js)|*.js";
+
+			bool? result = saveFileDialog.ShowDialog();
+
+			if (result == true)
+			{
+				filename = saveFileDialog.FileName;
+			}
+			using (TextWriter writer = TextWriter.Synchronized(new StreamWriter(filename)))
+			{
+				string testCasesList = "";
+				foreach (var testCase in selectedTestCases)
+				{
+					testCasesList += $"'{testCase.TestRailNumber}', ";
+				}
+				if (testCasesList.Length > 2)
+				{
+					testCasesList = testCasesList.Remove(testCasesList.Length - 2, 2);
+				}
+
+				writer.WriteLine($"const testCasesArray = [{testCasesList}];");
+				writer.WriteLine("var xPathRes;");
+				writer.WriteLine("testCasesArray.forEach(element => {");
+				writer.WriteLine("xPathRes = document.evaluate (\"//a[text()='\"+element+\"']/../../td[@class='checkbox']/input\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);");
+				writer.WriteLine("xPathRes.singleNodeValue.click();");
+				writer.WriteLine("});");
+			}
+
 		}
 	}
 }

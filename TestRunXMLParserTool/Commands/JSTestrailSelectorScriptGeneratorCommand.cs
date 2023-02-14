@@ -5,7 +5,7 @@ using TestRunXMLParserTool.Models;
 
 namespace TestRunXMLParserTool.Commands
 {
-	internal class JQueryScriptGeneratorCommand : ICommand
+	internal class JSTestrailSelectorScriptGeneratorCommand : ICommand
 	{
 		public event EventHandler CanExecuteChanged
 		{

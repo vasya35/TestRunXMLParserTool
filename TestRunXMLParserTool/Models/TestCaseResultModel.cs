@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace TestRunXMLParserTool.Models
@@ -9,6 +10,7 @@ namespace TestRunXMLParserTool.Models
 
 		private string name;
 		private int testCaseNumber;
+		private string testRailNumber;
 		private string result;
 		private string xmlPath;
 		private string methodName;
@@ -39,6 +41,7 @@ namespace TestRunXMLParserTool.Models
 				{
 					name = value;
 					setTestCaseNumber(value);
+					setTestRailNumber(value);
 					OnPropertyChanged("Name");
 				}
 			}
@@ -99,6 +102,14 @@ namespace TestRunXMLParserTool.Models
 			}
 		}
 
+		/// <summary>
+		/// GetTestRailNumber
+		/// </summary>
+		public string TestRailNumber
+		{
+			get => testRailNumber;
+		}
+
 		#endregion
 
 		#region implement INotifyPropertyChanged
@@ -116,6 +127,11 @@ namespace TestRunXMLParserTool.Models
 			int res;
 			int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T' }), out res);
 			testCaseNumber = res;
+		}
+
+		private void setTestRailNumber(string value)
+		{
+			testRailNumber = (name.Split(" ")[0]);
 		}
 		#endregion
 

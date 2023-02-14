@@ -21,7 +21,7 @@ namespace TestRunXMLParserTool.ViewModels
 			skippedSelected = true;
 			sortSelected = false;
 			genXMLCommand = new XMLGeneratorCommand();
-			genJQueryScriptCommand = new JQueryScriptGeneratorCommand();
+			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 
 			var testCase = new XMLParserModel();
 			OriginalTestCaseResults = testCase.Parse("testng-results_tkfd.xml");
@@ -123,7 +123,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get
 			{
 				if (genJQueryScriptCommand == null)
-					genJQueryScriptCommand = new JQueryScriptGeneratorCommand();
+					genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 				return genJQueryScriptCommand;
 			}
 		}
