@@ -10,17 +10,18 @@ namespace TestRunXMLParserTool.Models
 		/// Generate xml file with selected test cases
 		/// </summary>
 		/// <param name="selectedTestCases"></param>
-		public void Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		public static void Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			var defaultFileName = "SelectedTestCases";
 			var defaultExtensionFileName = ".xml";
 			string filename = $"{defaultFileName}{defaultExtensionFileName}";
 
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-			saveFileDialog.FileName = defaultFileName;
-			saveFileDialog.DefaultExt = defaultExtensionFileName;
-			saveFileDialog.Filter = "Text documents (.xml)|*.xml";
+			SaveFileDialog saveFileDialog = new()
+			{
+				FileName = defaultFileName,
+				DefaultExt = defaultExtensionFileName,
+				Filter = "Text documents (.xml)|*.xml"
+			};
 
 			bool? result = saveFileDialog.ShowDialog();
 
@@ -29,7 +30,7 @@ namespace TestRunXMLParserTool.Models
 				filename = saveFileDialog.FileName;
 			}
 
-			XmlWriterSettings xmlWriterSettings = new XmlWriterSettings()
+			XmlWriterSettings xmlWriterSettings = new()
 			{
 				Indent = true,
 				NewLineOnAttributes = false

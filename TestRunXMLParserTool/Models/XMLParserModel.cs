@@ -5,10 +5,10 @@ namespace TestRunXMLParserTool.Models
 {
 	public class XMLParserModel
 	{
-		public ObservableCollection<TestCaseResultModel> Parse(string path)
+		public static ObservableCollection<TestCaseResultModel> Parse(string path)
 		{
-			ObservableCollection<TestCaseResultModel> testCaseResults = new ObservableCollection<TestCaseResultModel>();
-			XmlDocument xDoc = new XmlDocument();
+			ObservableCollection<TestCaseResultModel> testCaseResults = new();
+			XmlDocument xDoc = new();
 			xDoc.Load(path);
 			// Get root element
 			XmlElement? xRoot = xDoc.DocumentElement;
@@ -19,8 +19,10 @@ namespace TestRunXMLParserTool.Models
 				// Testcases traversal
 				foreach (XmlNode test in tests)
 				{
-					var testCaseResult = new TestCaseResultModel();
-					testCaseResult.Name = test.Attributes.GetNamedItem("name").Value;
+					var testCaseResult = new TestCaseResultModel
+					{
+						Name = test.Attributes.GetNamedItem("name").Value
+					};
 
 					XmlNodeList? testClass = test.SelectNodes("class");
 					if (testClass.Count < 1) continue;

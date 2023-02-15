@@ -24,7 +24,7 @@ namespace TestRunXMLParserTool.ViewModels
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 
 			var testCase = new XMLParserModel();
-			OriginalTestCaseResults = testCase.Parse("testng-results_tkfd.xml");
+			OriginalTestCaseResults = XMLParserModel.Parse("testng-results_tkfd.xml");
 			DisplayedTestCaseResults = OriginalTestCaseResults;
 
 			PassedSelected = true;
@@ -137,8 +137,7 @@ namespace TestRunXMLParserTool.ViewModels
 		public event PropertyChangedEventHandler? PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName] string prop = "")
 		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(prop));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 		}
 		#endregion
 

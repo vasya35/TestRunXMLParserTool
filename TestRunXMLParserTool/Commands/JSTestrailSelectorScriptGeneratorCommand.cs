@@ -20,8 +20,7 @@ namespace TestRunXMLParserTool.Commands
 
 		public void Execute(object? parameter)
 		{
-			var selectedTestCases = parameter as ObservableCollection<TestCaseResultModel>;
-			if (selectedTestCases == null) return;
+			if (parameter is not ObservableCollection<TestCaseResultModel> selectedTestCases) return;
 
 			var jqueryScriptGenerator = new JSTestRailSelectorScriptGeneratorModel();
 			jqueryScriptGenerator.Generate(selectedTestCases);

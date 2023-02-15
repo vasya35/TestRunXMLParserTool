@@ -24,6 +24,7 @@ namespace TestRunXMLParserTool.Models
 			result = "";
 			xmlPath = "";
 			methodName = "";
+			testRailNumber = "";
 		}
 		#endregion
 
@@ -115,23 +116,18 @@ namespace TestRunXMLParserTool.Models
 		public event PropertyChangedEventHandler? PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName] string prop = "")
 		{
-			if (PropertyChanged != null)
-				PropertyChanged(this, new PropertyChangedEventArgs(prop));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 		}
 		#endregion
 
 		#region Private methods
 		private void setTestCaseNumber(string name)
 		{
-			int res;
-			int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T' }), out res);
+			_ = int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T' }), out int res);
 			testCaseNumber = res;
 		}
 
-		private void setTestRailNumber(string value)
-		{
-			testRailNumber = (name.Split(" ")[0]);
-		}
+		private void setTestRailNumber(string value) => testRailNumber = (value.Split(" ")[0]);
 		#endregion
 
 		#region Public methods

@@ -16,11 +16,12 @@ namespace TestRunXMLParserTool.Models
 			var defaultExtensionFileName = ".js";
 			string filename = $"{defaultFileName}{defaultExtensionFileName}";
 
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-			saveFileDialog.FileName = defaultFileName;
-			saveFileDialog.DefaultExt = defaultExtensionFileName;
-			saveFileDialog.Filter = "Text documents (.js)|*.js";
+			SaveFileDialog saveFileDialog = new()
+			{
+				FileName = defaultFileName,
+				DefaultExt = defaultExtensionFileName,
+				Filter = "Text documents (.js)|*.js"
+			};
 
 			bool? result = saveFileDialog.ShowDialog();
 
