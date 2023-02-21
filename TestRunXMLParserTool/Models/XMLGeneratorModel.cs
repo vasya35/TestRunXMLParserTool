@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Xml;
 
 namespace TestRunXMLParserTool.Models
@@ -41,6 +42,13 @@ namespace TestRunXMLParserTool.Models
 				writer.WriteStartDocument();
 				writer.WriteStartElement("suite");
 				writer.WriteAttributeString("name", "rerunTestCases");
+				writer.WriteStartElement("listeners");
+				writer.WriteStartElement("listener");
+				var listenerName = ConfigurationManager.AppSettings["ListenerName"];
+				writer.WriteAttributeString("class-name", listenerName);
+				writer.WriteEndElement();
+				writer.WriteEndElement();
+
 
 				foreach (var testCase in selectedTestCases)
 				{
