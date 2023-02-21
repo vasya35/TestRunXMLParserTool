@@ -3,30 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TestRunXMLParserTool"
              mc:Ignorable="d">
     <Grid>
 		<DockPanel>
-			<CheckBox Name="PassCheckbox"
+			<Button Margin="5,5,5,5" 
+					MaxWidth="150"
+					MaxHeight="50"
+					Command="{Binding OpenXMLCommand}" >
+				Open xml
+			</Button>
+			<StackPanel>
+				<CheckBox Name="PassCheckbox"
 					  Margin="5,5,5,5" 
 					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=PassedSelected}"
 					  >PASS</CheckBox>
-			<CheckBox Name="FailedCheckbox"
+				<Label Content="{Binding Path=PassedCount}"
+					   Margin="5,5,5,5"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"/>
+			</StackPanel>
+			<StackPanel>
+				<CheckBox Name="FailedCheckbox"
 					  Margin="5,5,5,5" 
 					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=FailedSelected}"
 					  >FAIL</CheckBox>
-			<CheckBox Name="SkippedCheckbox"
+				<Label Content="{Binding Path=FailedCount}"
+					   Margin="5,5,5,5"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"/>
+			</StackPanel>
+			<StackPanel>
+				<CheckBox Name="SkippedCheckbox"
 					  Margin="5,5,5,5" 
 					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=SkippedSelected}"
 					  >SKIP</CheckBox>
-			<CheckBox Name="SortCheckbox"
+				<Label Content="{Binding Path=SkippedCount}"
+					   Margin="5,5,5,5"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"/>
+			</StackPanel>
+			<StackPanel>
+				<CheckBox Name="SortCheckbox"
 					  Margin="5,5,5,5" 
 					  VerticalAlignment="Center"
 					  IsChecked="{Binding Path=SortSelected}"
 					  >Sort</CheckBox>
+			</StackPanel>
+			
 			<Button Margin="5,5,5,5" 
 					MaxWidth="150"
 					MaxHeight="50"

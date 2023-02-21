@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -23,9 +25,23 @@ namespace TestRunXMLParserTool.ViewModels
 			genXMLCommand = new XMLGeneratorCommand();
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 
-			var testCase = new XMLParserModel();
-			OriginalTestCaseResults = XMLParserModel.Parse("testng-results_tkfd.xml");
+			OpenFileDialog openFileDialog = new()
+			{
+				FileName = "testng-results",
+				DefaultExt = "xml",
+				Filter = "Text documents (.xml)|*.xml"
+			};
+
+			bool? result = openFileDialog.ShowDialog();
+
+			if (result == true)
+			{
+				OriginalTestCaseResults = XMLParserModel.Parse(openFileDialog.FileName);
+			}
+
 			DisplayedTestCaseResults = OriginalTestCaseResults;
+
+			UpdateCounts();
 
 			PassedSelected = true;
 			FailedSelected = true;
@@ -40,10 +56,10 @@ namespace TestRunXMLParserTool.ViewModels
 		private bool failedSelected { get; set; }
 		private bool skippedSelected { get; set; }
 		private bool sortSelected { get; set; }
-
-		private ICommand genXMLCommand;
-		private ICommand genJQueryScriptCommand;
-
+		private string selectedPath { get; set; }
+		private int passedCount { get; set; }
+		private int failedCount { get; set; }
+		private int skippedCount { get; set; }
 		#endregion
 
 		#region Properties
@@ -110,8 +126,54 @@ namespace TestRunXMLParserTool.ViewModels
 				updateFilteredAndSortData(false);
 				OnPropertyChanged("SortSelected");
 			}
+		}		
+				
+		public string SelectedPath
+		{
+			get { return selectedPath; }
+			set
+			{
+				selectedPath = value;
+				ReInitialisation();
+				OnPropertyChanged("SelectedPath");
+			}
 		}
 
+		public int PassedCount
+		{
+			get { return passedCount; }
+			set
+			{
+				passedCount = value;
+				OnPropertyChanged("PassedCount");
+			}
+		}
+
+		public int FailedCount
+		{
+			get { return failedCount; }
+			set
+			{
+				failedCount = value;
+				OnPropertyChanged("FailedCount");
+			}
+		}
+
+		public int SkippedCount
+		{
+			get { return skippedCount; }
+			set
+			{
+				skippedCount = value;
+				OnPropertyChanged("SkippedCount");
+			}
+		}
+		#endregion
+
+		#region implementation ICommand
+		private ICommand genXMLCommand;
+		private ICommand genJQueryScriptCommand;
+		private ICommand openXMLCommand;
 		public ICommand GenXMLCommand
 		{
 			get
@@ -131,6 +193,16 @@ namespace TestRunXMLParserTool.ViewModels
 				return genJQueryScriptCommand;
 			}
 		}
+
+		public ICommand OpenXMLCommand
+		{
+			get
+			{
+				if (openXMLCommand == null)
+					openXMLCommand = new RelayCommand(ExecuteOpenFileDialog);
+				return openXMLCommand;
+			}
+		}
 		#endregion
 
 		#region Implementation INotifyPropertyChanged
@@ -142,6 +214,26 @@ namespace TestRunXMLParserTool.ViewModels
 		#endregion
 
 		#region Private methods
+		private void ReInitialisation()
+		{
+			if (SelectedPath == "") return;
+			
+			selectedTestCaseResult = new TestCaseResultModel();
+			displayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
+			passedSelected = false;
+			failedSelected = false;
+			skippedSelected = false;
+			sortSelected = false;
+			genXMLCommand = new XMLGeneratorCommand();
+			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
+			OriginalTestCaseResults = XMLParserModel.Parse(SelectedPath);
+
+			DisplayedTestCaseResults = OriginalTestCaseResults;
+
+			PassedSelected = true;
+			FailedSelected = true;
+			SkippedSelected = true;			
+		}
 
 		private static ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
 		{
@@ -167,7 +259,11 @@ namespace TestRunXMLParserTool.ViewModels
 				filteredStatus.Add(new string("SKIP"));
 			}
 
-			var filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result) == true).ToList());
+			ObservableCollection<TestCaseResultModel> filteredData = new ObservableCollection<TestCaseResultModel>();
+			if (OriginalTestCaseResults != null)
+			{
+				filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result) == true).ToList());
+			}
 
 			if (isSelectedEnabled)
 			{
@@ -182,6 +278,21 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				DisplayedTestCaseResults = filteredData;
 			}
+		}
+
+		private void ExecuteOpenFileDialog()
+		{
+			var dialog = new OpenFileDialog { };
+			dialog.ShowDialog();
+
+			SelectedPath = dialog.FileName;
+		}
+
+		private void UpdateCounts()
+		{
+			PassedCount = OriginalTestCaseResults.Where(x => x.Result == "PASS").ToList().Count();
+			FailedCount = OriginalTestCaseResults.Where(x => x.Result == "FAIL").ToList().Count();
+			SkippedCount = OriginalTestCaseResults.Where(x => x.Result == "SKIP").ToList().Count();
 		}
 
 		#endregion
