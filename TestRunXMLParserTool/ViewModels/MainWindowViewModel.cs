@@ -37,11 +37,10 @@ namespace TestRunXMLParserTool.ViewModels
 			if (result == true)
 			{
 				OriginalTestCaseResults = XMLParserModel.Parse(openFileDialog.FileName);
+				UpdateCounts();
 			}
 
-			DisplayedTestCaseResults = OriginalTestCaseResults;
-
-			UpdateCounts();
+			DisplayedTestCaseResults = OriginalTestCaseResults;			
 
 			PassedSelected = true;
 			FailedSelected = true;
