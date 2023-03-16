@@ -9,6 +9,7 @@ namespace TestRunXMLParserTool.Models
 		{
 			ObservableCollection<TestCaseResultModel> testCaseResults = new();
 			XmlDocument xDoc = new();
+			//todo: error if file buzy other process
 			xDoc.Load(path);
 			// Get root element
 			XmlElement? xRoot = xDoc.DocumentElement;
