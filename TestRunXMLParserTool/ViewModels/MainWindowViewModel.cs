@@ -40,12 +40,20 @@ namespace TestRunXMLParserTool.ViewModels
 				UpdateCounts();
 			}
 
-			DisplayedTestCaseResults = OriginalTestCaseResults;			
+			DisplayedTestCaseResults = OriginalTestCaseResults;
 
 			PassedSelected = true;
 			FailedSelected = true;
 			SkippedSelected = true;
-		}
+
+			steps = new List<StepDescription>() {
+				new StepDescription() { Name = "Open file", IsActivate = true, ActivateAction = new RelayCommand(Step1Activate), IsFirstStep = true, IsLastStep = false   },
+				new StepDescription() { Name = "Filter and sort", IsActivate = false, ActivateAction = new RelayCommand(Step2Activate), IsFirstStep = false, IsLastStep = false  },
+				new StepDescription() { Name = "Generate file", IsActivate = false, ActivateAction = new RelayCommand(Step3Activate), IsFirstStep = false, IsLastStep = true  }
+			};
+			currentStep = 0;
+
+		}		
 		#endregion
 
 		#region fields
@@ -59,6 +67,8 @@ namespace TestRunXMLParserTool.ViewModels
 		private int passedCount { get; set; }
 		private int failedCount { get; set; }
 		private int skippedCount { get; set; }
+		private int currentStep { get; set; }
+		private List<StepDescription> steps { get; set; }
 		#endregion
 
 		#region Properties
@@ -125,8 +135,8 @@ namespace TestRunXMLParserTool.ViewModels
 				updateFilteredAndSortData(false);
 				OnPropertyChanged("SortSelected");
 			}
-		}		
-				
+		}
+
 		public string SelectedPath
 		{
 			get { return selectedPath; }
@@ -165,6 +175,26 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				skippedCount = value;
 				OnPropertyChanged("SkippedCount");
+			}
+		}
+
+		public List<StepDescription> Steps
+		{
+			get { return steps; }
+			set
+			{
+				steps = value;
+				OnPropertyChanged("Steps");
+			}
+		}
+
+		public int CurrentStep
+		{
+			get { return currentStep; }
+			set
+			{
+				currentStep = value;
+				OnPropertyChanged("CurrentStep");
 			}
 		}
 		#endregion
@@ -216,7 +246,7 @@ namespace TestRunXMLParserTool.ViewModels
 		private void ReInitialisation()
 		{
 			if (SelectedPath == "") return;
-			
+
 			selectedTestCaseResult = new TestCaseResultModel();
 			displayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
 			passedSelected = false;
@@ -231,7 +261,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 			PassedSelected = true;
 			FailedSelected = true;
-			SkippedSelected = true;			
+			SkippedSelected = true;
 		}
 
 		private static ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
@@ -294,6 +324,43 @@ namespace TestRunXMLParserTool.ViewModels
 			SkippedCount = OriginalTestCaseResults.Where(x => x.Result == "SKIP").ToList().Count();
 		}
 
+		private void Step1Activate()
+		{
+			steps[0].IsActivate = true;
+			steps[0].IsNextAcvtive = false;
+
+			steps[1].IsActivate = false;
+			steps[1].IsNextAcvtive = false;
+
+			steps[2].IsActivate = false;
+			CurrentStep = 0;
+		}
+
+		private void Step2Activate()
+		{
+			steps[0].IsActivate = true;
+			steps[0].IsNextAcvtive = true;
+
+			steps[1].IsActivate = true;
+			steps[1].IsNextAcvtive = false;
+
+			steps[2].IsActivate = false;
+			steps[2].IsNextAcvtive = false;
+			CurrentStep = 1;
+		}
+
+		private void Step3Activate()
+		{
+			steps[0].IsActivate = true;
+			steps[0].IsNextAcvtive = true;
+
+			steps[1].IsNextAcvtive = true;
+			steps[1].IsActivate = true;
+
+			steps[2].IsNextAcvtive = true;
+			steps[2].IsActivate = true;
+			CurrentStep = 2;
+		}
 		#endregion
 	}
 }

@@ -1,0 +1,142 @@
+﻿<UserControl x:Class="TestRunXMLParserTool.Views.StepProgressBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:converters="clr-namespace:TestRunXMLParserTool.Converters"
+             mc:Ignorable="d" 
+			 MaxHeight="50"
+			 Margin="0,20,0,0">
+	<UserControl.Resources>
+		<converters:ActivateToColorConverter x:Key="ActivateToColorConverter" />
+		<converters:VisibilityStepLeftPathConverter x:Key="VisibilityStepLeftPathConverter" />
+		<converters:VisibilityStepRightPathConverter x:Key="VisibilityStepRightPathConverter" />
+		<converters:PercentageConverter x:Key="PercentageConverter" />
+		<LinearGradientBrush x:Key="wizardBarBrush" StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+			<GradientStop Color="#FFE4E4E4" Offset="0.25"/>
+			<GradientStop Color="#FFededed" Offset="0.50"/>
+			<GradientStop Color="#FFFCFCFC" Offset="0.75"/>
+		</LinearGradientBrush>
+	</UserControl.Resources>
+	<Grid>
+
+		<ItemsControl ItemsSource="{Binding Steps}" >
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<UniformGrid Rows="1">
+						<UniformGrid.Effect>
+							<DropShadowEffect Color="Black"
+                                              BlurRadius="2"
+                                              Opacity="0.4"
+                                              ShadowDepth="0"/>
+						</UniformGrid.Effect>
+					</UniformGrid>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>					
+						<Grid Name="StepGrid" 
+							  SnapsToDevicePixels="True" 
+							  Width="Auto" 
+							  Margin="0" 
+							  HorizontalAlignment="Stretch" >
+						<Grid.RowDefinitions>
+							<RowDefinition Height="25"/>
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						
+						<Rectangle Name="leftPathBackground"
+								   Grid.Row="0"
+								   Width="{Binding Path=ActualWidth, ElementName=StepGrid, Converter={converters:PercentageConverter}, ConverterParameter='0.5'}"
+								   Height="10"
+								   Fill="{StaticResource wizardBarBrush}" 
+								   HorizontalAlignment="Left"
+								   Margin="0">
+							<Rectangle.Visibility>
+								<MultiBinding Converter="{StaticResource VisibilityStepLeftPathConverter}" >
+									<Binding Path="IsFirstStep"/>
+									<Binding Path="IsLastStep"/>
+								</MultiBinding>
+							</Rectangle.Visibility>
+						</Rectangle>
+						<Rectangle Name="rigthPathBackground"
+								   Grid.Row="0"
+								   Width="{Binding Path=ActualWidth, ElementName=StepGrid, Converter={converters:PercentageConverter}, ConverterParameter='0.5'}"
+								   Height="10"
+								   Fill="{StaticResource wizardBarBrush}" 
+								   HorizontalAlignment="Right"
+								   Margin="0">
+							<Rectangle.Visibility>
+								<MultiBinding Converter="{StaticResource VisibilityStepRightPathConverter}" >
+									<Binding Path="IsFirstStep"/>
+									<Binding Path="IsLastStep"/>
+								</MultiBinding>
+							</Rectangle.Visibility>
+						</Rectangle>
+						<Ellipse Name="circleBackground"
+								 Grid.Row="0"
+                                 HorizontalAlignment="Center"
+								 Height="25"
+								 Width="25"
+								 Fill="{StaticResource wizardBarBrush}"
+								 Cursor="Hand"								 
+								 Stroke="Transparent" >
+							<Ellipse.InputBindings>
+								<MouseBinding Command="{Binding Path=ActivateAction}" MouseAction="LeftClick"/>
+							</Ellipse.InputBindings>
+						</Ellipse>
+						
+						<Rectangle Name="leftPath"
+								   Grid.Row="0"
+								   Width="{Binding Path=ActualWidth, ElementName=StepGrid, Converter={converters:PercentageConverter}, ConverterParameter='0.5'}"
+								   Height="3"
+								   Fill="{Binding Path=IsActivate, Converter={StaticResource ActivateToColorConverter}}" 
+								   HorizontalAlignment="Left" >
+							<Rectangle.Visibility>
+								<MultiBinding Converter="{StaticResource VisibilityStepLeftPathConverter}" >
+									<Binding Path="IsFirstStep"/>
+									<Binding Path="IsLastStep"/>
+								</MultiBinding>
+							</Rectangle.Visibility>
+						</Rectangle>
+						<Rectangle Name="rigthPath"
+								   Grid.Row="0"
+								   Width="{Binding Path=ActualWidth, ElementName=StepGrid, Converter={converters:PercentageConverter}, ConverterParameter='0.5'}"
+								   Height="3"
+								   Fill="{Binding Path=IsNextAcvtive, Converter={StaticResource ActivateToColorConverter}}" 
+								   HorizontalAlignment="Right">
+							<Rectangle.Visibility>
+								<MultiBinding Converter="{StaticResource VisibilityStepRightPathConverter}" >
+									<Binding Path="IsFirstStep"/>
+									<Binding Path="IsLastStep"/>
+								</MultiBinding>
+							</Rectangle.Visibility>
+						</Rectangle>
+
+						<Ellipse Grid.Row="0"
+								 HorizontalAlignment="Center"
+								 Height="13"
+								 Width="13"
+								 Fill="{Binding Path=IsActivate, Converter={StaticResource ActivateToColorConverter}}"
+								 Cursor="Hand" >
+							<Ellipse.InputBindings>
+								<MouseBinding Command="{Binding Path=ActivateAction}" MouseAction="LeftClick"/>
+							</Ellipse.InputBindings>
+						</Ellipse>
+
+						<Label Grid.Row="1"
+							   HorizontalAlignment="Center"
+							   Content="{Binding Path=Name}" 
+							   Cursor="Hand" >
+							<Label.InputBindings>
+								<MouseBinding Command="{Binding Path=ActivateAction}" MouseAction="LeftClick"/>
+							</Label.InputBindings>
+						</Label>
+					</Grid>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+
+	</Grid>
+</UserControl>

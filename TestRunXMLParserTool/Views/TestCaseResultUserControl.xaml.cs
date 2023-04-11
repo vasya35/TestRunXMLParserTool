@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace TestRunXMLParserTool
+namespace TestRunXMLParserTool.Views
 {
 	/// <summary>
 	/// Interaction logic for TestCaseResultUserControl.xaml

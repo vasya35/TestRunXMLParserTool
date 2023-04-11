@@ -3,22 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestRunXMLParserTool"
+        xmlns:localView="clr-namespace:TestRunXMLParserTool.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="0.3*" />
-			<RowDefinition Height="0.7*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-
-
-		<local:SortAndFilterUserControl Grid.Row="0" DataContext="{Binding}"/>
-
-		<ListBox Grid.Row="1" ItemsSource="{Binding DisplayedTestCaseResults}" SelectedItem="{Binding SelectedTestCaseResult}" HorizontalContentAlignment="Stretch" >
+		<localView:StepProgressBarControl Grid.Row="0" DataContext="{Binding}" VerticalAlignment="Top"/>
+		<localView:SortAndFilterUserControl Grid.Row="1" DataContext="{Binding}" VerticalAlignment="Stretch"/>
+		<ListBox Grid.Row="2" ItemsSource="{Binding DisplayedTestCaseResults}" SelectedItem="{Binding SelectedTestCaseResult}" HorizontalContentAlignment="Stretch" d:ItemsSource="{d:SampleData ItemCount=5}" >
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<local:TestCaseResultUserControl DataContext="{Binding}"/>
+					<localView:TestCaseResultUserControl DataContext="{Binding}"/>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
