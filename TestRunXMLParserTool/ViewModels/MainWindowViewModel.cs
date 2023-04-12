@@ -267,6 +267,8 @@ namespace TestRunXMLParserTool.ViewModels
 			PassedSelected = true;
 			FailedSelected = true;
 			SkippedSelected = true;
+
+			UpdateCounts();
 		}
 
 		private static ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
@@ -324,9 +326,9 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void UpdateCounts()
 		{
-			PassedCount = OriginalTestCaseResults.Where(x => x.Result == "PASS").ToList().Count();
-			FailedCount = OriginalTestCaseResults.Where(x => x.Result == "FAIL").ToList().Count();
-			SkippedCount = OriginalTestCaseResults.Where(x => x.Result == "SKIP").ToList().Count();
+			PassedCount = OriginalTestCaseResults.Where(x => x.Result == "PASS").ToList().Count;
+			FailedCount = OriginalTestCaseResults.Where(x => x.Result == "FAIL").ToList().Count;
+			SkippedCount = OriginalTestCaseResults.Where(x => x.Result == "SKIP").ToList().Count;
 		}
 
 		private void Step1Activate()
