@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestRunXMLParserTool", "Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{C92AADE7-0F55-45EC-A567-7F27CD0049ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLResultGenerator", "XMLResultGenerator\XMLResultGenerator.csproj", "{970779ED-BD78-4DDE-8B2E-7B43D3DF95CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLResultGenerator", "XMLResultGenerator\XMLResultGenerator.csproj", "{970779ED-BD78-4DDE-8B2E-7B43D3DF95CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DAA57AA1-5980-4E31-8B61-FA0FE1239439}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
