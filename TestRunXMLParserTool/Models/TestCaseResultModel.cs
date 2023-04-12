@@ -5,7 +5,7 @@ namespace TestRunXMLParserTool.Models
 {
 	public class TestCaseResultModel : INotifyPropertyChanged
 	{
-		#region fields
+		#region Fields
 
 		private string name;
 		private int testCaseNumber;

@@ -25,34 +25,38 @@ namespace TestRunXMLParserTool.ViewModels
 			genXMLCommand = new XMLGeneratorCommand();
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 
-			OpenFileDialog openFileDialog = new()
-			{
-				FileName = "testng-results",
-				DefaultExt = "xml",
-				Filter = "Text documents (.xml)|*.xml"
-			};
-
-			bool? result = openFileDialog.ShowDialog();
-
-			if (result == true)
-			{
-				OriginalTestCaseResults = XMLParserModel.Parse(openFileDialog.FileName);
-				UpdateCounts();
-			}
-
-			DisplayedTestCaseResults = OriginalTestCaseResults;
-
 			PassedSelected = true;
 			FailedSelected = true;
 			SkippedSelected = true;
 
 			steps = new List<StepDescription>() {
-				new StepDescription() { Name = "Open file", IsActivate = true, ActivateAction = new RelayCommand(Step1Activate), IsFirstStep = true, IsLastStep = false   },
-				new StepDescription() { Name = "Filter and sort", IsActivate = false, ActivateAction = new RelayCommand(Step2Activate), IsFirstStep = false, IsLastStep = false  },
-				new StepDescription() { Name = "Generate file", IsActivate = false, ActivateAction = new RelayCommand(Step3Activate), IsFirstStep = false, IsLastStep = true  }
+				new StepDescription() 
+				{ 
+					Name = "Open file", 
+					IsActivate = true, 
+					ActivateAction = new RelayCommand(Step1Activate), 
+					IsFirstStep = true, 
+					IsLastStep = false   
+				},
+				new StepDescription() 
+				{ 
+					Name = "Filter and sort", 
+					IsActivate = false, 
+					ActivateAction = new RelayCommand(Step2Activate), 
+					IsFirstStep = false, 
+					IsLastStep = false  
+				},
+				new StepDescription() 
+				{ 
+					Name = "Generate file", 
+					IsActivate = false, 
+					ActivateAction = new RelayCommand(Step3Activate), 
+					IsFirstStep = false, 
+					IsLastStep = true  
+				}
 			};
-			currentStep = 0;
-
+			
+			ExecuteOpenFileDialog();
 		}		
 		#endregion
 
@@ -257,6 +261,7 @@ namespace TestRunXMLParserTool.ViewModels
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 			OriginalTestCaseResults = XMLParserModel.Parse(SelectedPath);
 
+			Step2Activate();
 			DisplayedTestCaseResults = OriginalTestCaseResults;
 
 			PassedSelected = true;
