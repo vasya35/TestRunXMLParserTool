@@ -37,42 +37,40 @@ namespace TestRunXMLParserTool.Models
 				NewLineOnAttributes = false
 			};
 
-			using (XmlWriter writer = XmlWriter.Create(filename, xmlWriterSettings))
+			using XmlWriter writer = XmlWriter.Create(filename, xmlWriterSettings);
+			writer.WriteStartDocument();
+			writer.WriteStartElement("suite");
+			writer.WriteAttributeString("name", "rerunTestCases");
+			writer.WriteStartElement("listeners");
+			writer.WriteStartElement("listener");
+			var listenerName = ConfigurationManager.AppSettings["ListenerName"];
+			writer.WriteAttributeString("class-name", listenerName);
+			writer.WriteEndElement();
+			writer.WriteEndElement();
+
+
+			foreach (var testCase in selectedTestCases)
 			{
-				writer.WriteStartDocument();
-				writer.WriteStartElement("suite");
-				writer.WriteAttributeString("name", "rerunTestCases");
-				writer.WriteStartElement("listeners");
-				writer.WriteStartElement("listener");
-				var listenerName = ConfigurationManager.AppSettings["ListenerName"];
-				writer.WriteAttributeString("class-name", listenerName);
+				if (!testCase.IsSelected) continue;
+
+				writer.WriteStartElement("test");
+				writer.WriteAttributeString("name", testCase.Name);
+				writer.WriteStartElement("classes");
+				writer.WriteStartElement("class");
+				writer.WriteAttributeString("name", testCase.XMLPath);
+				writer.WriteStartElement("methods");
+				writer.WriteStartElement("include");
+				writer.WriteAttributeString("name", testCase.MethodName);
 				writer.WriteEndElement();
 				writer.WriteEndElement();
-
-
-				foreach (var testCase in selectedTestCases)
-				{
-					if (!testCase.IsSelected) continue;
-
-					writer.WriteStartElement("test");
-					writer.WriteAttributeString("name", testCase.Name);
-					writer.WriteStartElement("classes");
-					writer.WriteStartElement("class");
-					writer.WriteAttributeString("name", testCase.XMLPath);
-					writer.WriteStartElement("methods");
-					writer.WriteStartElement("include");
-					writer.WriteAttributeString("name", testCase.MethodName);
-					writer.WriteEndElement();
-					writer.WriteEndElement();
-					writer.WriteEndElement();
-					writer.WriteEndElement();
-					writer.WriteEndElement();
-				}
-
 				writer.WriteEndElement();
-				writer.WriteEndDocument();
-				writer.Flush();
+				writer.WriteEndElement();
+				writer.WriteEndElement();
 			}
+
+			writer.WriteEndElement();
+			writer.WriteEndDocument();
+			writer.Flush();
 		}
 	}
 }

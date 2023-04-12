@@ -26,7 +26,7 @@ namespace TestRunXMLParserTool.Models
 					};
 
 					XmlNodeList? testClass = test.SelectNodes("class");
-					if (testClass.Count < 1) continue;
+					if (testClass == null || testClass.Count < 1) continue;
 
 					testCaseResult.XMLPath = testClass[0].Attributes.GetNamedItem("name").Value;
 
@@ -34,11 +34,12 @@ namespace TestRunXMLParserTool.Models
 
 					foreach (XmlNode testMethod in testMethods)
 					{
-						if (testMethod.Attributes.GetNamedItem("is-config") == null)
+						if (testMethod.Attributes.GetNamedItem("is-config") != null)
 						{
-							testCaseResult.Result = testMethod.Attributes.GetNamedItem("status")?.Value;
-							testCaseResult.MethodName = testMethod.Attributes.GetNamedItem("name")?.Value;
+							continue;
 						}
+						testCaseResult.Result = testMethod.Attributes.GetNamedItem("status")?.Value;
+						testCaseResult.MethodName = testMethod.Attributes.GetNamedItem("name")?.Value;
 					}
 
 					testCaseResults.Add(testCaseResult);

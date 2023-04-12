@@ -2,7 +2,7 @@
 
 internal class Program
 {
-	private static void Main(string[] args)
+	private static void Main()
 	{
 		Console.WriteLine("Enter count for generaate test case results:");
 		var inputCnt = Console.ReadLine();

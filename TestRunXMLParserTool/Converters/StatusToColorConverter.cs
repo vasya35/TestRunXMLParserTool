@@ -10,29 +10,23 @@ namespace TestRunXMLParserTool.Converters
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			string data = (string)value;
-			switch (data)
+			return data switch
 			{
-				case "PASS":
-					return "LightGreen";
-				case "FAIL":
-					return "IndianRed";
-				default:
-					return "Yellow";
-			}
+				"PASS" => "LightGreen",
+				"FAIL" => "IndianRed",
+				_ => "Yellow",
+			};
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			string data = (string)value;
-			switch (data)
+			return data switch
 			{
-				case "LightGreen":
-					return "PASS";
-				case "IndianRed":
-					return "FAIL";
-				default:
-					return "SKIP";
-			}
+				"LightGreen" => "PASS",
+				"IndianRed" => "FAIL",
+				_ => "SKIP",
+			};			
 		}
 	}
 }

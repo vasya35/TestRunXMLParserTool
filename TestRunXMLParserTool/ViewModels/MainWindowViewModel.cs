@@ -67,7 +67,7 @@ namespace TestRunXMLParserTool.ViewModels
 		private bool failedSelected { get; set; }
 		private bool skippedSelected { get; set; }
 		private bool sortSelected { get; set; }
-		private string selectedPath { get; set; }
+		private string selectedPath { get; set; } = "";
 		private int passedCount { get; set; }
 		private int failedCount { get; set; }
 		private int skippedCount { get; set; }
@@ -76,7 +76,7 @@ namespace TestRunXMLParserTool.ViewModels
 		#endregion
 
 		#region Properties
-		public ObservableCollection<TestCaseResultModel> OriginalTestCaseResults { get; set; }
+		public ObservableCollection<TestCaseResultModel> OriginalTestCaseResults { get; set; } = new();
 		public ObservableCollection<TestCaseResultModel> DisplayedTestCaseResults
 		{
 			get { return displayedTestCaseResults; }
@@ -206,13 +206,12 @@ namespace TestRunXMLParserTool.ViewModels
 		#region implementation ICommand
 		private ICommand genXMLCommand;
 		private ICommand genJQueryScriptCommand;
-		private ICommand openXMLCommand;
+		private ICommand? openXMLCommand;
 		public ICommand GenXMLCommand
 		{
 			get
 			{
-				if (genXMLCommand == null)
-					genXMLCommand = new XMLGeneratorCommand();
+				genXMLCommand ??= new XMLGeneratorCommand();
 				return genXMLCommand;
 			}
 		}
@@ -221,8 +220,7 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			get
 			{
-				if (genJQueryScriptCommand == null)
-					genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
+				genJQueryScriptCommand ??= new JSTestrailSelectorScriptGeneratorCommand();
 				return genJQueryScriptCommand;
 			}
 		}
@@ -231,8 +229,7 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			get
 			{
-				if (openXMLCommand == null)
-					openXMLCommand = new RelayCommand(ExecuteOpenFileDialog);
+				openXMLCommand ??= new RelayCommand(ExecuteOpenFileDialog);
 				return openXMLCommand;
 			}
 		}
@@ -295,7 +292,7 @@ namespace TestRunXMLParserTool.ViewModels
 				filteredStatus.Add(new string("SKIP"));
 			}
 
-			ObservableCollection<TestCaseResultModel> filteredData = new ObservableCollection<TestCaseResultModel>();
+			ObservableCollection<TestCaseResultModel> filteredData = new();
 			if (OriginalTestCaseResults != null)
 			{
 				filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result) == true).ToList());
