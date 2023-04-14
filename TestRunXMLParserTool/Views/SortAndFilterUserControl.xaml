@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d"
+             xmlns:converters="clr-namespace:TestRunXMLParserTool.Converters"
+			 mc:Ignorable="d"
 			 Height="100">
+	<UserControl.Resources>
+		<converters:SplitTestsLabelConverter x:Key="SplitTestsLabelConverter" />		
+	</UserControl.Resources>
 	<Grid>
 		
 		<TabControl SelectedIndex="{Binding CurrentStep}" BorderThickness="0">
@@ -21,73 +25,155 @@
 			<TabItem Header="Step 2"
 					 HorizontalAlignment="Stretch"
 					 Visibility="Hidden" >
-				<DockPanel>
-					<StackPanel>
-						<CheckBox Name="PassCheckbox"
-					  Margin="5,5,5,5" 
-					  VerticalAlignment="Center"
-					  IsChecked="{Binding Path=PassedSelected}"
-					  >PASS</CheckBox>
-						<Label Content="{Binding Path=PassedCount}"
-					   Margin="5,5,5,5"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"/>
-					</StackPanel>
-					<StackPanel>
-						<CheckBox Name="FailedCheckbox"
-					  Margin="5,5,5,5" 
-					  VerticalAlignment="Center"
-					  IsChecked="{Binding Path=FailedSelected}"
-					  >FAIL</CheckBox>
-						<Label Content="{Binding Path=FailedCount}"
-					   Margin="5,5,5,5"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"/>
-					</StackPanel>
-					<StackPanel>
-						<CheckBox Name="SkippedCheckbox"
-					  Margin="5,5,5,5" 
-					  VerticalAlignment="Center"
-					  IsChecked="{Binding Path=SkippedSelected}"
-					  >SKIP</CheckBox>
-						<Label Content="{Binding Path=SkippedCount}"
-					   Margin="5,5,5,5"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"/>
-					</StackPanel>
-					<StackPanel>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="0.10*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="0.10*"/>
+					</Grid.ColumnDefinitions>
+
+					<Grid Grid.Column="1">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" MinWidth="60"/>
+							<ColumnDefinition Width="*" MinWidth="60"/>
+							<ColumnDefinition Width="*" MinWidth="60"/>
+							<ColumnDefinition Width="*" MinWidth="60"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Label Name="PassLabel" 
+							   Grid.Row="0"
+							   Grid.Column="0"
+							   Margin="0,0,0,0"
+							   Padding="0,0,0,0"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Left"
+							   Content="PASS"/>
+						<Grid Grid.Row="1"
+							  Grid.Column="0"
+							  Margin="0,0,0,0"
+							  VerticalAlignment="Center"
+							  HorizontalAlignment="Left">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<CheckBox Name="PassCheckbox"
+									  Grid.Column="0"
+									  VerticalAlignment="Center"
+									  IsThreeState="True"
+									  IsChecked="{Binding Path=PassedSelected}" />
+							<Label Name="PassSelectedLabel"
+								   Grid.Column="1"
+								   Margin="0,0,0,0"
+								   VerticalAlignment="Center"
+								   HorizontalAlignment="Center">
+								<Label.Content>
+									<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
+										<Binding Path="PassedSelectedCount"/>
+										<Binding Path="PassedCount"/>
+									</MultiBinding>
+								</Label.Content>
+							</Label>							
+						</Grid>
+
+						<Label Name="FailLabel" 
+							   Grid.Row="0"
+							   Grid.Column="1"
+							   Margin="0,0,0,0"
+							   Padding="0,0,0,0"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Left"
+							   Content="FAIL"/>
+						<DockPanel  Grid.Row="1"
+									Grid.Column="1">
+							<CheckBox Name="FailedCheckbox"
+									  VerticalAlignment="Center"
+									  IsChecked="{Binding Path=FailedSelected}"/>
+							<Label Name="FailedSelectedLabel"
+								   Margin="0,0,20,0"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center">
+								<Label.Content>
+									<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
+										<Binding Path="FailedSelectedCount"/>
+										<Binding Path="FailedCount"/>
+									</MultiBinding>
+								</Label.Content>
+							</Label>
+						</DockPanel>	
+						
+						<Label Name="SkipLabel" 
+							   Grid.Row="0"
+							   Grid.Column="2"
+							   Margin="0,0,0,0"
+							   Padding="0,0,0,0"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Left"
+							   Content="SKIP"/>
+						<DockPanel Grid.Row="1"
+								   Grid.Column="2">
+							<CheckBox Name="SkippedCheckbox"
+									  VerticalAlignment="Center"
+									  IsChecked="{Binding Path=SkippedSelected}" />
+							<Label Name="SkippedSelectedLabel"
+								   Margin="0,0,20,0"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center">
+								<Label.Content>
+									<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
+										<Binding Path="SkippedSelectedCount"/>
+										<Binding Path="SkippedCount"/>
+									</MultiBinding>
+								</Label.Content>
+							</Label>
+						</DockPanel>
+						
+						<Label Name="SortLabel" 
+							   Grid.Row="0"
+							   Grid.Column="3"
+							   Margin="0,0,0,0"
+							   Padding="0,0,0,0"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Center"
+							   Content="SORT"/>
 						<CheckBox Name="SortCheckbox"
-					  Margin="5,5,5,5" 
-					  VerticalAlignment="Center"
-					  IsChecked="{Binding Path=SortSelected}"
-					  >Sort</CheckBox>
-					</StackPanel>
-
-
-					<Grid/>
-				</DockPanel>
+									Grid.Row="1"
+									Grid.Column="3"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									IsChecked="{Binding Path=SortSelected}" />
+					</Grid>
+				</Grid>
 			</TabItem>
 			<TabItem Header="Step 3"
 					 HorizontalAlignment="Stretch"
 					 Visibility="Hidden" >
-				<DockPanel>
-					<Button Margin="5,5,5,5" 
-					MaxWidth="150"
-					MaxHeight="50"
-					Command="{Binding GenXMLCommand}" 
-					CommandParameter="{Binding DisplayedTestCaseResults}">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="0"
+							Margin="5,5,5,5" 
+							MaxWidth="150"
+							MaxHeight="50"
+							Command="{Binding GenXMLCommand}" 
+							CommandParameter="{Binding DisplayedTestCaseResults}">	
 						Generate xml for rerun
 					</Button>
-					<Button Margin="5,5,5,5" 
-					Command="{Binding GenJQueryScriptCommand}"
-					CommandParameter="{Binding DisplayedTestCaseResults}"
-					MaxWidth="150"
-					MaxHeight="50">
+					<Button Grid.Column="1"
+							Margin="5,5,5,5" 
+							Command="{Binding GenJQueryScriptCommand}"
+							CommandParameter="{Binding DisplayedTestCaseResults}"
+							MaxWidth="150"
+							MaxHeight="50">
 						Generate js testrail selector script
 					</Button>
-				</DockPanel>				
+				</Grid>
 			</TabItem>
 		</TabControl>
-		
     </Grid>
 </UserControl>

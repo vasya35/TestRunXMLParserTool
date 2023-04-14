@@ -99,6 +99,7 @@ namespace TestRunXMLParserTool.Models
 			{
 				isSelected = value;
 				OnPropertyChanged("IsSelected");
+				SelectChangedNotify();
 			}
 		}
 
@@ -135,6 +136,11 @@ namespace TestRunXMLParserTool.Models
 		{
 			return testCaseNumber;
 		}
+		#endregion
+
+		#region event
+		public delegate void Notify();
+		public event Notify SelectChangedNotify;
 		#endregion
 	}
 }

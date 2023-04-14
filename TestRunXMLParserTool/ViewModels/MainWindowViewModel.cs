@@ -71,6 +71,9 @@ namespace TestRunXMLParserTool.ViewModels
 		private int passedCount { get; set; }
 		private int failedCount { get; set; }
 		private int skippedCount { get; set; }
+		private int passedSelectedCount { get; set; }
+		private int failedSelectedCount { get; set; }
+		private int skippedSelectedCount { get; set; }
 		private int currentStep { get; set; }
 		private List<StepDescription> steps { get; set; }
 		#endregion
@@ -182,6 +185,36 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 		}
 
+		public int PassedSelectedCount
+		{
+			get { return passedSelectedCount; }
+			set
+			{
+				passedSelectedCount = value;
+				OnPropertyChanged("PassedSelectedCount");
+			}
+		}
+
+		public int FailedSelectedCount
+		{
+			get { return failedSelectedCount; }
+			set
+			{
+				failedSelectedCount = value;
+				OnPropertyChanged("FailedSelectedCount");
+			}
+		}
+
+		public int SkippedSelectedCount
+		{
+			get { return skippedSelectedCount; }
+			set
+			{
+				skippedSelectedCount = value;
+				OnPropertyChanged("SkippedSelectedCount");
+			}
+		}
+
 		public List<StepDescription> Steps
 		{
 			get { return steps; }
@@ -258,6 +291,11 @@ namespace TestRunXMLParserTool.ViewModels
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 			OriginalTestCaseResults = XMLParserModel.Parse(SelectedPath);
 
+			foreach (var testCase in OriginalTestCaseResults)
+			{
+				testCase.SelectChangedNotify += TestCase_SelectChangedNotify;
+			}
+
 			Step2Activate();
 			DisplayedTestCaseResults = OriginalTestCaseResults;
 
@@ -265,7 +303,7 @@ namespace TestRunXMLParserTool.ViewModels
 			FailedSelected = true;
 			SkippedSelected = true;
 
-			UpdateCounts();
+			UpdateCounts();			
 		}
 
 		private static ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
@@ -364,6 +402,13 @@ namespace TestRunXMLParserTool.ViewModels
 			steps[2].IsNextAcvtive = true;
 			steps[2].IsActivate = true;
 			CurrentStep = 2;
+		}
+
+		private void TestCase_SelectChangedNotify()
+		{
+			PassedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "PASS" && x.IsSelected).ToList().Count;
+			FailedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
+			SkippedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
 		}
 		#endregion
 	}
