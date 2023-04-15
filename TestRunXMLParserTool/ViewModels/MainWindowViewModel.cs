@@ -25,10 +25,6 @@ namespace TestRunXMLParserTool.ViewModels
 			genXMLCommand = new XMLGeneratorCommand();
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 
-			PassedSelected = true;
-			FailedSelected = true;
-			SkippedSelected = true;
-
 			steps = new List<StepDescription>() {
 				new StepDescription() 
 				{ 
@@ -299,11 +295,11 @@ namespace TestRunXMLParserTool.ViewModels
 			Step2Activate();
 			DisplayedTestCaseResults = OriginalTestCaseResults;
 
+			UpdateCounts();
+
 			PassedSelected = true;
 			FailedSelected = true;
 			SkippedSelected = true;
-
-			UpdateCounts();			
 		}
 
 		private static ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
@@ -336,11 +332,6 @@ namespace TestRunXMLParserTool.ViewModels
 				filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result) == true).ToList());
 			}
 
-			if (isSelectedEnabled)
-			{
-				foreach (var item in filteredData) item.IsSelected = true;
-			}
-
 			if (sortSelected)
 			{
 				DisplayedTestCaseResults = sortData(filteredData);
@@ -348,6 +339,11 @@ namespace TestRunXMLParserTool.ViewModels
 			else
 			{
 				DisplayedTestCaseResults = filteredData;
+			}
+
+			if (isSelectedEnabled)
+			{
+				foreach (var item in filteredData) item.IsSelected = true;
 			}
 		}
 
@@ -406,8 +402,12 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void TestCase_SelectChangedNotify()
 		{
-			PassedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "PASS" && x.IsSelected).ToList().Count;
-			if (PassedSelectedCount < PassedCount)
+			PassedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "PASS" && x.IsSelected).ToList().Count;
+			if (PassedSelectedCount == 0)
+			{
+				passedSelected = false;
+				OnPropertyChanged("PassedSelected");
+			} else if (PassedSelectedCount < PassedCount)
 			{
 				passedSelected = null;
 				OnPropertyChanged("PassedSelected");
@@ -416,9 +416,14 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				passedSelected = true;
 				OnPropertyChanged("PassedSelected");
+			} 
+			FailedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
+			if (FailedSelectedCount == 0)
+			{
+				failedSelected = false;
+				OnPropertyChanged("FailedSelected");
 			}
-			FailedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
-			if (FailedSelectedCount < FailedCount)
+			else if(FailedSelectedCount < FailedCount)
 			{
 				failedSelected = null;
 				OnPropertyChanged("FailedSelected");
@@ -427,9 +432,14 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				failedSelected = true;
 				OnPropertyChanged("FailedSelected");
+			}			 
+			SkippedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
+			if (SkippedSelectedCount == 0)
+			{
+				skippedSelected = false;
+				OnPropertyChanged("SkippedSelected");
 			}
-			SkippedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
-			if (SkippedSelectedCount < SkippedCount)
+			else if (SkippedSelectedCount < SkippedCount)
 			{
 				skippedSelected = null;
 				OnPropertyChanged("SkippedSelected");
