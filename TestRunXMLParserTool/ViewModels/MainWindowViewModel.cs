@@ -57,25 +57,25 @@ namespace TestRunXMLParserTool.ViewModels
 			};
 			
 			ExecuteOpenFileDialog();
-		}		
+		}
 		#endregion
 
 		#region fields
-		private TestCaseResultModel selectedTestCaseResult { get; set; }
-		private ObservableCollection<TestCaseResultModel> displayedTestCaseResults { get; set; }
-		private bool passedSelected { get; set; }
-		private bool failedSelected { get; set; }
-		private bool skippedSelected { get; set; }
-		private bool sortSelected { get; set; }
-		private string selectedPath { get; set; } = "";
-		private int passedCount { get; set; }
-		private int failedCount { get; set; }
-		private int skippedCount { get; set; }
-		private int passedSelectedCount { get; set; }
-		private int failedSelectedCount { get; set; }
-		private int skippedSelectedCount { get; set; }
-		private int currentStep { get; set; }
-		private List<StepDescription> steps { get; set; }
+		private TestCaseResultModel selectedTestCaseResult;
+		private ObservableCollection<TestCaseResultModel> displayedTestCaseResults;
+		private bool? passedSelected;
+		private bool? failedSelected;
+		private bool? skippedSelected;
+		private bool sortSelected;
+		private string selectedPath = "";
+		private int passedCount;
+		private int failedCount;
+		private int skippedCount;
+		private int passedSelectedCount;
+		private int failedSelectedCount;
+		private int skippedSelectedCount;
+		private int currentStep;
+		private List<StepDescription> steps;
 		#endregion
 
 		#region Properties
@@ -100,7 +100,7 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 		}
 
-		public bool PassedSelected
+		public bool? PassedSelected
 		{
 			get { return passedSelected; }
 			set
@@ -111,7 +111,7 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 		}
 
-		public bool FailedSelected
+		public bool? FailedSelected
 		{
 			get { return failedSelected; }
 			set
@@ -122,7 +122,7 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 		}
 
-		public bool SkippedSelected
+		public bool? SkippedSelected
 		{
 			get { return skippedSelected; }
 			set
@@ -315,17 +315,17 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			List<string> filteredStatus = new();
 
-			if (PassedSelected)
+			if (PassedSelected == true)
 			{
 				filteredStatus.Add(new string("PASS"));
 			}
 
-			if (FailedSelected)
+			if (FailedSelected == true)
 			{
 				filteredStatus.Add(new string("FAIL"));
 			}
 
-			if (SkippedSelected)
+			if (SkippedSelected == true)
 			{
 				filteredStatus.Add(new string("SKIP"));
 			}
@@ -407,8 +407,38 @@ namespace TestRunXMLParserTool.ViewModels
 		private void TestCase_SelectChangedNotify()
 		{
 			PassedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "PASS" && x.IsSelected).ToList().Count;
+			if (PassedSelectedCount < PassedCount)
+			{
+				passedSelected = null;
+				OnPropertyChanged("PassedSelected");
+			}
+			else if (PassedSelectedCount == PassedCount)
+			{
+				passedSelected = true;
+				OnPropertyChanged("PassedSelected");
+			}
 			FailedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
+			if (FailedSelectedCount < FailedCount)
+			{
+				failedSelected = null;
+				OnPropertyChanged("FailedSelected");
+			}
+			else if (FailedSelectedCount == FailedCount)
+			{
+				failedSelected = true;
+				OnPropertyChanged("FailedSelected");
+			}
 			SkippedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
+			if (SkippedSelectedCount < SkippedCount)
+			{
+				skippedSelected = null;
+				OnPropertyChanged("SkippedSelected");
+			}
+			else if (SkippedSelectedCount == SkippedCount)
+			{
+				skippedSelected = true;
+				OnPropertyChanged("SkippedSelected");
+			}
 		}
 		#endregion
 	}

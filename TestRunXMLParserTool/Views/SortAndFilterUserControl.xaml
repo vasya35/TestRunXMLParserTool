@@ -63,7 +63,6 @@
 							<CheckBox Name="PassCheckbox"
 									  Grid.Column="0"
 									  VerticalAlignment="Center"
-									  IsThreeState="True"
 									  IsChecked="{Binding Path=PassedSelected}" />
 							<Label Name="PassSelectedLabel"
 								   Grid.Column="1"
