@@ -310,20 +310,33 @@ namespace TestRunXMLParserTool.ViewModels
 		private void updateFilteredAndSortData(bool isSelectedEnabled)
 		{
 			List<string> filteredStatus = new();
+			List<string> changingStatus = new();
 
-			if (PassedSelected == true)
+			if (PassedSelected != false)
 			{
 				filteredStatus.Add(new string("PASS"));
 			}
+			if (PassedSelected == true)
+			{
+				changingStatus.Add(new string("PASS"));
+			}
 
-			if (FailedSelected == true)
+			if (FailedSelected != false)
 			{
 				filteredStatus.Add(new string("FAIL"));
 			}
+			if (FailedSelected == true)
+			{
+				changingStatus.Add(new string("FAIL"));
+			}
 
-			if (SkippedSelected == true)
+			if (SkippedSelected != false)
 			{
 				filteredStatus.Add(new string("SKIP"));
+			}
+			if (SkippedSelected == false)
+			{
+				changingStatus.Add(new string("SKIP"));
 			}
 
 			ObservableCollection<TestCaseResultModel> filteredData = new();
@@ -343,7 +356,16 @@ namespace TestRunXMLParserTool.ViewModels
 
 			if (isSelectedEnabled)
 			{
-				foreach (var item in filteredData) item.IsSelected = true;
+				foreach (var item in filteredData)
+				{
+					foreach(var status in changingStatus)
+					{
+						if (item.Result == status)
+						{
+							item.IsSelected = true;
+						}
+					}				
+				}
 			}
 		}
 
