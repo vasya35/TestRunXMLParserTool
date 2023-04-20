@@ -289,7 +289,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 			foreach (var testCase in OriginalTestCaseResults)
 			{
-				testCase.SelectChangedNotify += TestCase_SelectChangedNotify;
+				testCase.SelectChangedNotify += UpdateSelectedCount;
 			}
 
 			Step2Activate();
@@ -332,9 +332,9 @@ namespace TestRunXMLParserTool.ViewModels
 
 			if (SkippedSelected != false)
 			{
-				filteredStatus.Add(new string("SKIP"));
+				filteredStatus.Add(new string("SKIP")); 
 			}
-			if (SkippedSelected == false)
+			if (SkippedSelected == true)
 			{
 				changingStatus.Add(new string("SKIP"));
 			}
@@ -367,6 +367,7 @@ namespace TestRunXMLParserTool.ViewModels
 					}				
 				}
 			}
+			UpdateSelectedCount();
 		}
 
 		private void ExecuteOpenFileDialog()
@@ -422,7 +423,7 @@ namespace TestRunXMLParserTool.ViewModels
 			CurrentStep = 2;
 		}
 
-		private void TestCase_SelectChangedNotify()
+		private void UpdateSelectedCount()
 		{
 			PassedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "PASS" && x.IsSelected).ToList().Count;
 			if (PassedSelectedCount == 0)
