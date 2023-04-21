@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:TestRunXMLParserTool.Converters"
+			 xmlns:properties = "clr-namespace:TestRunXMLParserTool.Properties"
 			 mc:Ignorable="d"
 			 Height="100">
 	<UserControl.Resources>
@@ -18,9 +19,9 @@
 				<Button Margin="5,5,5,5" 
 					MaxWidth="150"
 					MaxHeight="50"
-					Command="{Binding OpenXMLCommand}" >
-					Open xml
-				</Button>
+					Command="{Binding OpenXMLCommand}" 
+					Content="{x:Static properties:Resources.OpenFileBtn}" />
+
 			</TabItem>
 			<TabItem Header="Step 2"
 					 HorizontalAlignment="Stretch"
@@ -50,7 +51,7 @@
 							   Padding="0,0,0,0"
 							   VerticalAlignment="Center"
 							   HorizontalAlignment="Left"
-							   Content="PASS"/>
+							   Content="{x:Static properties:Resources.PassSelectLabel}"/>
 						<Grid Grid.Row="1"
 							  Grid.Column="0"
 							  Margin="0,0,0,0"
@@ -85,7 +86,7 @@
 							   Padding="0,0,0,0"
 							   VerticalAlignment="Center"
 							   HorizontalAlignment="Left"
-							   Content="FAIL"/>
+							   Content="{x:Static properties:Resources.FailSelectLabel}"/>
 						<DockPanel  Grid.Row="1"
 									Grid.Column="1">
 							<CheckBox Name="FailedCheckbox"
@@ -111,7 +112,7 @@
 							   Padding="0,0,0,0"
 							   VerticalAlignment="Center"
 							   HorizontalAlignment="Left"
-							   Content="SKIP"/>
+							   Content="{x:Static properties:Resources.SkipSelectLabel}"/>
 						<DockPanel Grid.Row="1"
 								   Grid.Column="2">
 							<CheckBox Name="SkippedCheckbox"
@@ -137,7 +138,7 @@
 							   Padding="0,0,0,0"
 							   VerticalAlignment="Center"
 							   HorizontalAlignment="Center"
-							   Content="SORT"/>
+							   Content="{x:Static properties:Resources.SortLabel}"/>
 						<CheckBox Name="SortCheckbox"
 									Grid.Row="1"
 									Grid.Column="3"
@@ -160,17 +161,15 @@
 							MaxWidth="150"
 							MaxHeight="50"
 							Command="{Binding GenXMLCommand}" 
-							CommandParameter="{Binding DisplayedTestCaseResults}">	
-						Generate xml for rerun
-					</Button>
+							CommandParameter="{Binding DisplayedTestCaseResults}"
+							Content="{x:Static properties:Resources.GenerateXMLBtn}"/>
 					<Button Grid.Column="1"
 							Margin="5,5,5,5" 
 							Command="{Binding GenJQueryScriptCommand}"
 							CommandParameter="{Binding DisplayedTestCaseResults}"
 							MaxWidth="150"
-							MaxHeight="50">
-						Generate js testrail selector script
-					</Button>
+							MaxHeight="50"
+							Content="{x:Static properties:Resources.GenerateJSBtn}"/>
 				</Grid>
 			</TabItem>
 		</TabControl>

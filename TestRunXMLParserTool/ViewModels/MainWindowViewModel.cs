@@ -28,7 +28,7 @@ namespace TestRunXMLParserTool.ViewModels
 			steps = new List<StepDescription>() {
 				new StepDescription() 
 				{ 
-					Name = "Open file", 
+					Name = Properties.Resources.OpenFileStep, 
 					IsActivate = true, 
 					ActivateAction = new RelayCommand(Step1Activate), 
 					IsFirstStep = true, 
@@ -36,7 +36,7 @@ namespace TestRunXMLParserTool.ViewModels
 				},
 				new StepDescription() 
 				{ 
-					Name = "Filter and sort", 
+					Name = Properties.Resources.FilterAndSortStep, 
 					IsActivate = false, 
 					ActivateAction = new RelayCommand(Step2Activate), 
 					IsFirstStep = false, 
@@ -44,7 +44,7 @@ namespace TestRunXMLParserTool.ViewModels
 				},
 				new StepDescription() 
 				{ 
-					Name = "Generate file", 
+					Name = Properties.Resources.GenerateFileStep, 
 					IsActivate = false, 
 					ActivateAction = new RelayCommand(Step3Activate), 
 					IsFirstStep = false, 
