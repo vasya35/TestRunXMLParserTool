@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 using System.Windows;
 
 namespace TestRunXMLParserTool
@@ -13,5 +8,13 @@ namespace TestRunXMLParserTool
 	/// </summary>
 	public partial class App : Application
 	{
+		App()
+		{
+			// Supported: en-US, ru-RU, kk-KZ, tr-TR
+			var culture = ConfigurationManager.AppSettings["Culture"];
+			if (culture != null) {
+				System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
+			}
+		}
 	}
 }
