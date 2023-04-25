@@ -8,15 +8,15 @@
 			 MaxHeight="50"
 			 Margin="0,20,0,0">
 	<UserControl.Resources>
-		<converters:ActivateToColorConverter x:Key="ActivateToColorConverter" />
-		<converters:VisibilityStepLeftPathConverter x:Key="VisibilityStepLeftPathConverter" />
-		<converters:VisibilityStepRightPathConverter x:Key="VisibilityStepRightPathConverter" />
-		<converters:PercentageConverter x:Key="PercentageConverter" />
-		<LinearGradientBrush x:Key="wizardBarBrush" StartPoint="0.5,0.0" EndPoint="0.5,1.0">
-			<GradientStop Color="#FFE4E4E4" Offset="0.25"/>
-			<GradientStop Color="#FFededed" Offset="0.50"/>
-			<GradientStop Color="#FFFCFCFC" Offset="0.75"/>
-		</LinearGradientBrush>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Styles/Default.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<converters:ActivateToColorConverter x:Key="ActivateToColorConverter" />
+			<converters:VisibilityStepLeftPathConverter x:Key="VisibilityStepLeftPathConverter" />
+			<converters:VisibilityStepRightPathConverter x:Key="VisibilityStepRightPathConverter" />
+			<converters:PercentageConverter x:Key="PercentageConverter" />
+		</ResourceDictionary>
 	</UserControl.Resources>
 	<Grid>
 
@@ -50,7 +50,7 @@
 								   Grid.Row="0"
 								   Width="{Binding Path=ActualWidth, ElementName=StepGrid, Converter={converters:PercentageConverter}, ConverterParameter='0.5'}"
 								   Height="10"
-								   Fill="{StaticResource wizardBarBrush}" 
+								   Fill="{DynamicResource wizardBarBrush}" 
 								   HorizontalAlignment="Left"
 								   Margin="0">
 							<Rectangle.Visibility>
@@ -64,7 +64,7 @@
 								   Grid.Row="0"
 								   Width="{Binding Path=ActualWidth, ElementName=StepGrid, Converter={converters:PercentageConverter}, ConverterParameter='0.5'}"
 								   Height="10"
-								   Fill="{StaticResource wizardBarBrush}" 
+								   Fill="{DynamicResource wizardBarBrush}" 
 								   HorizontalAlignment="Right"
 								   Margin="0">
 							<Rectangle.Visibility>
@@ -79,7 +79,7 @@
                                  HorizontalAlignment="Center"
 								 Height="25"
 								 Width="25"
-								 Fill="{StaticResource wizardBarBrush}"
+								 Fill="{DynamicResource wizardBarBrush}"
 								 Cursor="Hand"								 
 								 Stroke="Transparent" >
 							<Ellipse.InputBindings>

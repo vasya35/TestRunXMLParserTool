@@ -8,7 +8,12 @@
 			 mc:Ignorable="d"
 			 Height="100">
 	<UserControl.Resources>
-		<converters:SplitTestsLabelConverter x:Key="SplitTestsLabelConverter" />		
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Styles/Default.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<converters:SplitTestsLabelConverter x:Key="SplitTestsLabelConverter"/>
+		</ResourceDictionary>
 	</UserControl.Resources>
 	<Grid>
 		
@@ -17,10 +22,9 @@
 					 HorizontalAlignment="Stretch" 
 					 Visibility="Hidden" >
 				<Button Margin="5,5,5,5" 
-					MaxWidth="150"
-					MaxHeight="50"
 					Command="{Binding OpenXMLCommand}" 
-					Content="{x:Static properties:Resources.OpenFileBtn}" />
+					Content="{x:Static properties:Resources.OpenFileBtn}"
+					Style="{DynamicResource ButtonStyle}" />
 
 			</TabItem>
 			<TabItem Header="Step 2"
@@ -157,19 +161,15 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<Button Grid.Column="0"
-							Margin="5,5,5,5" 
-							MaxWidth="150"
-							MaxHeight="50"
 							Command="{Binding GenXMLCommand}" 
 							CommandParameter="{Binding DisplayedTestCaseResults}"
-							Content="{x:Static properties:Resources.GenerateXMLBtn}"/>
+							Content="{x:Static properties:Resources.GenerateXMLBtn}"
+							Style="{DynamicResource ButtonStyle}" />
 					<Button Grid.Column="1"
-							Margin="5,5,5,5" 
 							Command="{Binding GenJQueryScriptCommand}"
 							CommandParameter="{Binding DisplayedTestCaseResults}"
-							MaxWidth="150"
-							MaxHeight="50"
-							Content="{x:Static properties:Resources.GenerateJSBtn}"/>
+							Content="{x:Static properties:Resources.GenerateJSBtn}"
+							Style="{DynamicResource ButtonStyle}" />
 				</Grid>
 			</TabItem>
 		</TabControl>
