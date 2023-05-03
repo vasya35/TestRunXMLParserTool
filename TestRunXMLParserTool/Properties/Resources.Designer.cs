@@ -151,6 +151,33 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsWindowTitle {
+            get {
+                return ResourceManager.GetString("SettingsWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string SettingWindowLanguageLabel {
+            get {
+                return ResourceManager.GetString("SettingWindowLanguageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ListenerName:.
+        /// </summary>
+        public static string SettingWindowListenerNameLabel {
+            get {
+                return ResourceManager.GetString("SettingWindowListenerNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SKIP.
         /// </summary>
         public static string SkipSelectLabel {

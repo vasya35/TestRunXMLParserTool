@@ -147,6 +147,15 @@
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="SettingsWindowTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SettingWindowLanguageLabel" xml:space="preserve">
+    <value>Язык:</value>
+  </data>
+  <data name="SettingWindowListenerNameLabel" xml:space="preserve">
+    <value>Имя слушателя:</value>
+  </data>
   <data name="SkipSelectLabel" xml:space="preserve">
     <value>ПРОПУЩЕНЫ</value>
   </data>

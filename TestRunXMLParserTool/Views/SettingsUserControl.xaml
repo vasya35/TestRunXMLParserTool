@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TestRunXMLParserTool.Views"
+			 xmlns:properties = "clr-namespace:TestRunXMLParserTool.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -18,14 +19,14 @@
 		<Label Name="SettingsLanguageLabel" 
 			   Grid.Row="0"
 			   Grid.Column="0"
-			   Content="Language:"
+			   Content="{x:Static properties:Resources.SettingWindowLanguageLabel}"
 			   HorizontalAlignment="Right"
 			   VerticalAlignment="Center"
 			   Margin="5, 5, 5, 5"/>
 		<Label Name="SettingsListenerNameLabel" 
 			   Grid.Row="1"
 			   Grid.Column="0"
-			   Content="ListenerName:"
+			   Content="{x:Static properties:Resources.SettingWindowListenerNameLabel}"
 			   HorizontalAlignment="Right"
 			   VerticalAlignment="Center"
 			   Margin="5, 5, 5, 5"/>

@@ -147,6 +147,15 @@
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="SettingsWindowTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingWindowLanguageLabel" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="SettingWindowListenerNameLabel" xml:space="preserve">
+    <value>ListenerName:</value>
+  </data>
   <data name="SkipSelectLabel" xml:space="preserve">
     <value>SKIP</value>
   </data>
