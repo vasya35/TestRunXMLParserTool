@@ -8,17 +8,12 @@ namespace TestRunXMLParserTool.Views
 	/// </summary>
 	public partial class SettingsWindowView : Window
 	{
-		public SettingsWindowView()
+		public SettingsWindowView(SettingsViewModel settingsViewModel)
 		{
 			InitializeComponent();
 
-			DataContext = new SettingsViewModel();
+			DataContext = settingsViewModel;
 		}
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			Visibility = Visibility.Hidden;
-			e.Cancel = true;
-		}
 	}
 }

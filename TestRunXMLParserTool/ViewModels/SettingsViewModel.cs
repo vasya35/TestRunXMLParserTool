@@ -4,7 +4,7 @@ using TestRunXMLParserTool.Models;
 
 namespace TestRunXMLParserTool.ViewModels
 {
-	internal class SettingsViewModel : ReactiveObject
+	public class SettingsViewModel : ReactiveObject
 	{
 		#region Fields
 		private string listenerName;

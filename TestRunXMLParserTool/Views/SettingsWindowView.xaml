@@ -9,7 +9,6 @@
         Title="{x:Static properties:Resources.SettingsWindowTitle}" 
 		Height="150" 
 		Width="500"
-		Closing="Window_Closing"
 		WindowStartupLocation="CenterScreen">
     <Grid>
 		<localViews:SettingsUserControl DataContext="{Binding}"/>

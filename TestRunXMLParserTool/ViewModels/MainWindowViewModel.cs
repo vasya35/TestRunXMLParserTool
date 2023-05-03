@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -75,7 +76,7 @@ namespace TestRunXMLParserTool.ViewModels
 		private int currentStep;
 		private List<StepDescription> steps;
 		private MainWindowView mainWindowView;
-		private static SettingsWindowView settingsWindow = new SettingsWindowView();
+		private SettingsViewModel settingsViewModel = new();
 		#endregion
 
 		#region Properties
@@ -410,6 +411,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void OpenSettingsWindow()
 		{
+			var settingsWindow = new SettingsWindowView(settingsViewModel);
 			settingsWindow.Owner = mainWindowView;
 			settingsWindow.Show();
 		}
