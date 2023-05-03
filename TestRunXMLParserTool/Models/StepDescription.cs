@@ -1,10 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using ReactiveUI;
 
 namespace TestRunXMLParserTool.Models
 {
-	public class StepDescription : INotifyPropertyChanged
+	public class StepDescription : ReactiveObject
 	{
 		#region Fields
 		private string name = "";
@@ -17,69 +16,51 @@ namespace TestRunXMLParserTool.Models
 		#region Properties
 		public string Name
 		{
-			get { return name; }
+			get => name;
 			set
 			{
-				if (value == name) return;
-				name = value;
-				OnPropertyChanged("Name");
+				this.RaiseAndSetIfChanged(ref name, value);
 			}
 		}
 
 		public bool IsActivate
 		{
-			get { return isActivate; }
+			get => isActivate;
 			set
 			{
-				if (value == isActivate) return;
-				isActivate = value;
-				OnPropertyChanged("IsActivate");
+				this.RaiseAndSetIfChanged(ref isActivate, value);
 			}
 		}
 
 		public bool IsFirstStep
 		{
-			get { return isFirstStep; }
+			get => isFirstStep;
 			set
 			{
-				if (value == isFirstStep) return;
-				isFirstStep = value;
-				OnPropertyChanged("IsFirstStep");
+				this.RaiseAndSetIfChanged(ref isFirstStep, value);
 			}
 		}
 
 		public bool IsLastStep
 		{
-			get { return isLastStep; }
+			get => isLastStep;
 			set
 			{
-				if (value == isLastStep) return;
-				isLastStep = value;
-				OnPropertyChanged("IsLastStep");
+				this.RaiseAndSetIfChanged(ref isLastStep, value);
 			}
 		}
 
 		public bool IsNextAcvtive
 		{
-			get { return isNextAcvtive; }
+			get => isNextAcvtive;
 			set
 			{
-				if (value == isNextAcvtive) return;
-				isNextAcvtive = value;
-				OnPropertyChanged("IsNextAcvtive");
+				this.RaiseAndSetIfChanged(ref isNextAcvtive, value);
 			}
 		}
 
 		public RelayCommand? ActivateAction { get; set; }
 
-		#endregion
-
-		#region Implementation INotifyPropertyChanged
-		public event PropertyChangedEventHandler? PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName] string prop = "")
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-		}
 		#endregion
 	}
 }

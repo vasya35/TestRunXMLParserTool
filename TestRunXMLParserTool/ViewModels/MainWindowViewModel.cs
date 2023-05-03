@@ -82,7 +82,7 @@ namespace TestRunXMLParserTool.ViewModels
 		public ObservableCollection<TestCaseResultModel> OriginalTestCaseResults { get; set; } = new();
 		public ObservableCollection<TestCaseResultModel> DisplayedTestCaseResults
 		{
-			get { return displayedTestCaseResults; }
+			get => displayedTestCaseResults;
 			set
 			{
 				if (value == displayedTestCaseResults) return;
@@ -93,7 +93,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public TestCaseResultModel SelectedTestCaseResult
 		{
-			get { return selectedTestCaseResult; }
+			get => selectedTestCaseResult;
 			set
 			{
 				if (value == selectedTestCaseResult) return;
@@ -104,7 +104,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public bool? PassedSelected
 		{
-			get { return passedSelected; }
+			get => passedSelected;
 			set
 			{
 				if (value == passedSelected) return;
@@ -116,7 +116,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public bool? FailedSelected
 		{
-			get { return failedSelected; }
+			get => failedSelected;
 			set
 			{
 				if (value == failedSelected) return;
@@ -128,7 +128,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public bool? SkippedSelected
 		{
-			get { return skippedSelected; }
+			get => skippedSelected;
 			set
 			{
 				if (value == skippedSelected) return;
@@ -140,7 +140,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public bool SortSelected
 		{
-			get { return sortSelected; }
+			get => sortSelected;
 			set
 			{
 				if (value == sortSelected) return;
@@ -152,7 +152,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public string SelectedPath
 		{
-			get { return selectedPath; }
+			get => selectedPath;
 			set
 			{
 				if (value == selectedPath) return;
@@ -164,7 +164,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public int PassedCount
 		{
-			get { return passedCount; }
+			get => passedCount;
 			set
 			{
 				if (value == passedCount) return;
@@ -175,7 +175,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public int FailedCount
 		{
-			get { return failedCount; }
+			get => failedCount;
 			set
 			{
 				if (value == failedCount) return;
@@ -186,7 +186,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public int SkippedCount
 		{
-			get { return skippedCount; }
+			get => skippedCount;
 			set
 			{
 				if (value == skippedCount) return;
@@ -197,7 +197,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public int PassedSelectedCount
 		{
-			get { return passedSelectedCount; }
+			get => passedSelectedCount;
 			set
 			{
 				if (value == passedSelectedCount) return;
@@ -208,7 +208,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public int FailedSelectedCount
 		{
-			get { return failedSelectedCount; }
+			get => failedSelectedCount;
 			set
 			{
 				if (value == failedSelectedCount) return;
@@ -219,7 +219,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public int SkippedSelectedCount
 		{
-			get { return skippedSelectedCount; }
+			get => skippedSelectedCount;
 			set
 			{
 				if (value == skippedSelectedCount) return;
@@ -230,7 +230,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public List<StepDescription> Steps
 		{
-			get { return steps; }
+			get => steps;
 			set
 			{
 				if (value == steps) return;
@@ -241,7 +241,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		public int CurrentStep
 		{
-			get { return currentStep; }
+			get => currentStep;
 			set
 			{
 				if (value == currentStep) return;

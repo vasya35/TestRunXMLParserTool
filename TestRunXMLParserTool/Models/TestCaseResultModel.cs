@@ -48,7 +48,7 @@ namespace TestRunXMLParserTool.Models
 		/// </summary>
 		public string Result
 		{
-			get { return result; }
+			get => result; 
 			set
 			{
 				if (value == null) return;
@@ -61,7 +61,7 @@ namespace TestRunXMLParserTool.Models
 		/// </summary>
 		public string XMLPath
 		{
-			get { return xmlPath; }
+			get => xmlPath; 
 			set
 			{
 				this.RaiseAndSetIfChanged(ref xmlPath, value);
@@ -73,7 +73,7 @@ namespace TestRunXMLParserTool.Models
 		/// </summary>
 		public string MethodName
 		{
-			get { return methodName; }
+			get => methodName; 
 			set
 			{
 				this.RaiseAndSetIfChanged(ref methodName, value);
@@ -85,7 +85,7 @@ namespace TestRunXMLParserTool.Models
 		/// </summary>
 		public bool IsSelected
 		{
-			get { return isSelected; }
+			get => isSelected; 
 			set
 			{
 				this.RaiseAndSetIfChanged(ref isSelected, value);
