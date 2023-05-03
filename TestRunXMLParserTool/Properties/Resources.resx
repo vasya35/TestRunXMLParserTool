@@ -144,6 +144,9 @@
   <data name="PassSelectLabel" xml:space="preserve">
     <value>PASS</value>
   </data>
+  <data name="SettingsButtonTooltip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="SkipSelectLabel" xml:space="preserve">
     <value>SKIP</value>
   </data>

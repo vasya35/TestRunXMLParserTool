@@ -142,6 +142,15 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsButtonTooltip {
+            get {
+                return ResourceManager.GetString("SettingsButtonTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SKIP.
         /// </summary>
         public static string SkipSelectLabel {

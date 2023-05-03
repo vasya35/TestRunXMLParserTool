@@ -12,7 +12,7 @@ namespace TestRunXMLParserTool
 		{
 			InitializeComponent();
 
-			DataContext = new MainWindowViewModel();
+			DataContext = new MainWindowViewModel(this);
 		}
 	}
 }

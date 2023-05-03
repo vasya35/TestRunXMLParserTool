@@ -1,5 +1,5 @@
-﻿using System.Configuration;
-using System.Windows;
+﻿using System.Windows;
+using TestRunXMLParserTool.Models;
 
 namespace TestRunXMLParserTool
 {
@@ -10,9 +10,15 @@ namespace TestRunXMLParserTool
 	{
 		App()
 		{
-			// Supported: en-US, ru-RU, kk-KZ, tr-TR
-			var culture = ConfigurationManager.AppSettings["Culture"];
-			if (culture != null) {
+			setCurrentCulture();
+		}
+
+		private void setCurrentCulture()
+		{
+			var culture = AppConfiguration.GetCurrentCulture();
+
+			if (culture != null)
+			{
 				System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
 			}
 		}

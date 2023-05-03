@@ -5,16 +5,18 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows.Input;
 using TestRunXMLParserTool.Commands;
 using TestRunXMLParserTool.Models;
+using TestRunXMLParserTool.Views;
 
 namespace TestRunXMLParserTool.ViewModels
 {
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{
 		#region .ctor
-		public MainWindowViewModel()
+		public MainWindowViewModel(MainWindowView mainWindowView)
 		{
 			selectedTestCaseResult = new TestCaseResultModel();
 			displayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
@@ -26,33 +28,34 @@ namespace TestRunXMLParserTool.ViewModels
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 
 			steps = new List<StepDescription>() {
-				new StepDescription() 
-				{ 
-					Name = Properties.Resources.OpenFileStep, 
-					IsActivate = true, 
-					ActivateAction = new RelayCommand(Step1Activate), 
-					IsFirstStep = true, 
-					IsLastStep = false   
+				new StepDescription()
+				{
+					Name = Properties.Resources.OpenFileStep,
+					IsActivate = true,
+					ActivateAction = new RelayCommand(Step1Activate),
+					IsFirstStep = true,
+					IsLastStep = false
 				},
-				new StepDescription() 
-				{ 
-					Name = Properties.Resources.FilterAndSortStep, 
-					IsActivate = false, 
-					ActivateAction = new RelayCommand(Step2Activate), 
-					IsFirstStep = false, 
-					IsLastStep = false  
+				new StepDescription()
+				{
+					Name = Properties.Resources.FilterAndSortStep,
+					IsActivate = false,
+					ActivateAction = new RelayCommand(Step2Activate),
+					IsFirstStep = false,
+					IsLastStep = false
 				},
-				new StepDescription() 
-				{ 
-					Name = Properties.Resources.GenerateFileStep, 
-					IsActivate = false, 
-					ActivateAction = new RelayCommand(Step3Activate), 
-					IsFirstStep = false, 
-					IsLastStep = true  
+				new StepDescription()
+				{
+					Name = Properties.Resources.GenerateFileStep,
+					IsActivate = false,
+					ActivateAction = new RelayCommand(Step3Activate),
+					IsFirstStep = false,
+					IsLastStep = true
 				}
 			};
-			
+
 			ExecuteOpenFileDialog();
+			this.mainWindowView = mainWindowView;
 		}
 		#endregion
 
@@ -72,6 +75,8 @@ namespace TestRunXMLParserTool.ViewModels
 		private int skippedSelectedCount;
 		private int currentStep;
 		private List<StepDescription> steps;
+		private MainWindowView mainWindowView;
+		private SettingsWindowView settingsWindow;
 		#endregion
 
 		#region Properties
@@ -236,6 +241,8 @@ namespace TestRunXMLParserTool.ViewModels
 		private ICommand genXMLCommand;
 		private ICommand genJQueryScriptCommand;
 		private ICommand? openXMLCommand;
+		private ICommand? settingsButtonCommand;
+
 		public ICommand GenXMLCommand
 		{
 			get
@@ -260,6 +267,15 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				openXMLCommand ??= new RelayCommand(ExecuteOpenFileDialog);
 				return openXMLCommand;
+			}
+		}
+
+		public ICommand SettingsButtonCommand
+		{
+			get
+			{
+				settingsButtonCommand ??= new RelayCommand(OpenSettingsWindow);
+				return settingsButtonCommand;
 			}
 		}
 		#endregion
@@ -332,7 +348,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 			if (SkippedSelected != false)
 			{
-				filteredStatus.Add(new string("SKIP")); 
+				filteredStatus.Add(new string("SKIP"));
 			}
 			if (SkippedSelected == true)
 			{
@@ -358,13 +374,13 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				foreach (var item in filteredData)
 				{
-					foreach(var status in changingStatus)
+					foreach (var status in changingStatus)
 					{
 						if (item.Result == status)
 						{
 							item.IsSelected = true;
 						}
-					}				
+					}
 				}
 			}
 			UpdateSelectedCount();
@@ -376,6 +392,13 @@ namespace TestRunXMLParserTool.ViewModels
 			dialog.ShowDialog();
 
 			SelectedPath = dialog.FileName;
+		}
+
+		private void OpenSettingsWindow()
+		{
+			settingsWindow = new SettingsWindowView();
+			settingsWindow.Owner = mainWindowView;
+			settingsWindow.Show();
 		}
 
 		private void UpdateCounts()
@@ -430,7 +453,8 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				passedSelected = false;
 				OnPropertyChanged("PassedSelected");
-			} else if (PassedSelectedCount < PassedCount)
+			}
+			else if (PassedSelectedCount < PassedCount)
 			{
 				passedSelected = null;
 				OnPropertyChanged("PassedSelected");
@@ -439,14 +463,14 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				passedSelected = true;
 				OnPropertyChanged("PassedSelected");
-			} 
+			}
 			FailedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
 			if (FailedSelectedCount == 0)
 			{
 				failedSelected = false;
 				OnPropertyChanged("FailedSelected");
 			}
-			else if(FailedSelectedCount < FailedCount)
+			else if (FailedSelectedCount < FailedCount)
 			{
 				failedSelected = null;
 				OnPropertyChanged("FailedSelected");
@@ -455,7 +479,7 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				failedSelected = true;
 				OnPropertyChanged("FailedSelected");
-			}			 
+			}
 			SkippedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
 			if (SkippedSelectedCount == 0)
 			{

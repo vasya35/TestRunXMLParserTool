@@ -144,6 +144,9 @@
   <data name="PassSelectLabel" xml:space="preserve">
     <value>ПРОШЛИ</value>
   </data>
+  <data name="SettingsButtonTooltip" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
   <data name="SkipSelectLabel" xml:space="preserve">
     <value>ПРОПУЩЕНЫ</value>
   </data>

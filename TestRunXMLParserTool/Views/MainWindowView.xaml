@@ -7,21 +7,41 @@
 		xmlns:properties = "clr-namespace:TestRunXMLParserTool.Properties"
         mc:Ignorable="d"
         Title="{x:Static properties:Resources.MainWindowTitle}" Height="450" Width="800">
-    <Grid>
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Styles/Default.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+	<Grid>
 		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<localView:StepProgressBarControl Grid.Row="0" DataContext="{Binding}" VerticalAlignment="Top"/>
-		<localView:SortAndFilterUserControl Grid.Row="1" DataContext="{Binding}" VerticalAlignment="Stretch"/>
-		<ListBox Grid.Row="2" ItemsSource="{Binding DisplayedTestCaseResults}" SelectedItem="{Binding SelectedTestCaseResult}" HorizontalContentAlignment="Stretch" d:ItemsSource="{d:SampleData ItemCount=5}" >
+
+		<Button 
+			Name="SettingsButton"
+			Grid.Row="0" 			
+			Content="🔧" 			
+			Style="{DynamicResource ButtonStyle}"
+			ToolTip="{x:Static properties:Resources.SettingsButtonTooltip}"
+			Command="{Binding SettingsButtonCommand}"
+			Height="25" 
+			Width="25" 
+			HorizontalAlignment="Right" 
+			VerticalAlignment="Top"
+			Margin="5, 10, 10, 5" />
+		<localView:StepProgressBarControl Grid.Row="0" Grid.RowSpan="2" DataContext="{Binding}" VerticalAlignment="Top"/>
+		<localView:SortAndFilterUserControl Grid.Row="2" DataContext="{Binding}" VerticalAlignment="Stretch"/>
+		<ListBox Grid.Row="3" ItemsSource="{Binding DisplayedTestCaseResults}" SelectedItem="{Binding SelectedTestCaseResult}" HorizontalContentAlignment="Stretch" d:ItemsSource="{d:SampleData ItemCount=5}" >
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<localView:TestCaseResultUserControl DataContext="{Binding}"/>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		
 	</Grid>
 </Window>
