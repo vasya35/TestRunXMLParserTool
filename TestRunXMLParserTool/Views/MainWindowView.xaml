@@ -6,7 +6,10 @@
         xmlns:localView="clr-namespace:TestRunXMLParserTool.Views"
 		xmlns:properties = "clr-namespace:TestRunXMLParserTool.Properties"
         mc:Ignorable="d"
-        Title="{x:Static properties:Resources.MainWindowTitle}" Height="450" Width="800">
+        Title="{x:Static properties:Resources.MainWindowTitle}" 
+		Height="450" 
+		Width="800"
+		WindowStartupLocation="CenterScreen">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Windows;
+﻿using System.Windows;
 using TestRunXMLParserTool.ViewModels;
 
 namespace TestRunXMLParserTool.Views
@@ -14,6 +13,12 @@ namespace TestRunXMLParserTool.Views
 			InitializeComponent();
 
 			DataContext = new SettingsViewModel();
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			Visibility = Visibility.Hidden;
+			e.Cancel = true;
 		}
 	}
 }

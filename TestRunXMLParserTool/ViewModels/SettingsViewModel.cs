@@ -18,8 +18,8 @@ namespace TestRunXMLParserTool.ViewModels
 			get
 			{
 				return listenerName;
-			} 
-			set 
+			}
+			set
 			{
 				if (value != listenerName)
 				{
@@ -27,8 +27,8 @@ namespace TestRunXMLParserTool.ViewModels
 					AppConfiguration.SetListenerName(value);
 					listenerName = AppConfiguration.GetCurrentListenerName();
 					OnPropertyChanged("ListenerName");
-				}				
-			} 
+				}
+			}
 		}
 
 		public string LanguageSelected

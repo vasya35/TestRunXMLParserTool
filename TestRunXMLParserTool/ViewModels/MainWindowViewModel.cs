@@ -76,7 +76,7 @@ namespace TestRunXMLParserTool.ViewModels
 		private int currentStep;
 		private List<StepDescription> steps;
 		private MainWindowView mainWindowView;
-		private SettingsWindowView settingsWindow;
+		private static SettingsWindowView settingsWindow = new SettingsWindowView();
 		#endregion
 
 		#region Properties
@@ -396,7 +396,6 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void OpenSettingsWindow()
 		{
-			settingsWindow = new SettingsWindowView();
 			settingsWindow.Owner = mainWindowView;
 			settingsWindow.Show();
 		}
