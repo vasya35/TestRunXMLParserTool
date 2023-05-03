@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using ReactiveUI;
 
 namespace TestRunXMLParserTool.Models
 {
-	public class TestCaseResultModel : INotifyPropertyChanged
+	public class TestCaseResultModel : ReactiveObject
 	{
 		#region Fields
 
@@ -37,11 +36,10 @@ namespace TestRunXMLParserTool.Models
 			get => name;
 			set
 			{
-				if (value == null || value == name) return;
-				name = value;
+				if (value == null) return;
 				setTestCaseNumber(value);
 				setTestRailNumber(value);
-				OnPropertyChanged("Name");
+				this.RaiseAndSetIfChanged(ref name, value);
 			}
 		}
 
@@ -53,9 +51,8 @@ namespace TestRunXMLParserTool.Models
 			get { return result; }
 			set
 			{
-				if (value == null || value == result) return;
-				result = value;
-				OnPropertyChanged("Result");
+				if (value == null) return;
+				this.RaiseAndSetIfChanged(ref result, value);
 			}
 		}
 
@@ -67,9 +64,7 @@ namespace TestRunXMLParserTool.Models
 			get { return xmlPath; }
 			set
 			{
-				if (value == xmlPath) return;
-				xmlPath = value;
-				OnPropertyChanged("XMLPath");
+				this.RaiseAndSetIfChanged(ref xmlPath, value);
 			}
 		}
 
@@ -81,9 +76,7 @@ namespace TestRunXMLParserTool.Models
 			get { return methodName; }
 			set
 			{
-				if (value == methodName) return;
-				methodName = value;
-				OnPropertyChanged("MethodName");
+				this.RaiseAndSetIfChanged(ref methodName, value);
 			}
 		}
 
@@ -95,9 +88,7 @@ namespace TestRunXMLParserTool.Models
 			get { return isSelected; }
 			set
 			{
-				if (value == isSelected) return;
-				isSelected = value;
-				OnPropertyChanged("IsSelected");
+				this.RaiseAndSetIfChanged(ref isSelected, value);
 				SelectChangedNotify();
 			}
 		}
@@ -110,14 +101,6 @@ namespace TestRunXMLParserTool.Models
 			get => testRailNumber;
 		}
 
-		#endregion
-
-		#region implement INotifyPropertyChanged
-		public event PropertyChangedEventHandler? PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName] string prop = "")
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-		}
 		#endregion
 
 		#region Private methods

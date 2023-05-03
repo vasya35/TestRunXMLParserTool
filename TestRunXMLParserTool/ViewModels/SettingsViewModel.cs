@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using ReactiveUI;
+using System.Collections.Generic;
 using TestRunXMLParserTool.Models;
 
 namespace TestRunXMLParserTool.ViewModels
 {
-	internal class SettingsViewModel : INotifyPropertyChanged
+	internal class SettingsViewModel : ReactiveObject
 	{
 		#region Fields
 		private string listenerName;
@@ -16,17 +15,12 @@ namespace TestRunXMLParserTool.ViewModels
 		public List<string> Languages { get; }
 		public string ListenerName
 		{
-			get
-			{
-				return listenerName;
-			}
+			get => listenerName;
 			set
 			{
-				if (value == listenerName) return;
-				listenerName = value;
 				AppConfiguration.SetListenerName(value);
-				listenerName = AppConfiguration.GetCurrentListenerName();
-				OnPropertyChanged("ListenerName");
+				var newListenerName = AppConfiguration.GetCurrentListenerName();
+				this.RaiseAndSetIfChanged(ref listenerName, newListenerName);
 			}
 		}
 
@@ -35,11 +29,9 @@ namespace TestRunXMLParserTool.ViewModels
 			get => languageSelected;
 			set
 			{
-				if (value != languageSelected) return;
-				languageSelected = value;
-				AppConfiguration.SetCulture(languageSelected);
-				languageSelected = AppConfiguration.GetCurrentLanguage();
-				OnPropertyChanged("LanguageSelected");
+				AppConfiguration.SetCulture(value);
+				var newLanguageSelected = AppConfiguration.GetCurrentLanguage();
+				this.RaiseAndSetIfChanged(ref languageSelected, newLanguageSelected);
 			}
 		}
 		#endregion
@@ -51,14 +43,6 @@ namespace TestRunXMLParserTool.ViewModels
 			Languages = AppConfiguration.GetLanguagesList();
 			listenerName = AppConfiguration.GetCurrentListenerName();
 			LanguageSelected = AppConfiguration.GetCurrentLanguage();
-		}
-		#endregion
-
-		#region Implementation INotifyPropertyChanged
-		public event PropertyChangedEventHandler? PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName] string prop = "")
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 		}
 		#endregion
 
