@@ -14,20 +14,19 @@ namespace TestRunXMLParserTool.ViewModels
 
 		#region Properties
 		public List<string> Languages { get; }
-		public string ListenerName {
+		public string ListenerName
+		{
 			get
 			{
 				return listenerName;
 			}
 			set
 			{
-				if (value != listenerName)
-				{
-					listenerName = value;
-					AppConfiguration.SetListenerName(value);
-					listenerName = AppConfiguration.GetCurrentListenerName();
-					OnPropertyChanged("ListenerName");
-				}
+				if (value == listenerName) return;
+				listenerName = value;
+				AppConfiguration.SetListenerName(value);
+				listenerName = AppConfiguration.GetCurrentListenerName();
+				OnPropertyChanged("ListenerName");
 			}
 		}
 
@@ -36,13 +35,11 @@ namespace TestRunXMLParserTool.ViewModels
 			get => languageSelected;
 			set
 			{
-				if (value != languageSelected)
-				{
-					languageSelected = value;
-					AppConfiguration.SetCulture(languageSelected);
-					languageSelected = AppConfiguration.GetCurrentLanguage();
-					OnPropertyChanged("LanguageSelected");
-				}
+				if (value != languageSelected) return;
+				languageSelected = value;
+				AppConfiguration.SetCulture(languageSelected);
+				languageSelected = AppConfiguration.GetCurrentLanguage();
+				OnPropertyChanged("LanguageSelected");
 			}
 		}
 		#endregion

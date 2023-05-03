@@ -26,7 +26,7 @@ namespace TestRunXMLParserTool.Converters
 				"LightGreen" => "PASS",
 				"IndianRed" => "FAIL",
 				_ => "SKIP",
-			};			
+			};
 		}
 	}
 }

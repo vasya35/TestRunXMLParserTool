@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Windows.Input;
 using TestRunXMLParserTool.Commands;
 using TestRunXMLParserTool.Models;
@@ -86,6 +85,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return displayedTestCaseResults; }
 			set
 			{
+				if (value == displayedTestCaseResults) return;
 				displayedTestCaseResults = value;
 				OnPropertyChanged("DisplayedTestCaseResults");
 			}
@@ -96,6 +96,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return selectedTestCaseResult; }
 			set
 			{
+				if (value == selectedTestCaseResult) return;
 				selectedTestCaseResult = value;
 				OnPropertyChanged("SelectedTestCaseResult");
 			}
@@ -106,6 +107,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return passedSelected; }
 			set
 			{
+				if (value == passedSelected) return;
 				passedSelected = value;
 				updateFilteredAndSortData(true);
 				OnPropertyChanged("PassedSelected");
@@ -117,6 +119,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return failedSelected; }
 			set
 			{
+				if (value == failedSelected) return;
 				failedSelected = value;
 				updateFilteredAndSortData(true);
 				OnPropertyChanged("FailedSelected");
@@ -128,6 +131,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return skippedSelected; }
 			set
 			{
+				if (value == skippedSelected) return;
 				skippedSelected = value;
 				updateFilteredAndSortData(true);
 				OnPropertyChanged("SkippedSelected");
@@ -139,6 +143,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return sortSelected; }
 			set
 			{
+				if (value == sortSelected) return;
 				sortSelected = value;
 				updateFilteredAndSortData(false);
 				OnPropertyChanged("SortSelected");
@@ -150,6 +155,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return selectedPath; }
 			set
 			{
+				if (value == selectedPath) return;
 				selectedPath = value;
 				ReInitialisation();
 				OnPropertyChanged("SelectedPath");
@@ -161,6 +167,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return passedCount; }
 			set
 			{
+				if (value == passedCount) return;
 				passedCount = value;
 				OnPropertyChanged("PassedCount");
 			}
@@ -171,6 +178,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return failedCount; }
 			set
 			{
+				if (value == failedCount) return;
 				failedCount = value;
 				OnPropertyChanged("FailedCount");
 			}
@@ -181,6 +189,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return skippedCount; }
 			set
 			{
+				if (value == skippedCount) return;
 				skippedCount = value;
 				OnPropertyChanged("SkippedCount");
 			}
@@ -191,6 +200,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return passedSelectedCount; }
 			set
 			{
+				if (value == passedSelectedCount) return;
 				passedSelectedCount = value;
 				OnPropertyChanged("PassedSelectedCount");
 			}
@@ -201,6 +211,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return failedSelectedCount; }
 			set
 			{
+				if (value == failedSelectedCount) return;
 				failedSelectedCount = value;
 				OnPropertyChanged("FailedSelectedCount");
 			}
@@ -211,6 +222,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return skippedSelectedCount; }
 			set
 			{
+				if (value == skippedSelectedCount) return;
 				skippedSelectedCount = value;
 				OnPropertyChanged("SkippedSelectedCount");
 			}
@@ -221,6 +233,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return steps; }
 			set
 			{
+				if (value == steps) return;
 				steps = value;
 				OnPropertyChanged("Steps");
 			}
@@ -231,6 +244,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get { return currentStep; }
 			set
 			{
+				if (value == currentStep) return;
 				currentStep = value;
 				OnPropertyChanged("CurrentStep");
 			}

@@ -20,6 +20,7 @@ namespace TestRunXMLParserTool.Models
 			get { return name; }
 			set
 			{
+				if (value == name) return;
 				name = value;
 				OnPropertyChanged("Name");
 			}
@@ -30,6 +31,7 @@ namespace TestRunXMLParserTool.Models
 			get { return isActivate; }
 			set
 			{
+				if (value == isActivate) return;
 				isActivate = value;
 				OnPropertyChanged("IsActivate");
 			}
@@ -40,6 +42,7 @@ namespace TestRunXMLParserTool.Models
 			get { return isFirstStep; }
 			set
 			{
+				if (value == isFirstStep) return;
 				isFirstStep = value;
 				OnPropertyChanged("IsFirstStep");
 			}
@@ -50,6 +53,7 @@ namespace TestRunXMLParserTool.Models
 			get { return isLastStep; }
 			set
 			{
+				if (value == isLastStep) return;
 				isLastStep = value;
 				OnPropertyChanged("IsLastStep");
 			}
@@ -60,6 +64,7 @@ namespace TestRunXMLParserTool.Models
 			get { return isNextAcvtive; }
 			set
 			{
+				if (value == isNextAcvtive) return;
 				isNextAcvtive = value;
 				OnPropertyChanged("IsNextAcvtive");
 			}

@@ -49,7 +49,7 @@ namespace XMLResultGenerator
 					number = id,
 					status = values[randomStatus.Next(values.Count)]
 				};
-							
+
 				testCases.Add(newTestCaseResult);
 
 			};

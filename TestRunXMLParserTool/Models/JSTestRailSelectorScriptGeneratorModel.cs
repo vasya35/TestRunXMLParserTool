@@ -26,7 +26,8 @@ namespace TestRunXMLParserTool.Models
 			{
 				filename = saveFileDialog.FileName;
 			}
-			using (TextWriter writer = TextWriter.Synchronized(new StreamWriter(filename))){
+			using (TextWriter writer = TextWriter.Synchronized(new StreamWriter(filename)))
+			{
 				string testCasesList = "";
 				int cnt = 0;
 				foreach (var testCase in selectedTestCases)
@@ -49,7 +50,7 @@ namespace TestRunXMLParserTool.Models
 				writer.WriteLine("var xpath = \"//tr[contains(@class, 'oddSelected') or contains(@class, 'evenSelected')]\"");
 				writer.WriteLine("const result = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);");
 				writer.WriteLine($"console.log('TestCases are selected: ' + result.snapshotLength + ' from {cnt} expected');");
-			}			
+			}
 
 			CopyToClipboard(filename);
 		}

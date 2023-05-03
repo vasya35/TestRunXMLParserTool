@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Xml;
 
 namespace TestRunXMLParserTool.Models

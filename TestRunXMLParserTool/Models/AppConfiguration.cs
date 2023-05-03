@@ -70,7 +70,7 @@ namespace TestRunXMLParserTool.Models
 			config.Save(ConfigurationSaveMode.Modified);
 			ConfigurationManager.RefreshSection("appSettings");
 
-			if(CultereChangedEvent != null) CultereChangedEvent();
+			if (CultereChangedEvent != null) CultereChangedEvent();
 		}
 
 		public static string GetCurrentListenerName()
