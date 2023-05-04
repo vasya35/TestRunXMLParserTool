@@ -4,10 +4,8 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TestRunXMLParserTool.Commands;
 using TestRunXMLParserTool.Models;
@@ -15,7 +13,7 @@ using TestRunXMLParserTool.Views;
 
 namespace TestRunXMLParserTool.ViewModels
 {
-	public class MainWindowViewModel : INotifyPropertyChanged
+	public class MainWindowViewModel : ReactiveObject
 	{
 		#region .ctor
 		public MainWindowViewModel(MainWindowView mainWindowView)
@@ -58,6 +56,12 @@ namespace TestRunXMLParserTool.ViewModels
 
 			ExecuteOpenFileDialog();
 			this.mainWindowView = mainWindowView;
+
+			this.WhenAnyValue(x => x.SortSelected).Subscribe(_ => updateFilteredAndSortData(true));
+			this.WhenAnyValue(x => x.SelectedPath).Subscribe(_ => ReInitialisation());
+			this.WhenAnyValue(x => x.PassedSelected).Subscribe(_ => updateFilteredAndSortData(true));
+			this.WhenAnyValue(x => x.FailedSelected).Subscribe(_ => updateFilteredAndSortData(true));
+			this.WhenAnyValue(x => x.SkippedSelected).Subscribe(_ => updateFilteredAndSortData(true));
 		}
 		#endregion
 
@@ -77,8 +81,8 @@ namespace TestRunXMLParserTool.ViewModels
 		private int skippedSelectedCount;
 		private int currentStep;
 		private List<StepDescription> steps;
-		private MainWindowView mainWindowView;
-		private SettingsViewModel settingsViewModel = new();
+		private readonly MainWindowView mainWindowView;
+		private readonly SettingsViewModel settingsViewModel = new();
 		#endregion
 
 		#region Properties
@@ -88,9 +92,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => displayedTestCaseResults;
 			set
 			{
-				if (value == displayedTestCaseResults) return;
-				displayedTestCaseResults = value;
-				OnPropertyChanged("DisplayedTestCaseResults");
+				this.RaiseAndSetIfChanged(ref displayedTestCaseResults, value);
 			}
 		}
 
@@ -99,9 +101,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => selectedTestCaseResult;
 			set
 			{
-				if (value == selectedTestCaseResult) return;
-				selectedTestCaseResult = value;
-				OnPropertyChanged("SelectedTestCaseResult");
+				this.RaiseAndSetIfChanged(ref selectedTestCaseResult, value);
 			}
 		}
 
@@ -110,10 +110,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => passedSelected;
 			set
 			{
-				if (value == passedSelected) return;
-				passedSelected = value;
-				updateFilteredAndSortData(true);
-				OnPropertyChanged("PassedSelected");
+				this.RaiseAndSetIfChanged(ref passedSelected, value);
 			}
 		}
 
@@ -122,10 +119,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => failedSelected;
 			set
 			{
-				if (value == failedSelected) return;
-				failedSelected = value;
-				updateFilteredAndSortData(true);
-				OnPropertyChanged("FailedSelected");
+				this.RaiseAndSetIfChanged(ref failedSelected, value);
 			}
 		}
 
@@ -134,10 +128,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => skippedSelected;
 			set
 			{
-				if (value == skippedSelected) return;
-				skippedSelected = value;
-				updateFilteredAndSortData(true);
-				OnPropertyChanged("SkippedSelected");
+				this.RaiseAndSetIfChanged(ref skippedSelected, value);
 			}
 		}
 
@@ -146,10 +137,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => sortSelected;
 			set
 			{
-				if (value == sortSelected) return;
-				sortSelected = value;
-				updateFilteredAndSortData(false);
-				OnPropertyChanged("SortSelected");
+				this.RaiseAndSetIfChanged(ref sortSelected, value);
 			}
 		}
 
@@ -158,10 +146,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => selectedPath;
 			set
 			{
-				if (value == selectedPath) return;
-				selectedPath = value;
-				ReInitialisation();
-				OnPropertyChanged("SelectedPath");
+				this.RaiseAndSetIfChanged(ref selectedPath, value);
 			}
 		}
 
@@ -170,9 +155,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => passedCount;
 			set
 			{
-				if (value == passedCount) return;
-				passedCount = value;
-				OnPropertyChanged("PassedCount");
+				this.RaiseAndSetIfChanged(ref passedCount, value);
 			}
 		}
 
@@ -181,9 +164,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => failedCount;
 			set
 			{
-				if (value == failedCount) return;
-				failedCount = value;
-				OnPropertyChanged("FailedCount");
+				this.RaiseAndSetIfChanged(ref failedCount, value);
 			}
 		}
 
@@ -192,9 +173,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => skippedCount;
 			set
 			{
-				if (value == skippedCount) return;
-				skippedCount = value;
-				OnPropertyChanged("SkippedCount");
+				this.RaiseAndSetIfChanged(ref skippedCount, value);
 			}
 		}
 
@@ -203,9 +182,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => passedSelectedCount;
 			set
 			{
-				if (value == passedSelectedCount) return;
-				passedSelectedCount = value;
-				OnPropertyChanged("PassedSelectedCount");
+				this.RaiseAndSetIfChanged(ref passedSelectedCount, value);
 			}
 		}
 
@@ -214,9 +191,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => failedSelectedCount;
 			set
 			{
-				if (value == failedSelectedCount) return;
-				failedSelectedCount = value;
-				OnPropertyChanged("FailedSelectedCount");
+				this.RaiseAndSetIfChanged(ref failedSelectedCount, value);
 			}
 		}
 
@@ -225,9 +200,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => skippedSelectedCount;
 			set
 			{
-				if (value == skippedSelectedCount) return;
-				skippedSelectedCount = value;
-				OnPropertyChanged("SkippedSelectedCount");
+				this.RaiseAndSetIfChanged(ref skippedSelectedCount, value);
 			}
 		}
 
@@ -236,9 +209,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => steps;
 			set
 			{
-				if (value == steps) return;
-				steps = value;
-				OnPropertyChanged("Steps");
+				this.RaiseAndSetIfChanged(ref steps, value);
 			}
 		}
 
@@ -247,9 +218,7 @@ namespace TestRunXMLParserTool.ViewModels
 			get => currentStep;
 			set
 			{
-				if (value == currentStep) return;
-				currentStep = value;
-				OnPropertyChanged("CurrentStep");
+				this.RaiseAndSetIfChanged(ref currentStep, value);
 			}
 		}
 		#endregion
@@ -294,14 +263,6 @@ namespace TestRunXMLParserTool.ViewModels
 				settingsButtonCommand ??= new RelayCommand(OpenSettingsWindow);
 				return settingsButtonCommand;
 			}
-		}
-		#endregion
-
-		#region Implementation INotifyPropertyChanged
-		public event PropertyChangedEventHandler? PropertyChanged;
-		public void OnPropertyChanged([CallerMemberName] string prop = "")
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 		}
 		#endregion
 
@@ -413,8 +374,10 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void OpenSettingsWindow()
 		{
-			var settingsWindow = new SettingsWindowView(settingsViewModel);
-			settingsWindow.Owner = mainWindowView;
+			var settingsWindow = new SettingsWindowView(settingsViewModel)
+			{
+				Owner = mainWindowView
+			};
 			settingsWindow.Show();
 		}
 
@@ -469,49 +432,49 @@ namespace TestRunXMLParserTool.ViewModels
 			if (PassedSelectedCount == 0)
 			{
 				passedSelected = false;
-				OnPropertyChanged("PassedSelected");
+				this.RaisePropertyChanged(nameof(PassedSelected));
 			}
 			else if (PassedSelectedCount < PassedCount)
 			{
 				passedSelected = null;
-				OnPropertyChanged("PassedSelected");
+				this.RaisePropertyChanged(nameof(PassedSelected));
 			}
 			else if (PassedSelectedCount == PassedCount)
 			{
 				passedSelected = true;
-				OnPropertyChanged("PassedSelected");
+				this.RaisePropertyChanged(nameof(PassedSelected));
 			}
 			FailedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
 			if (FailedSelectedCount == 0)
 			{
 				failedSelected = false;
-				OnPropertyChanged("FailedSelected");
+				this.RaisePropertyChanged(nameof(FailedSelected));
 			}
 			else if (FailedSelectedCount < FailedCount)
 			{
 				failedSelected = null;
-				OnPropertyChanged("FailedSelected");
+				this.RaisePropertyChanged(nameof(FailedSelected));
 			}
 			else if (FailedSelectedCount == FailedCount)
 			{
 				failedSelected = true;
-				OnPropertyChanged("FailedSelected");
+				this.RaisePropertyChanged(nameof(FailedSelected));
 			}
 			SkippedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
 			if (SkippedSelectedCount == 0)
 			{
 				skippedSelected = false;
-				OnPropertyChanged("SkippedSelected");
+				this.RaisePropertyChanged(nameof(SkippedSelected));
 			}
 			else if (SkippedSelectedCount < SkippedCount)
 			{
 				skippedSelected = null;
-				OnPropertyChanged("SkippedSelected");
+				this.RaisePropertyChanged(nameof(SkippedSelected));
 			}
 			else if (SkippedSelectedCount == SkippedCount)
 			{
 				skippedSelected = true;
-				OnPropertyChanged("SkippedSelected");
+				this.RaisePropertyChanged(nameof(SkippedSelected));
 			}
 		}
 		#endregion
