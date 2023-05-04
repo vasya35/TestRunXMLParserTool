@@ -7,7 +7,7 @@ namespace TestRunXMLParserTool.Models
 	{
 		#region fields
 		private static readonly Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-		private static readonly List<string> languages = new List<string> { "English", "Russian", "Kazakh", "Turkish" };
+		private static readonly List<string> languages = new() { "English", "Russian", "Kazakh", "Turkish" };
 		#endregion
 
 		#region Public methods
@@ -24,25 +24,14 @@ namespace TestRunXMLParserTool.Models
 		public static string GetCurrentLanguage()
 		{
 			string culture = GetCurrentCulture();
-			string language;
-			switch (culture)
+			string language = culture switch
 			{
-				case "en-US":
-					language = "English";
-					break;
-				case "ru-RU":
-					language = "Russian";
-					break;
-				case "kk-KZ":
-					language = "Kazakh";
-					break;
-				case "tr-TR":
-					language = "Turkish";
-					break;
-				default:
-					language = "";
-					break;
-			}
+				"en-US" => "English",
+				"ru-RU" => "Russian",
+				"kk-KZ" => "Kazakh",
+				"tr-TR" => "Turkish",
+				_ => "",
+			};
 			return language;
 		}
 
@@ -70,7 +59,7 @@ namespace TestRunXMLParserTool.Models
 			config.Save(ConfigurationSaveMode.Modified);
 			ConfigurationManager.RefreshSection("appSettings");
 
-			if (CultereChangedEvent != null) CultereChangedEvent();
+			CultereChangedEvent?.Invoke();
 		}
 
 		public static string GetCurrentListenerName()
@@ -88,7 +77,7 @@ namespace TestRunXMLParserTool.Models
 
 		#region event
 		public delegate void Notify();
-		public static event Notify CultereChangedEvent;
+		public static event Notify? CultereChangedEvent;
 		#endregion
 	}
 }
