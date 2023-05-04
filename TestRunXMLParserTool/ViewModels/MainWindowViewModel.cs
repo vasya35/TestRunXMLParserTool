@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using DynamicData.Binding;
+﻿using DynamicData.Binding;
 using Microsoft.Win32;
 using ReactiveUI;
 using System;
@@ -33,7 +32,7 @@ namespace TestRunXMLParserTool.ViewModels
 				{
 					Name = Properties.Resources.OpenFileStep,
 					IsActivate = true,
-					ActivateAction = new RelayCommand(Step1Activate),
+					ActivateAction = ReactiveCommand.Create(Step1Activate),
 					IsFirstStep = true,
 					IsLastStep = false
 				},
@@ -41,7 +40,7 @@ namespace TestRunXMLParserTool.ViewModels
 				{
 					Name = Properties.Resources.FilterAndSortStep,
 					IsActivate = false,
-					ActivateAction = new RelayCommand(Step2Activate),
+					ActivateAction = ReactiveCommand.Create(Step2Activate),
 					IsFirstStep = false,
 					IsLastStep = false
 				},
@@ -49,7 +48,7 @@ namespace TestRunXMLParserTool.ViewModels
 				{
 					Name = Properties.Resources.GenerateFileStep,
 					IsActivate = false,
-					ActivateAction = new RelayCommand(Step3Activate),
+					ActivateAction = ReactiveCommand.Create(Step3Activate),
 					IsFirstStep = false,
 					IsLastStep = true
 				}
@@ -220,11 +219,11 @@ namespace TestRunXMLParserTool.ViewModels
 		}
 		#endregion
 
-		#region implementation ICommand
+		#region implementation IReactiveCommand
 		private ICommand genXMLCommand;
 		private ICommand genJQueryScriptCommand;
-		private ICommand? openXMLCommand;
-		private ICommand? settingsButtonCommand;
+		private IReactiveCommand? openXMLCommand;
+		private IReactiveCommand? settingsButtonCommand;
 
 		public ICommand GenXMLCommand
 		{
@@ -244,20 +243,20 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 		}
 
-		public ICommand OpenXMLCommand
+		public IReactiveCommand OpenXMLCommand
 		{
 			get
 			{
-				openXMLCommand ??= new RelayCommand(ExecuteOpenFileDialog);
+				openXMLCommand ??= ReactiveCommand.Create(ExecuteOpenFileDialog);
 				return openXMLCommand;
 			}
 		}
 
-		public ICommand SettingsButtonCommand
+		public IReactiveCommand SettingsButtonCommand
 		{
 			get
 			{
-				settingsButtonCommand ??= new RelayCommand(OpenSettingsWindow);
+				settingsButtonCommand ??= ReactiveCommand.Create(OpenSettingsWindow);
 				return settingsButtonCommand;
 			}
 		}

@@ -1,5 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using ReactiveUI;
+﻿using ReactiveUI;
+using System.Reactive;
 
 namespace TestRunXMLParserTool.Models
 {
@@ -59,7 +59,7 @@ namespace TestRunXMLParserTool.Models
 			}
 		}
 
-		public RelayCommand? ActivateAction { get; set; }
+		public ReactiveCommand<Unit, Unit>? ActivateAction { get; internal set; }
 
 		#endregion
 	}
