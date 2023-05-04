@@ -1,4 +1,6 @@
 ﻿using ReactiveUI;
+using System;
+using System.Reactive.Linq;
 
 namespace TestRunXMLParserTool.Models
 {
@@ -25,6 +27,8 @@ namespace TestRunXMLParserTool.Models
 			methodName = "";
 			testRailNumber = "";
 			isSelected = true;
+
+			this.WhenAnyValue(x => x.Name).Subscribe(x => NameUpdated(Name));
 		}
 		#endregion
 
@@ -38,8 +42,6 @@ namespace TestRunXMLParserTool.Models
 			set
 			{
 				if (value == null) return;
-				setTestCaseNumber(value);
-				setTestRailNumber(value);
 				this.RaiseAndSetIfChanged(ref name, value);
 			}
 		}
@@ -104,6 +106,12 @@ namespace TestRunXMLParserTool.Models
 		#endregion
 
 		#region Private methods
+		private void NameUpdated(string newName)
+		{
+			setTestCaseNumber(newName);
+			setTestRailNumber(newName);
+		}
+
 		private void setTestCaseNumber(string name)
 		{
 			_ = int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T' }), out int res);
