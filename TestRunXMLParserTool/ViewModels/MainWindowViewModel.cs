@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TestRunXMLParserTool.Commands;
@@ -320,7 +322,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 			foreach (var testCase in OriginalTestCaseResults)
 			{
-				testCase.SelectChangedNotify += UpdateSelectedCount;
+				testCase.WhenAnyValue(x => x.IsSelected).Subscribe(_ => UpdateSelectedCount());
 			}
 
 			Step2Activate();

@@ -48,7 +48,7 @@ namespace TestRunXMLParserTool.Models
 		/// </summary>
 		public string Result
 		{
-			get => result; 
+			get => result;
 			set
 			{
 				if (value == null) return;
@@ -61,7 +61,7 @@ namespace TestRunXMLParserTool.Models
 		/// </summary>
 		public string XMLPath
 		{
-			get => xmlPath; 
+			get => xmlPath;
 			set
 			{
 				this.RaiseAndSetIfChanged(ref xmlPath, value);
@@ -73,7 +73,7 @@ namespace TestRunXMLParserTool.Models
 		/// </summary>
 		public string MethodName
 		{
-			get => methodName; 
+			get => methodName;
 			set
 			{
 				this.RaiseAndSetIfChanged(ref methodName, value);
@@ -85,11 +85,10 @@ namespace TestRunXMLParserTool.Models
 		/// </summary>
 		public bool IsSelected
 		{
-			get => isSelected; 
+			get => isSelected;
 			set
 			{
 				this.RaiseAndSetIfChanged(ref isSelected, value);
-				SelectChangedNotify();
 			}
 		}
 
@@ -120,9 +119,5 @@ namespace TestRunXMLParserTool.Models
 		}
 		#endregion
 
-		#region event
-		public delegate void Notify();
-		public event Notify SelectChangedNotify;
-		#endregion
 	}
 }
