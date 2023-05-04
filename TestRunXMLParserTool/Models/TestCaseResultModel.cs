@@ -24,6 +24,7 @@ namespace TestRunXMLParserTool.Models
 			xmlPath = "";
 			methodName = "";
 			testRailNumber = "";
+			isSelected = true;
 		}
 		#endregion
 

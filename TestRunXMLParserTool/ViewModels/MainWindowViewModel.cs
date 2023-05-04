@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using DynamicData.Binding;
 using Microsoft.Win32;
 using ReactiveUI;
 using System;
@@ -57,11 +58,7 @@ namespace TestRunXMLParserTool.ViewModels
 			ExecuteOpenFileDialog();
 			this.mainWindowView = mainWindowView;
 
-			this.WhenAnyValue(x => x.SortSelected).Subscribe(_ => updateFilteredAndSortData(true));
 			this.WhenAnyValue(x => x.SelectedPath).Subscribe(_ => ReInitialisation());
-			this.WhenAnyValue(x => x.PassedSelected).Subscribe(_ => updateFilteredAndSortData(true));
-			this.WhenAnyValue(x => x.FailedSelected).Subscribe(_ => updateFilteredAndSortData(true));
-			this.WhenAnyValue(x => x.SkippedSelected).Subscribe(_ => updateFilteredAndSortData(true));
 		}
 		#endregion
 
@@ -281,11 +278,6 @@ namespace TestRunXMLParserTool.ViewModels
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 			OriginalTestCaseResults = XMLParserModel.Parse(SelectedPath);
 
-			foreach (var testCase in OriginalTestCaseResults)
-			{
-				testCase.WhenAnyValue(x => x.IsSelected).Subscribe(_ => UpdateSelectedCount());
-			}
-
 			Step2Activate();
 			DisplayedTestCaseResults = OriginalTestCaseResults;
 
@@ -294,6 +286,16 @@ namespace TestRunXMLParserTool.ViewModels
 			PassedSelected = true;
 			FailedSelected = true;
 			SkippedSelected = true;
+
+			this.WhenAnyValue(x => x.PassedSelected,
+				x => x.FailedSelected,
+				x => x.SkippedSelected,
+				x => x.SortSelected).Subscribe(_ => updateFilteredAndSortData());
+
+			foreach (var testCase in OriginalTestCaseResults)
+			{
+				testCase.WhenAnyPropertyChanged().Subscribe(_ => UpdateSelectedCount());
+			}
 		}
 
 		private static ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
@@ -301,7 +303,7 @@ namespace TestRunXMLParserTool.ViewModels
 			return new ObservableCollection<TestCaseResultModel>(filteredData.OrderBy(x => x.getTestCaseNumber()));
 		}
 
-		private void updateFilteredAndSortData(bool isSelectedEnabled)
+		private void updateFilteredAndSortData()
 		{
 			List<string> filteredStatus = new();
 			List<string> changingStatus = new();
@@ -348,19 +350,17 @@ namespace TestRunXMLParserTool.ViewModels
 				DisplayedTestCaseResults = filteredData;
 			}
 
-			if (isSelectedEnabled)
+			foreach (var item in filteredData)
 			{
-				foreach (var item in filteredData)
+				foreach (var status in changingStatus)
 				{
-					foreach (var status in changingStatus)
+					if (item.Result == status)
 					{
-						if (item.Result == status)
-						{
-							item.IsSelected = true;
-						}
+						if (!item.IsSelected) item.IsSelected = true;
 					}
 				}
 			}
+
 			UpdateSelectedCount();
 		}
 
