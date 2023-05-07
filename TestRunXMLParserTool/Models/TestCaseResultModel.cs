@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive.Linq;
 
@@ -7,27 +8,12 @@ namespace TestRunXMLParserTool.Models
 	public class TestCaseResultModel : ReactiveObject
 	{
 		#region Fields
-
-		private string name;
 		private int testCaseNumber;
-		private string testRailNumber;
-		private string result;
-		private string xmlPath;
-		private string methodName;
-		private bool isSelected;
-
 		#endregion
 
 		#region .ctor
 		public TestCaseResultModel()
 		{
-			name = "";
-			result = "";
-			xmlPath = "";
-			methodName = "";
-			testRailNumber = "";
-			isSelected = true;
-
 			this.WhenAnyValue(x => x.Name).Subscribe(x => NameUpdated(Name));
 		}
 		#endregion
@@ -36,73 +22,33 @@ namespace TestRunXMLParserTool.Models
 		/// <summary>
 		/// Name
 		/// </summary>
-		public string Name
-		{
-			get => name;
-			set
-			{
-				if (value == null) return;
-				this.RaiseAndSetIfChanged(ref name, value);
-			}
-		}
+		[Reactive] public string Name { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Result: PASS, FAIL, SKIP
 		/// </summary>
-		public string Result
-		{
-			get => result;
-			set
-			{
-				if (value == null) return;
-				this.RaiseAndSetIfChanged(ref result, value);
-			}
-		}
+		[Reactive] public string Result { get; set; } = string.Empty;
 
 		/// <summary>
 		/// XML path in project
 		/// </summary>
-		public string XMLPath
-		{
-			get => xmlPath;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref xmlPath, value);
-			}
-		}
+		[Reactive] public string XMLPath { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Method name
 		/// </summary>
-		public string MethodName
-		{
-			get => methodName;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref methodName, value);
-			}
-		}
+		[Reactive] public string MethodName { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Selected for operation (generate new xml or generate jquery script)
 		/// </summary>
-		public bool IsSelected
-		{
-			get => isSelected;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref isSelected, value);
-			}
-		}
+		[Reactive] public bool IsSelected { get; set; } = true;
 
 		/// <summary>
 		/// GetTestRailNumber
 		/// </summary>
-		public string TestRailNumber
-		{
-			get => testRailNumber;
-		}
-
+		[Reactive] public string TestRailNumber { get; private set; } = string.Empty;
+		
 		#endregion
 
 		#region Private methods
@@ -118,7 +64,7 @@ namespace TestRunXMLParserTool.Models
 			testCaseNumber = res;
 		}
 
-		private void setTestRailNumber(string value) => testRailNumber = (value.Split(" ")[0]);
+		private void setTestRailNumber(string value) => TestRailNumber = (value.Split(" ")[0]);
 		#endregion
 
 		#region Public methods

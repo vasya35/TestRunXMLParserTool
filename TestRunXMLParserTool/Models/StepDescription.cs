@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Reactive;
 
 namespace TestRunXMLParserTool.Models
@@ -14,50 +15,15 @@ namespace TestRunXMLParserTool.Models
 		#endregion
 
 		#region Properties
-		public string Name
-		{
-			get => name;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref name, value);
-			}
-		}
+		[Reactive] public string Name { get; set; } = string.Empty;
 
-		public bool IsActivate
-		{
-			get => isActivate;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref isActivate, value);
-			}
-		}
+		[Reactive] public bool IsActivate { get; set; }
 
-		public bool IsFirstStep
-		{
-			get => isFirstStep;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref isFirstStep, value);
-			}
-		}
+		[Reactive] public bool IsFirstStep { get; set; }
+		
+		[Reactive] public bool IsLastStep { get; set; }
 
-		public bool IsLastStep
-		{
-			get => isLastStep;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref isLastStep, value);
-			}
-		}
-
-		public bool IsNextAcvtive
-		{
-			get => isNextAcvtive;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref isNextAcvtive, value);
-			}
-		}
+		[Reactive] public bool IsNextAcvtive { get; set; }
 
 		public ReactiveCommand<Unit, Unit>? ActivateAction { get; internal set; }
 
