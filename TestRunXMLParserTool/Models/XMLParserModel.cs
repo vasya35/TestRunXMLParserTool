@@ -22,7 +22,8 @@ namespace TestRunXMLParserTool.Models
 				{
 					var testCaseResult = new TestCaseResultModel
 					{
-						Name = test.Attributes.GetNamedItem("name").Value
+						// todo: check
+						Name = (test.Attributes.GetNamedItem("name") != null) ? test.Attributes.GetNamedItem("name").Value : ""
 					};
 
 					XmlNodeList? testClass = test.SelectNodes("class");
@@ -38,7 +39,8 @@ namespace TestRunXMLParserTool.Models
 						{
 							continue;
 						}
-						testCaseResult.Result = testMethod.Attributes.GetNamedItem("status")?.Value;
+						// todo: check
+						testCaseResult.Result = testMethod.Attributes.GetNamedItem("status")?.Value ?? "SKIP";
 						testCaseResult.MethodName = testMethod.Attributes.GetNamedItem("name")?.Value;
 					}
 
