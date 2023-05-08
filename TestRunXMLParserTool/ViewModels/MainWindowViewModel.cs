@@ -1,6 +1,7 @@
 ﻿using DynamicData.Binding;
 using Microsoft.Win32;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,16 +19,16 @@ namespace TestRunXMLParserTool.ViewModels
 		#region .ctor
 		public MainWindowViewModel(MainWindowView mainWindowView)
 		{
-			selectedTestCaseResult = new TestCaseResultModel();
-			displayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
-			passedSelected = false;
-			failedSelected = false;
-			skippedSelected = false;
-			sortSelected = false;
+			SelectedTestCaseResult = new TestCaseResultModel();
+			DisplayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
+			PassedSelected = false;
+			FailedSelected = false;
+			SkippedSelected = false;
+			SortSelected = false;
 			genXMLCommand = new XMLGeneratorCommand();
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 
-			steps = new List<StepDescription>() {
+			Steps = new List<StepDescription>() {
 				new StepDescription()
 				{
 					Name = Properties.Resources.OpenFileStep,
@@ -62,161 +63,42 @@ namespace TestRunXMLParserTool.ViewModels
 		#endregion
 
 		#region fields
-		private TestCaseResultModel selectedTestCaseResult;
-		private ObservableCollection<TestCaseResultModel> displayedTestCaseResults;
-		private bool? passedSelected;
-		private bool? failedSelected;
-		private bool? skippedSelected;
-		private bool sortSelected;
-		private string selectedPath = "";
-		private int passedCount;
-		private int failedCount;
-		private int skippedCount;
-		private int passedSelectedCount;
-		private int failedSelectedCount;
-		private int skippedSelectedCount;
-		private int currentStep;
-		private List<StepDescription> steps;
 		private readonly MainWindowView mainWindowView;
 		private readonly SettingsViewModel settingsViewModel = new();
 		#endregion
 
 		#region Properties
 		public ObservableCollection<TestCaseResultModel> OriginalTestCaseResults { get; set; } = new();
-		public ObservableCollection<TestCaseResultModel> DisplayedTestCaseResults
-		{
-			get => displayedTestCaseResults;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref displayedTestCaseResults, value);
-			}
-		}
+		[Reactive] public ObservableCollection<TestCaseResultModel> DisplayedTestCaseResults { get; set; }
 
-		public TestCaseResultModel SelectedTestCaseResult
-		{
-			get => selectedTestCaseResult;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref selectedTestCaseResult, value);
-			}
-		}
+		[Reactive] public TestCaseResultModel SelectedTestCaseResult { get; set; }
 
-		public bool? PassedSelected
-		{
-			get => passedSelected;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref passedSelected, value);
-			}
-		}
+		[Reactive] public bool? PassedSelected { get; set; }
 
-		public bool? FailedSelected
-		{
-			get => failedSelected;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref failedSelected, value);
-			}
-		}
+		[Reactive] public bool? FailedSelected { get; set; }
 
-		public bool? SkippedSelected
-		{
-			get => skippedSelected;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref skippedSelected, value);
-			}
-		}
+		[Reactive] public bool? SkippedSelected { get; set; }
 
-		public bool SortSelected
-		{
-			get => sortSelected;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref sortSelected, value);
-			}
-		}
+		[Reactive] public bool SortSelected { get; set; }
 
-		public string SelectedPath
-		{
-			get => selectedPath;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref selectedPath, value);
-			}
-		}
+		[Reactive] public string SelectedPath { get; set; } = string.Empty;
 
-		public int PassedCount
-		{
-			get => passedCount;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref passedCount, value);
-			}
-		}
+		[Reactive] public int PassedCount { get; set; }
 
-		public int FailedCount
-		{
-			get => failedCount;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref failedCount, value);
-			}
-		}
+		[Reactive] public int FailedCount { get; set; }
 
-		public int SkippedCount
-		{
-			get => skippedCount;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref skippedCount, value);
-			}
-		}
+		[Reactive] public int SkippedCount { get; set; }
 
-		public int PassedSelectedCount
-		{
-			get => passedSelectedCount;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref passedSelectedCount, value);
-			}
-		}
+		[Reactive] public int PassedSelectedCount { get; set; }
 
-		public int FailedSelectedCount
-		{
-			get => failedSelectedCount;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref failedSelectedCount, value);
-			}
-		}
+		[Reactive] public int FailedSelectedCount { get; set; }
 
-		public int SkippedSelectedCount
-		{
-			get => skippedSelectedCount;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref skippedSelectedCount, value);
-			}
-		}
+		[Reactive] public int SkippedSelectedCount { get; set; }
 
-		public List<StepDescription> Steps
-		{
-			get => steps;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref steps, value);
-			}
-		}
+		[Reactive] public List<StepDescription> Steps { get; set; }
 
-		public int CurrentStep
-		{
-			get => currentStep;
-			set
-			{
-				this.RaiseAndSetIfChanged(ref currentStep, value);
-			}
-		}
+		[Reactive] public int CurrentStep { get; set; }
+
 		#endregion
 
 		#region implementation IReactiveCommand
@@ -267,12 +149,12 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			if (SelectedPath == "") return;
 
-			selectedTestCaseResult = new TestCaseResultModel();
-			displayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
-			passedSelected = false;
-			failedSelected = false;
-			skippedSelected = false;
-			sortSelected = false;
+			SelectedTestCaseResult = new TestCaseResultModel();
+			DisplayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
+			PassedSelected = false;
+			FailedSelected = false;
+			SkippedSelected = false;
+			SortSelected = false;
 			genXMLCommand = new XMLGeneratorCommand();
 			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 			OriginalTestCaseResults = XMLParserModel.Parse(SelectedPath);
@@ -340,7 +222,7 @@ namespace TestRunXMLParserTool.ViewModels
 				filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result) == true).ToList());
 			}
 
-			if (sortSelected)
+			if (SortSelected)
 			{
 				DisplayedTestCaseResults = sortData(filteredData);
 			}
@@ -389,39 +271,39 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void Step1Activate()
 		{
-			steps[0].IsActivate = true;
-			steps[0].IsNextAcvtive = false;
+			Steps[0].IsActivate = true;
+			Steps[0].IsNextAcvtive = false;
 
-			steps[1].IsActivate = false;
-			steps[1].IsNextAcvtive = false;
+			Steps[1].IsActivate = false;
+			Steps[1].IsNextAcvtive = false;
 
-			steps[2].IsActivate = false;
+			Steps[2].IsActivate = false;
 			CurrentStep = 0;
 		}
 
 		private void Step2Activate()
 		{
-			steps[0].IsActivate = true;
-			steps[0].IsNextAcvtive = true;
+			Steps[0].IsActivate = true;
+			Steps[0].IsNextAcvtive = true;
 
-			steps[1].IsActivate = true;
-			steps[1].IsNextAcvtive = false;
+			Steps[1].IsActivate = true;
+			Steps[1].IsNextAcvtive = false;
 
-			steps[2].IsActivate = false;
-			steps[2].IsNextAcvtive = false;
+			Steps[2].IsActivate = false;
+			Steps[2].IsNextAcvtive = false;
 			CurrentStep = 1;
 		}
 
 		private void Step3Activate()
 		{
-			steps[0].IsActivate = true;
-			steps[0].IsNextAcvtive = true;
+			Steps[0].IsActivate = true;
+			Steps[0].IsNextAcvtive = true;
 
-			steps[1].IsNextAcvtive = true;
-			steps[1].IsActivate = true;
+			Steps[1].IsNextAcvtive = true;
+			Steps[1].IsActivate = true;
 
-			steps[2].IsNextAcvtive = true;
-			steps[2].IsActivate = true;
+			Steps[2].IsNextAcvtive = true;
+			Steps[2].IsActivate = true;
 			CurrentStep = 2;
 		}
 
@@ -430,50 +312,41 @@ namespace TestRunXMLParserTool.ViewModels
 			PassedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "PASS" && x.IsSelected).ToList().Count;
 			if (PassedSelectedCount == 0)
 			{
-				passedSelected = false;
-				this.RaisePropertyChanged(nameof(PassedSelected));
+				PassedSelected = false;
 			}
 			else if (PassedSelectedCount < PassedCount)
 			{
-				passedSelected = null;
-				this.RaisePropertyChanged(nameof(PassedSelected));
+				PassedSelected = null;
 			}
 			else if (PassedSelectedCount == PassedCount)
 			{
-				passedSelected = true;
-				this.RaisePropertyChanged(nameof(PassedSelected));
+				PassedSelected = true;
 			}
 			FailedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
 			if (FailedSelectedCount == 0)
 			{
-				failedSelected = false;
-				this.RaisePropertyChanged(nameof(FailedSelected));
+				FailedSelected = false;
 			}
 			else if (FailedSelectedCount < FailedCount)
 			{
-				failedSelected = null;
-				this.RaisePropertyChanged(nameof(FailedSelected));
+				FailedSelected = null;
 			}
 			else if (FailedSelectedCount == FailedCount)
 			{
-				failedSelected = true;
-				this.RaisePropertyChanged(nameof(FailedSelected));
+				FailedSelected = true;
 			}
 			SkippedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
 			if (SkippedSelectedCount == 0)
 			{
-				skippedSelected = false;
-				this.RaisePropertyChanged(nameof(SkippedSelected));
+				SkippedSelected = false;
 			}
 			else if (SkippedSelectedCount < SkippedCount)
 			{
-				skippedSelected = null;
-				this.RaisePropertyChanged(nameof(SkippedSelected));
+				SkippedSelected = null;
 			}
 			else if (SkippedSelectedCount == SkippedCount)
 			{
-				skippedSelected = true;
-				this.RaisePropertyChanged(nameof(SkippedSelected));
+				SkippedSelected = true;
 			}
 		}
 		#endregion
