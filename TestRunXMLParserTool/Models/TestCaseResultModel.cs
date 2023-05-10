@@ -48,7 +48,7 @@ namespace TestRunXMLParserTool.Models
 		/// GetTestRailNumber
 		/// </summary>
 		[Reactive] public string TestRailNumber { get; private set; } = string.Empty;
-		
+
 		#endregion
 
 		#region Private methods
@@ -64,7 +64,7 @@ namespace TestRunXMLParserTool.Models
 			testCaseNumber = res;
 		}
 
-		private void setTestRailNumber(string value) => TestRailNumber = (value.Split(" ")[0]);
+		private void setTestRailNumber(string value) => TestRailNumber = value.Split(" ")[0];
 		#endregion
 
 		#region Public methods

@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="ReactiveUI.Fody" Version="18.4.34" />
     <PackageReference Include="ReactiveUI.WPF" Version="18.4.34" />
   </ItemGroup>
@@ -52,6 +51,10 @@
     <Page Update="Views\TestCaseResultUserControl.xaml">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\" />
   </ItemGroup>
 
 </Project>

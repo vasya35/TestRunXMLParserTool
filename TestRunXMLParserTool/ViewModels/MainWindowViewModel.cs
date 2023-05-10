@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Windows.Input;
-using TestRunXMLParserTool.Commands;
 using TestRunXMLParserTool.Models;
 using TestRunXMLParserTool.Views;
 
@@ -25,8 +23,6 @@ namespace TestRunXMLParserTool.ViewModels
 			FailedSelected = false;
 			SkippedSelected = false;
 			SortSelected = false;
-			genXMLCommand = new XMLGeneratorCommand();
-			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 
 			Steps = new List<StepDescription>() {
 				new StepDescription()
@@ -101,26 +97,26 @@ namespace TestRunXMLParserTool.ViewModels
 
 		#endregion
 
-		#region implementation IReactiveCommand
-		private ICommand genXMLCommand;
-		private ICommand genJQueryScriptCommand;
+		#region Implementation IReactiveCommand
+		private IReactiveCommand? genXMLCommand;
+		private IReactiveCommand? genJQueryScriptCommand;
 		private IReactiveCommand? openXMLCommand;
 		private IReactiveCommand? settingsButtonCommand;
 
-		public ICommand GenXMLCommand
+		public IReactiveCommand GenXMLCommand
 		{
 			get
 			{
-				genXMLCommand ??= new XMLGeneratorCommand();
+				genXMLCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => XMLGeneratorModel.Generate(x));
 				return genXMLCommand;
 			}
 		}
 
-		public ICommand GenJQueryScriptCommand
+		public IReactiveCommand GenJQueryScriptCommand
 		{
 			get
 			{
-				genJQueryScriptCommand ??= new JSTestrailSelectorScriptGeneratorCommand();
+				genJQueryScriptCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => JSTestRailSelectorScriptGeneratorModel.Generate(x));
 				return genJQueryScriptCommand;
 			}
 		}
@@ -155,8 +151,6 @@ namespace TestRunXMLParserTool.ViewModels
 			FailedSelected = false;
 			SkippedSelected = false;
 			SortSelected = false;
-			genXMLCommand = new XMLGeneratorCommand();
-			genJQueryScriptCommand = new JSTestrailSelectorScriptGeneratorCommand();
 			OriginalTestCaseResults = XMLParserModel.Parse(SelectedPath);
 
 			Step2Activate();
