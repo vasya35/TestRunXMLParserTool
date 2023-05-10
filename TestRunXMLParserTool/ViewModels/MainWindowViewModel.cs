@@ -255,11 +255,18 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void OpenSettingsWindow()
 		{
-			var settingsWindow = new SettingsWindowView(settingsViewModel)
+			if (mainWindowView.OwnedWindows.Count == 0)
 			{
-				Owner = mainWindowView
-			};
-			settingsWindow.Show();
+				var settingsWindow = new SettingsWindowView(settingsViewModel)
+				{
+					Owner = mainWindowView
+				};
+				settingsWindow.Show();
+			}
+			else
+			{
+				mainWindowView.OwnedWindows[0].Activate();
+			}
 		}
 
 		private void UpdateCounts()
