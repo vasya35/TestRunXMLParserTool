@@ -38,6 +38,8 @@
 				  HorizontalAlignment="Left"
 				  VerticalAlignment="Center"
 				  Margin="5, 5, 5, 5"
+				  VerticalContentAlignment="Center"
+				  Padding="5,0,0,0"
 				  ItemsSource="{Binding Path=Languages}"
 				  SelectedItem="{Binding Path=LanguageSelected}"/>
 		<TextBox Name="SettingsListenerNameCombobox" 
@@ -48,6 +50,16 @@
 				 HorizontalAlignment="Left"
 				 VerticalAlignment="Center"
 				 Margin="5, 5, 5, 5"
-				 Text="{Binding Path=ListenerName}"/>
+				 Padding="3,0,0,0"
+				 VerticalContentAlignment="Center"
+				 Text="{Binding Path=ListenerName}"
+				 >
+			<TextBox.InputBindings>
+				<KeyBinding Command="{Binding SetNewListenerNameCommand}" Key="Enter" />
+			</TextBox.InputBindings>
+		</TextBox>
+
+		<!--<MouseBinding Command="{Binding Path=ActivateAction}" MouseAction="LeftClick"/>-->
+
 	</Grid>
 </UserControl>

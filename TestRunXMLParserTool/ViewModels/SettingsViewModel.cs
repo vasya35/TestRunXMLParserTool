@@ -2,6 +2,7 @@
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using TestRunXMLParserTool.Models;
 
 namespace TestRunXMLParserTool.ViewModels
@@ -48,6 +49,19 @@ namespace TestRunXMLParserTool.ViewModels
 			if (newLanguageSelected != LanguageSelected)
 			{
 				LanguageSelected = newLanguageSelected;
+			}
+		}
+		#endregion
+
+		#region Implementation IReactiveCommand
+		private IReactiveCommand? setNewListenerNameCommand;
+
+		public IReactiveCommand SetNewListenerNameCommand
+		{
+			get
+			{
+				setNewListenerNameCommand ??= ReactiveCommand.Create(SetNewListenerName);
+				return setNewListenerNameCommand;
 			}
 		}
 		#endregion
