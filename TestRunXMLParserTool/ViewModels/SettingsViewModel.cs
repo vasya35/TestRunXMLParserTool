@@ -31,7 +31,7 @@ namespace TestRunXMLParserTool.ViewModels
 		#region Private Methods
 		private void SetNewListenerName()
 		{
-			AppConfiguration.SetCulture(ListenerName);
+			AppConfiguration.SetListenerName(ListenerName);
 			var newListenerName = AppConfiguration.GetCurrentListenerName();
 
 			if (newListenerName != ListenerName)
