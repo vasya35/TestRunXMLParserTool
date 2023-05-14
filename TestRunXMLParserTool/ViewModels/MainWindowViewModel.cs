@@ -22,7 +22,7 @@ namespace TestRunXMLParserTool.ViewModels
 			PassedSelected = false;
 			FailedSelected = false;
 			SkippedSelected = false;
-			SortSelected = false;
+			SortSelected = true;
 
 			Steps = new List<StepDescription>() {
 				new StepDescription()
@@ -150,7 +150,7 @@ namespace TestRunXMLParserTool.ViewModels
 			PassedSelected = false;
 			FailedSelected = false;
 			SkippedSelected = false;
-			SortSelected = false;
+			SortSelected = true;
 			OriginalTestCaseResults = XMLParserModel.Parse(SelectedPath);
 
 			Step2Activate();
