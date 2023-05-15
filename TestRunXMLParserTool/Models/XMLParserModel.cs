@@ -20,16 +20,17 @@ namespace TestRunXMLParserTool.Models
 				// Testcases traversal
 				foreach (XmlNode test in tests)
 				{
+					if (test == null || test.Attributes == null) continue;
+
 					var testCaseResult = new TestCaseResultModel
 					{
-						// todo: check
-						Name = (test.Attributes.GetNamedItem("name") != null) ? test.Attributes.GetNamedItem("name").Value : ""
+						Name = (test.Attributes.GetNamedItem("name") != null) ? test.Attributes.GetNamedItem("name").Value! : ""
 					};
 
 					XmlNodeList? testClass = test.SelectNodes("class");
-					if (testClass == null || testClass.Count < 1) continue;
+					if (testClass == null || testClass.Count == 0 || testClass[0] == null || testClass[0].Attributes == null) continue;
 
-					testCaseResult.XMLPath = testClass[0].Attributes.GetNamedItem("name").Value;
+					testCaseResult.XMLPath = (testClass[0].Attributes.GetNamedItem("name") != null) ? testClass[0].Attributes.GetNamedItem("name").Value! : "";
 
 					XmlNodeList? testMethods = testClass[0].SelectNodes("test-method");
 
@@ -39,13 +40,10 @@ namespace TestRunXMLParserTool.Models
 						{
 							continue;
 						}
-						// todo: check
-						testCaseResult.Result = testMethod.Attributes.GetNamedItem("status")?.Value ?? "SKIP";
-						testCaseResult.MethodName = testMethod.Attributes.GetNamedItem("name")?.Value;
+						testCaseResult.Result = (testMethod.Attributes.GetNamedItem("status") != null) ? testMethod.Attributes.GetNamedItem("status").Value! : "SKIP";
+						testCaseResult.MethodName = (testMethod.Attributes.GetNamedItem("name") != null || testMethod.Attributes.GetNamedItem("name").Value != null) ? testMethod.Attributes.GetNamedItem("name").Value! : "";
 					}
-
 					testCaseResults.Add(testCaseResult);
-
 				}
 			}
 			return testCaseResults;
