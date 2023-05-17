@@ -60,7 +60,7 @@ namespace TestRunXMLParserTool.Models
 
 		private void setTestCaseNumber(string name)
 		{
-			_ = int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T' }), out int res);
+			_ = int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T', ':', '-' }), out int res);
 			testCaseNumber = res;
 		}
 
