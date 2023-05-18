@@ -1,5 +1,4 @@
-﻿using DynamicData.Binding;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using TestRunXMLParserTool.Models;
 using TestRunXMLParserTool.Views;
 
@@ -54,7 +54,7 @@ namespace TestRunXMLParserTool.ViewModels
 			ExecuteOpenFileDialog();
 			this.mainWindowView = mainWindowView;
 
-			this.WhenAnyValue(x => x.SelectedPath).Subscribe(_ => ReInitialisation());
+			this.WhenAnyValue(x => x.SelectedPath).Subscribe(_ => ReInitialisationAsync());
 		}
 		#endregion
 
@@ -107,7 +107,7 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			get
 			{
-				genXMLCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => XMLGeneratorModel.Generate(x));
+				genXMLCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => XMLGeneratorModel.GenerateAsync(x));
 				return genXMLCommand;
 			}
 		}
@@ -116,7 +116,7 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			get
 			{
-				genJQueryScriptCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => JSTestRailSelectorScriptGeneratorModel.Generate(x));
+				genJQueryScriptCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => JSTestRailSelectorScriptGeneratorModel.GenerateAsync(x));
 				return genJQueryScriptCommand;
 			}
 		}
@@ -141,7 +141,7 @@ namespace TestRunXMLParserTool.ViewModels
 		#endregion
 
 		#region Private methods
-		private void ReInitialisation()
+		private async Task ReInitialisationAsync()
 		{
 			if (SelectedPath == "") return;
 
@@ -151,7 +151,7 @@ namespace TestRunXMLParserTool.ViewModels
 			FailedSelected = false;
 			SkippedSelected = false;
 			SortSelected = true;
-			OriginalTestCaseResults = XMLParserModel.Parse(SelectedPath);
+			OriginalTestCaseResults = await XMLParserModel.ParseAsync(SelectedPath);
 
 			Step2Activate();
 			DisplayedTestCaseResults = OriginalTestCaseResults;
@@ -169,7 +169,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 			foreach (var testCase in OriginalTestCaseResults)
 			{
-				testCase.WhenAnyPropertyChanged().Subscribe(_ => UpdateSelectedCount());
+				testCase.ObservableForProperty(r => r.IsSelected).Subscribe(_ => UpdateSelectedCount());
 			}
 		}
 

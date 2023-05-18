@@ -1,65 +1,87 @@
 ﻿using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace TestRunXMLParserTool.Models
 {
-	internal class JSTestRailSelectorScriptGeneratorModel
+	public class JSTestRailSelectorScriptGeneratorModel
 	{
-		internal static void Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		#region Pablic Methods
+		public static async void GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
-			var defaultFileName = "JSTestRailSelector";
-			var defaultExtensionFileName = ".js";
-			string filename = $"{defaultFileName}{defaultExtensionFileName}";
-
-			SaveFileDialog saveFileDialog = new()
-			{
-				FileName = defaultFileName,
-				DefaultExt = defaultExtensionFileName,
-				Filter = "Text documents (.js)|*.js"
-			};
-
-			bool? result = saveFileDialog.ShowDialog();
-
-			if (result == true)
-			{
-				filename = saveFileDialog.FileName;
-			}
-			using (TextWriter writer = TextWriter.Synchronized(new StreamWriter(filename)))
-			{
-				string testCasesList = "";
-				int cnt = 0;
-				foreach (var testCase in selectedTestCases)
-				{
-					if (!testCase.IsSelected) continue;
-					testCasesList += $"'{testCase.TestRailNumber}', ";
-					cnt++;
-				}
-				if (testCasesList.Length > 2)
-				{
-					testCasesList = testCasesList.Remove(testCasesList.Length - 2, 2);
-				}
-
-				writer.WriteLine($"const testCasesArray = [{testCasesList}];");
-				writer.WriteLine("var xPathRes;");
-				writer.WriteLine("testCasesArray.forEach(element => {");
-				writer.WriteLine("xPathRes = document.evaluate (\"//a[text()='\"+element+\"']/../../td[@class='checkbox']/input\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);");
-				writer.WriteLine("xPathRes.singleNodeValue.click();");
-				writer.WriteLine("});");
-				writer.WriteLine("var xpath = \"//tr[contains(@class, 'oddSelected') or contains(@class, 'evenSelected')]\"");
-				writer.WriteLine("const result = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);");
-				writer.WriteLine($"console.log('TestCases are selected: ' + result.snapshotLength + ' from {cnt} expected');");
-			}
-
-			CopyToClipboard(filename);
+			var genResult = await Task.Run(() => Generate(selectedTestCases));
 		}
 
+		public static bool Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		{
+			try
+			{
+				var defaultFileName = "JSTestRailSelector";
+				var defaultExtensionFileName = ".js";
+				string filename = $"{defaultFileName}{defaultExtensionFileName}";
+
+				SaveFileDialog saveFileDialog = new()
+				{
+					FileName = defaultFileName,
+					DefaultExt = defaultExtensionFileName,
+					Filter = "Text documents (.js)|*.js"
+				};
+
+				bool? result = saveFileDialog.ShowDialog();
+
+				if (result == true)
+				{
+					filename = saveFileDialog.FileName;
+				}
+				using (TextWriter writer = TextWriter.Synchronized(new StreamWriter(filename)))
+				{
+					string testCasesList = "";
+					int cnt = 0;
+					foreach (var testCase in selectedTestCases)
+					{
+						if (!testCase.IsSelected) continue;
+						testCasesList += $"'{testCase.TestRailNumber}', ";
+						cnt++;
+					}
+					if (testCasesList.Length > 2)
+					{
+						testCasesList = testCasesList.Remove(testCasesList.Length - 2, 2);
+					}
+
+					writer.WriteLine($"const testCasesArray = [{testCasesList}];");
+					writer.WriteLine("var xPathRes;");
+					writer.WriteLine("testCasesArray.forEach(element => {");
+					writer.WriteLine("xPathRes = document.evaluate (\"//a[text()='\"+element+\"']/../../td[@class='checkbox']/input\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);");
+					writer.WriteLine("xPathRes.singleNodeValue.click();");
+					writer.WriteLine("});");
+					writer.WriteLine("var xpath = \"//tr[contains(@class, 'oddSelected') or contains(@class, 'evenSelected')]\"");
+					writer.WriteLine("const result = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);");
+					writer.WriteLine($"console.log('TestCases are selected: ' + result.snapshotLength + ' from {cnt} expected');");
+				}
+
+				CopyToClipboard(filename);
+
+
+				return true;
+			}
+			catch (System.Exception)
+			{
+				//todo: add to log
+
+				return false;
+			}
+		}
+		#endregion
+
+		#region Private Methods
 		private static void CopyToClipboard(string path)
 		{
 			TextReader reader = new StreamReader(path);
 			var text = reader.ReadToEnd();
 			Clipboard.SetText(text);
 		}
+		#endregion
 	}
 }
