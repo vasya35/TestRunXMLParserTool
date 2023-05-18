@@ -5,8 +5,6 @@ VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestRunXMLParserTool", "TestRunXMLParserTool\TestRunXMLParserTool.csproj", "{826F3F6C-7B42-4066-8972-74C381E7925D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{C92AADE7-0F55-45EC-A567-7F27CD0049ED}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLResultGenerator", "XMLResultGenerator\XMLResultGenerator.csproj", "{970779ED-BD78-4DDE-8B2E-7B43D3DF95CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DAA57AA1-5980-4E31-8B61-FA0FE1239439}"
