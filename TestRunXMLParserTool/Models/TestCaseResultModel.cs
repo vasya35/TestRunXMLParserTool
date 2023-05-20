@@ -60,11 +60,24 @@ namespace TestRunXMLParserTool.Models
 
 		private void setTestCaseNumber(string name)
 		{
-			_ = int.TryParse(name.Split(" ")[0].Trim(new char[] { 'C', 'T', ':', '-' }), out int res);
-			testCaseNumber = res;
+			testCaseNumber = GetNumber(name.Split(" ")[0]);
 		}
 
 		private void setTestRailNumber(string value) => TestRailNumber = value.Split(" ")[0];
+
+		private int GetNumber(string stringName)
+		{
+			string tempString = "";
+			foreach (var item in stringName)
+			{
+				if (char.IsDigit(item))
+				{
+					tempString += item.ToString();
+				}
+			}
+			int.TryParse(tempString, out int res);
+			return res;
+		}
 		#endregion
 
 		#region Public methods
