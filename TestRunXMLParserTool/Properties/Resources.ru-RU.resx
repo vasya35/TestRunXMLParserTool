@@ -127,15 +127,24 @@
     <value>Сгенерировать файл</value>
   </data>
   <data name="GenerateJSBtn" xml:space="preserve">
-    <value>Сгенерировать js скрипт для выделения в тестрейл</value>
+    <value>Сгенерировать JS</value>
+  </data>
+  <data name="GenerateJSBtnToolTip" xml:space="preserve">
+    <value>Сгенерировать JS скрипт для выделения в тестрейл</value>
   </data>
   <data name="GenerateXMLBtn" xml:space="preserve">
-    <value>Сгенерировать xml для перезапуска</value>
+    <value>Сгенерировать XML</value>
+  </data>
+  <data name="GenerateXMLBtnToolTip" xml:space="preserve">
+    <value>Сгенерировать XML для перезапуска</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Утилита парсинга XML с результатами из тестрейла</value>
   </data>
   <data name="OpenFileBtn" xml:space="preserve">
+    <value>Открыть XML</value>
+  </data>
+  <data name="OpenFileBtnToolTip" xml:space="preserve">
     <value>Открыть XML</value>
   </data>
   <data name="OpenFileStep" xml:space="preserve">

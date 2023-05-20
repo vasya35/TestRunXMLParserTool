@@ -12,10 +12,15 @@
 		<Setter Property="MaxHeight" Value="60"/>
 		<Setter Property="Width" Value="Auto"/>
 		<Setter Property="Margin" Value="5,5,5,5" />
+		<Setter Property="HorizontalAlignment" Value="Center"/>
 		
 		<Style.Resources>
 			<Style TargetType="Border">
 				<Setter Property="CornerRadius" Value="10"/>
+			</Style>
+			<Style TargetType="TextBlock">
+				<Setter Property="TextWrapping" Value="Wrap"/>
+				<Setter Property="HorizontalAlignment" Value="Center"/>
 			</Style>
 		</Style.Resources>
 	</Style>

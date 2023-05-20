@@ -88,7 +88,7 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate js testrail selector script.
+        ///   Looks up a localized string similar to Generate JS.
         /// </summary>
         public static string GenerateJSBtn {
             get {
@@ -97,11 +97,29 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate xml for rerun.
+        ///   Looks up a localized string similar to Generate JS testrail selector script.
+        /// </summary>
+        public static string GenerateJSBtnToolTip {
+            get {
+                return ResourceManager.GetString("GenerateJSBtnToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate XML.
         /// </summary>
         public static string GenerateXMLBtn {
             get {
                 return ResourceManager.GetString("GenerateXMLBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate XML for rerun.
+        /// </summary>
+        public static string GenerateXMLBtnToolTip {
+            get {
+                return ResourceManager.GetString("GenerateXMLBtnToolTip", resourceCulture);
             }
         }
         
@@ -120,6 +138,15 @@ namespace TestRunXMLParserTool.Properties {
         public static string OpenFileBtn {
             get {
                 return ResourceManager.GetString("OpenFileBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open XML.
+        /// </summary>
+        public static string OpenFileBtnToolTip {
+            get {
+                return ResourceManager.GetString("OpenFileBtnToolTip", resourceCulture);
             }
         }
         
