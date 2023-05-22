@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,15 +13,17 @@ namespace TestRunXMLParserTool.Models
 		public static async void GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			var genResult = await Task.Run(() => Generate(selectedTestCases));
+			CopyToClipboard(genResult.Item2);
 		}
 
-		public static bool Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		public static Tuple<bool, string> Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
+			string filename = "";
 			try
 			{
 				var defaultFileName = "JSTestRailSelector";
 				var defaultExtensionFileName = ".js";
-				string filename = $"{defaultFileName}{defaultExtensionFileName}";
+				filename = $"{defaultFileName}{defaultExtensionFileName}";
 
 				SaveFileDialog saveFileDialog = new()
 				{
@@ -63,15 +66,14 @@ namespace TestRunXMLParserTool.Models
 
 				CopyToClipboard(filename);
 
-
-				return true;
+				return Tuple.Create(true, filename);
 			}
 			catch (System.Exception)
 			{
 				//todo: add to log
-
-				return false;
+				
 			}
+			return Tuple.Create(false, filename);
 		}
 		#endregion
 
