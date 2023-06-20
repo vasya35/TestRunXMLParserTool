@@ -23,6 +23,7 @@
 					 Visibility="Hidden" >
 				<Button 
 					Command="{Binding OpenXMLCommand}" 
+					IsEnabled="{Binding OpenXMLButtonIsEnabled}"
 					ToolTip="{x:Static properties:Resources.OpenFileBtnToolTip}"
 					Width="150"
 					Style="{DynamicResource ButtonStyle}" >
@@ -174,6 +175,7 @@
 					<Button Grid.Column="0"
 							Command="{Binding GenXMLCommand}" 
 							CommandParameter="{Binding DisplayedTestCaseResults}"
+							IsEnabled="{Binding GenXMLButtonIsEnabled}"
 							ToolTip="{x:Static properties:Resources.GenerateXMLBtnToolTip}"
 							Width="150"
 							Style="{DynamicResource ButtonStyle}" >
@@ -183,7 +185,8 @@
 					</Button>
 					<Button Grid.Column="1"
 							Command="{Binding GenJQueryScriptCommand}"
-							CommandParameter="{Binding DisplayedTestCaseResults}"		
+							CommandParameter="{Binding DisplayedTestCaseResults}"
+							IsEnabled="{Binding GenJQueryScriptButtonIsEnabled}"
 							ToolTip="{x:Static properties:Resources.GenerateJSBtnToolTip}"
 							Width="150"
 							Style="{DynamicResource ButtonStyle}" >

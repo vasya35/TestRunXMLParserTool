@@ -10,10 +10,11 @@ namespace TestRunXMLParserTool.Models
 	public class JSTestRailSelectorScriptGeneratorModel
 	{
 		#region Pablic Methods
-		public static async void GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		public static async Task<bool> GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			var genResult = await Task.Run(() => Generate(selectedTestCases));
 			CopyToClipboard(genResult.Item2);
+			return genResult.Item1;
 		}
 
 		public static Tuple<bool, string> Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
@@ -68,10 +69,9 @@ namespace TestRunXMLParserTool.Models
 
 				return Tuple.Create(true, filename);
 			}
-			catch (System.Exception)
+			catch (Exception)
 			{
 				//todo: add to log
-				
 			}
 			return Tuple.Create(false, filename);
 		}

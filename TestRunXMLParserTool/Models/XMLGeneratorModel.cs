@@ -13,9 +13,9 @@ namespace TestRunXMLParserTool.Models
 		/// Generate xml file with selected test cases
 		/// </summary>
 		/// <param name="selectedTestCases"></param>
-		public static async void GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		public static async Task<bool> GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
-			var genResult = await Task.Run(() => Generate(selectedTestCases));
+			return await Task.Run(() => Generate(selectedTestCases));
 		}
 
 		public static bool Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
@@ -35,10 +35,9 @@ namespace TestRunXMLParserTool.Models
 
 				bool? result = saveFileDialog.ShowDialog();
 
-				if (result == true)
-				{
-					fileName = saveFileDialog.FileName;
-				}
+				if (result == false) return false;
+
+				fileName = saveFileDialog.FileName;
 
 				XmlWriterSettings xmlWriterSettings = new()
 				{

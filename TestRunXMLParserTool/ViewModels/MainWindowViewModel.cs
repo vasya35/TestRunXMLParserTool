@@ -53,8 +53,6 @@ namespace TestRunXMLParserTool.ViewModels
 
 			ExecuteOpenFileDialog();
 			this.mainWindowView = mainWindowView;
-
-			this.WhenAnyValue(x => x.SelectedPath).Subscribe(_ => ReInitialisationAsync());
 		}
 		#endregion
 
@@ -94,6 +92,9 @@ namespace TestRunXMLParserTool.ViewModels
 		[Reactive] public List<StepDescription> Steps { get; set; }
 
 		[Reactive] public int CurrentStep { get; set; }
+		[Reactive] public bool OpenXMLButtonIsEnabled { get; set; } = true;
+		[Reactive] public bool GenXMLButtonIsEnabled { get; set; } = true;
+		[Reactive] public bool GenJQueryScriptButtonIsEnabled { get; set; } = true;
 
 		#endregion
 
@@ -107,7 +108,7 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			get
 			{
-				genXMLCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => XMLGeneratorModel.GenerateAsync(x));
+				genXMLCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => GenXMLButtonCommand(x));
 				return genXMLCommand;
 			}
 		}
@@ -116,7 +117,7 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			get
 			{
-				genJQueryScriptCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => JSTestRailSelectorScriptGeneratorModel.GenerateAsync(x));
+				genJQueryScriptCommand ??= ReactiveCommand.Create<ObservableCollection<TestCaseResultModel>>(x => GenJQueryScriptButtonCommand(x));
 				return genJQueryScriptCommand;
 			}
 		}
@@ -239,12 +240,19 @@ namespace TestRunXMLParserTool.ViewModels
 			UpdateSelectedCount();
 		}
 
-		private void ExecuteOpenFileDialog()
+		private async void ExecuteOpenFileDialog()
 		{
-			var dialog = new OpenFileDialog { };
-			dialog.ShowDialog();
+			OpenXMLButtonIsEnabled = false;
 
-			SelectedPath = dialog.FileName;
+			var dialog = new OpenFileDialog { };
+
+			if (dialog.ShowDialog() == true)
+			{
+				SelectedPath = dialog.FileName;
+				await ReInitialisationAsync();
+			}
+
+			OpenXMLButtonIsEnabled = true;
 		}
 
 		private void OpenSettingsWindow()
@@ -349,6 +357,21 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				SkippedSelected = true;
 			}
+		}
+
+
+		private async void GenXMLButtonCommand(ObservableCollection<TestCaseResultModel> testCaseResultModelCollection)
+		{
+			GenXMLButtonIsEnabled = false;
+			await XMLGeneratorModel.GenerateAsync(testCaseResultModelCollection);
+			GenXMLButtonIsEnabled = true;
+		}
+
+		private async void GenJQueryScriptButtonCommand(ObservableCollection<TestCaseResultModel> testCaseResultModelCollection)
+		{
+			GenJQueryScriptButtonIsEnabled = false;
+			await JSTestRailSelectorScriptGeneratorModel.GenerateAsync(testCaseResultModelCollection);
+			GenJQueryScriptButtonIsEnabled = true;
 		}
 		#endregion
 	}
