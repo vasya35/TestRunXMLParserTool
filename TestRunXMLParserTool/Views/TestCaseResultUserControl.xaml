@@ -6,10 +6,23 @@
              xmlns:converters="clr-namespace:TestRunXMLParserTool.Converters"
              mc:Ignorable="d">
 	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Styles/Default.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
 		<converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+		</ResourceDictionary>
 	</UserControl.Resources>
 
-	<Grid Background="{Binding Path=Result, Converter={StaticResource StatusToColorConverter}}">
+	<Grid >
+		<Grid.Background>
+			<MultiBinding Converter="{StaticResource StatusToColorConverter}">
+				<MultiBinding.Bindings>
+					<Binding RelativeSource="{RelativeSource Self}"/>
+					<Binding Path="Result"/>
+				</MultiBinding.Bindings>
+			</MultiBinding>
+		</Grid.Background>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="auto"/>
 			<ColumnDefinition Width="auto"/>

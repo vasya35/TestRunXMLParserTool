@@ -5,6 +5,21 @@
 		<GradientStop Color="#FFededed" Offset="0.50"/>
 		<GradientStop Color="#FFFCFCFC" Offset="0.75"/>
 	</LinearGradientBrush>
+	<LinearGradientBrush  x:Key="wizardGreeBrush" StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+		<GradientStop Color="#c6efce" Offset="0.05"/>
+		<GradientStop Color="#d7ebc0" Offset="0.50"/>
+		<GradientStop Color="#c6efce" Offset="0.95"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush  x:Key="wizardRedBrush" StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+		<GradientStop Color="#ffc7ce" Offset="0.05"/>
+		<GradientStop Color="#eed7d7" Offset="0.50"/>
+		<GradientStop Color="#ffc7ce" Offset="0.95"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush  x:Key="wizardYellowBrush" StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+		<GradientStop Color="#f7f7b1" Offset="0.05"/>
+		<GradientStop Color="#f4f6de" Offset="0.50"/>
+		<GradientStop Color="#f7f7b1" Offset="0.95"/>
+	</LinearGradientBrush>
 	<Style x:Key="ButtonStyle" TargetType="Button">
 		<Setter Property="Background" Value="{StaticResource wizardBarBrush}" />
 		<Setter Property="Foreground" Value="Black" />
