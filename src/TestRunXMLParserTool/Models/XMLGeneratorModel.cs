@@ -48,7 +48,7 @@ namespace TestRunXMLParserTool.Models
 				using XmlWriter writer = XmlWriter.Create(fileName, xmlWriterSettings);
 				writer.WriteStartDocument();
 				writer.WriteStartElement("suite");
-				writer.WriteAttributeString("name", "rerunTestCases");
+				writer.WriteAttributeString("name", "selectedTestCases");
 				writer.WriteStartElement("listeners");
 				writer.WriteStartElement("listener");
 				var listenerName = AppConfiguration.GetCurrentListenerName();
