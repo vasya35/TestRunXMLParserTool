@@ -66,8 +66,9 @@
 			   HorizontalAlignment="Left"
 			   VerticalAlignment="Center"
 			   Margin="5, 5, 5, 5">
+			GitHub Source: 
 			<Hyperlink NavigateUri="https://github.com/vasya35/TestRunXMLParserTool" RequestNavigate="Hyperlink_RequestNavigate">
-				GitHub Source: https://github.com/vasya35/TestRunXMLParserTool
+				https://github.com/vasya35/TestRunXMLParserTool
 			</Hyperlink>
 		</TextBlock>
 
