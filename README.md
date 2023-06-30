@@ -34,7 +34,7 @@ You can select test case results by their status (PASS, FAIL, SKIP) and enable/d
    <img src="/assets/screenshots/Step3.png" alt="Step3 screenshot" width="650" align="center" >
 </p>
 
-- Generate XML for rerun - generated XML can be inserted to IDE for rerun.
+- Generate XML for rerun - generated XML can be inserted to IDE for reruning.
 - Generate JS for selected testcases in testrail - script also will be copy to clipboard after save file.
 
 ## Settings window
