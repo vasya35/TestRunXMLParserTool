@@ -15,7 +15,7 @@ The TestRunXMLParserTool is Windows desktop app written in C# using <code>WPF</c
    <img src="/assets/screenshots/Step1.png" alt="Step1 screenshot" width="650" align="center" >
 </p>
 <p>
-Open file dialog window will be open immediately after run application.
+Open file dialog window will be open immediately after launching the application.
 </p>
 
 ## Step 2 - Filter and Sort 
