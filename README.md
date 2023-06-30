@@ -23,7 +23,7 @@ Open file dialog window will be open immediately after launching the application
    <img src="/assets/screenshots/Step2.png" alt="Step2 screenshot" width="650" align="center" >
 </p>
 <p>
-You can select test case results by them status (PASS, FAIL, SKIP) and enable/disable SORT<b>*</b> by number (without prefix letter) them.
+You can select test case results by their status (PASS, FAIL, SKIP) and enable/disable SORT<b>*</b> by number (without prefix letter) them.
 </p>
 <p>
 <b>*</b> - If SORT isn't selected, test cases will be sort such as original xml file. 
