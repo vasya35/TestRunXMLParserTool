@@ -4,7 +4,7 @@
 
 # Introduction
 <p>
-The TestRunXMLParserTool views xml file with testrun results and helps select test cases (using filters or/and sorting) for generate xml suit for rerun or generate js script for select test cases in testrail in three simple steps.
+The TestRunXMLParserTool views xml file with testrun results and helps select test cases (using filters or/and sorting) for generate xml suit for rerun or generate js script for select test cases in testrail in <b>three simple steps</b>.
 </p>
 <p>
 The TestRunXMLParserTool is Windows desktop app written in C# using <code>WPF</code>, <code>MVVM</code> and <code>ReactiveUI</code>.
@@ -60,7 +60,9 @@ Supported languages:
 Listener name will be included in XML for rerun. 
 </p>
 
-# XMLResultGenerator
+<br>
+
+### XMLResultGenerator
 
 <p>This project is used for generate original XML files with random test case resuls.</p>
 <p>It's console application. After run you need input count of test cases for generate and press enter.</p>
