@@ -35,7 +35,7 @@ You can select test case results by their status (PASS, FAIL, SKIP) and enable/d
 </p>
 
 - Generate XML for reruning - generated XML can be inserted to IDE for reruning.
-- Generate JS for selected testcases in testrail - script also will be copied to clipboard after saving file.
+- Generate JS for selected testcases in testrail - script also will be copied to clipboard after saving the file.
 
 ## Settings window
  <p align="center">
