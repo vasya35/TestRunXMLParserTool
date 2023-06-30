@@ -54,7 +54,7 @@ Supported languages:
 - Kazakh
 - Turkish
 
-<p align="center"><b><i>Change language will be applied after restart application.</i></b></p>
+<p align="center"><b><i>Change language will be applied after the application has been restarted.</i></b></p>
   
 <p>
 Listener name will be included in XML for rerun. 
