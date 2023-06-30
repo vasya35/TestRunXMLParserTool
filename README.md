@@ -57,7 +57,7 @@ Supported languages:
 <p align="center"><b><i>Change language will be applied after the application has been restarted.</i></b></p>
   
 <p>
-Listener name will be included in XML for rerun. 
+Listener name will be included in XML for reruning. 
 </p>
 
 <br>
