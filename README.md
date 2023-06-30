@@ -4,7 +4,7 @@
 
 # Introduction
 <p>
-The TestRunXMLParserTool patsers xml file with testrun results and helps select test cases (using filters or/and sorting) to generate xml suit for reruning or generate js script to check test cases in testrail in <b>three simple steps</b>.
+The TestRunXMLParserTool parsers xml file with testrun results and helps select test cases (using filters or/and sorting) to generate xml suit for reruning or generate js script to check test cases in testrail in <b>three simple steps</b>.
 </p>
 <p>
 The TestRunXMLParserTool is Windows desktop app written in C# using <code>WPF</code>, <code>MVVM</code> and <code>ReactiveUI</code>.
