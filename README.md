@@ -64,6 +64,6 @@ Listener name will be included in XML for rerun.
 
 ### XMLResultGenerator
 
-<p>This project is used for generate original XML files with random test case resuls.</p>
+<p>This project is used to generate original XML files with random test case resuls.</p>
 <p>It's console application. After run you need input count of test cases for generate and press enter.</p>
 
