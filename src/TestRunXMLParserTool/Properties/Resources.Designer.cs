@@ -61,6 +61,60 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate JS.
+        /// </summary>
+        public static string ErrorGenJSScriptCaption {
+            get {
+                return ResourceManager.GetString("ErrorGenJSScriptCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while generate JS file, read log file for get more details..
+        /// </summary>
+        public static string ErrorGenJSScriptText {
+            get {
+                return ResourceManager.GetString("ErrorGenJSScriptText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open XML file.
+        /// </summary>
+        public static string ErrorGenOpenFileCaption {
+            get {
+                return ResourceManager.GetString("ErrorGenOpenFileCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while open file, read log file for get more details..
+        /// </summary>
+        public static string ErrorGenOpenFileText {
+            get {
+                return ResourceManager.GetString("ErrorGenOpenFileText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate XML.
+        /// </summary>
+        public static string ErrorGenXMLCaption {
+            get {
+                return ResourceManager.GetString("ErrorGenXMLCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while generate XML file, read log file for get more details..
+        /// </summary>
+        public static string ErrorGenXMLText {
+            get {
+                return ResourceManager.GetString("ErrorGenXMLText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FAIL.
         /// </summary>
         public static string FailSelectLabel {

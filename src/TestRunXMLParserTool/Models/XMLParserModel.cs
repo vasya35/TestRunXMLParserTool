@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -6,19 +7,23 @@ namespace TestRunXMLParserTool.Models
 {
 	public class XMLParserModel
 	{
+		#region fileds
+		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+		#endregion
+
 		#region Public Methods
-		public static async Task<ObservableCollection<TestCaseResultModel>> ParseAsync(string path)
+		public static async Task<Tuple<bool, string, ObservableCollection<TestCaseResultModel>>> ParseAsync(string path)
 		{
 			return await Task.Run(() => Parse(path));
 		}
 
-		public static ObservableCollection<TestCaseResultModel> Parse(string path)
+		public static Tuple<bool, string, ObservableCollection<TestCaseResultModel>> Parse(string path)
 		{
 			try
 			{
 				ObservableCollection<TestCaseResultModel> testCaseResults = new();
 				XmlDocument xDoc = new();
-				//todo: error if file buzy other process
+
 				xDoc.Load(path);
 				// Get root element
 				XmlElement? xRoot = xDoc.DocumentElement;
@@ -55,12 +60,13 @@ namespace TestRunXMLParserTool.Models
 						testCaseResults.Add(testCaseResult);
 					}
 				}
-				return testCaseResults;
+				return Tuple.Create(true, "", testCaseResults);
 			}
-			catch (System.Exception)
+			catch (Exception e)
 			{
-				// todo: add log
-				throw;
+				Logger.Error($"Error while open XML file: {e}");
+
+				return Tuple.Create(false, e.ToString(), new ObservableCollection<TestCaseResultModel>());
 			}
 
 		}

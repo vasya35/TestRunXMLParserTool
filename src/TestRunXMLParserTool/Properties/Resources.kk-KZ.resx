@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorGenJSScriptCaption" xml:space="preserve">
+    <value>JS сценарийін жасаңыз</value>
+  </data>
+  <data name="ErrorGenJSScriptText" xml:space="preserve">
+    <value>JS файлын жасау кезінде қате пайда болды, қосымша мәліметтер алу үшін журнал файлын оқыңыз.</value>
+  </data>
+  <data name="ErrorGenOpenFileCaption" xml:space="preserve">
+    <value>XML файлын ашыңыз</value>
+  </data>
+  <data name="ErrorGenOpenFileText" xml:space="preserve">
+    <value>Файлды ашу кезінде қате орын алды, қосымша мәліметтер алу үшін журнал файлын оқыңыз.</value>
+  </data>
+  <data name="ErrorGenXMLCaption" xml:space="preserve">
+    <value>XML жасаңыз</value>
+  </data>
+  <data name="ErrorGenXMLText" xml:space="preserve">
+    <value>XML файлын жасау кезінде қате пайда болды, қосымша мәліметтер алу үшін журнал файлын оқыңыз.</value>
+  </data>
   <data name="FailSelectLabel" xml:space="preserve">
     <value>СӘТСІЗ</value>
   </data>

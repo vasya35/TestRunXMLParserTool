@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NLog" Version="5.2.2" />
     <PackageReference Include="ReactiveUI.Fody" Version="18.4.34" />
     <PackageReference Include="ReactiveUI.WPF" Version="18.4.34" />
   </ItemGroup>
@@ -47,6 +48,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="testng-results_tkfd.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

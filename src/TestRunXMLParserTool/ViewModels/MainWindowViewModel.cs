@@ -1,12 +1,15 @@
 ﻿using Microsoft.Win32;
+using NLog;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using TestRunXMLParserTool.Models;
 using TestRunXMLParserTool.Views;
 
@@ -59,6 +62,7 @@ namespace TestRunXMLParserTool.ViewModels
 		#region fields
 		private readonly MainWindowView mainWindowView;
 		private readonly SettingsViewModel settingsViewModel = new();
+		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		#endregion
 
 		#region Properties
@@ -152,25 +156,39 @@ namespace TestRunXMLParserTool.ViewModels
 			FailedSelected = false;
 			SkippedSelected = false;
 			SortSelected = true;
-			OriginalTestCaseResults = await XMLParserModel.ParseAsync(SelectedPath);
+			var result = await XMLParserModel.ParseAsync(SelectedPath);
 
-			Step2Activate();
-			DisplayedTestCaseResults = OriginalTestCaseResults;
-
-			UpdateCounts();
-
-			PassedSelected = true;
-			FailedSelected = true;
-			SkippedSelected = true;
-
-			this.WhenAnyValue(x => x.PassedSelected,
-				x => x.FailedSelected,
-				x => x.SkippedSelected,
-				x => x.SortSelected).Subscribe(_ => updateFilteredAndSortData());
-
-			foreach (var testCase in OriginalTestCaseResults)
+			if (result.Item1 == false && result.Item2 != "")
 			{
-				testCase.ObservableForProperty(r => r.IsSelected).Subscribe(_ => UpdateSelectedCount());
+				string messageBoxText = Properties.Resources.ErrorGenOpenFileText;
+				string caption = Properties.Resources.ErrorGenOpenFileCaption;
+				MessageBoxButton button = MessageBoxButton.OK;
+				MessageBoxImage icon = MessageBoxImage.Error;
+				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+			}
+
+			if (result.Item1 == true && result.Item2 == "")
+			{
+				OriginalTestCaseResults = result.Item3;
+
+				Step2Activate();
+				DisplayedTestCaseResults = OriginalTestCaseResults;
+
+				UpdateCounts();
+
+				PassedSelected = true;
+				FailedSelected = true;
+				SkippedSelected = true;
+
+				this.WhenAnyValue(x => x.PassedSelected,
+					x => x.FailedSelected,
+					x => x.SkippedSelected,
+					x => x.SortSelected).Subscribe(_ => updateFilteredAndSortData());
+
+				foreach (var testCase in OriginalTestCaseResults)
+				{
+					testCase.ObservableForProperty(r => r.IsSelected).Subscribe(_ => UpdateSelectedCount());
+				}
 			}
 		}
 
@@ -363,15 +381,54 @@ namespace TestRunXMLParserTool.ViewModels
 		private async void GenXMLButtonCommand(ObservableCollection<TestCaseResultModel> testCaseResultModelCollection)
 		{
 			GenXMLButtonIsEnabled = false;
-			await XMLGeneratorModel.GenerateAsync(testCaseResultModelCollection);
+			var result = await XMLGeneratorModel.GenerateAsync(testCaseResultModelCollection);
+
+			if (result.Item1 == false && result.Item2 != "")
+			{
+				string messageBoxText = Properties.Resources.ErrorGenXMLText;
+				string caption = Properties.Resources.ErrorGenXMLCaption;
+				MessageBoxButton button = MessageBoxButton.OK;
+				MessageBoxImage icon = MessageBoxImage.Error;
+				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+			}
+
 			GenXMLButtonIsEnabled = true;
 		}
 
 		private async void GenJQueryScriptButtonCommand(ObservableCollection<TestCaseResultModel> testCaseResultModelCollection)
 		{
 			GenJQueryScriptButtonIsEnabled = false;
-			await JSTestRailSelectorScriptGeneratorModel.GenerateAsync(testCaseResultModelCollection);
+			var result = await JSTestRailSelectorScriptGeneratorModel.GenerateAsync(testCaseResultModelCollection);
+
+			if (result.Item1 == false && result.Item3 != "")
+			{
+				string messageBoxText = Properties.Resources.ErrorGenJSScriptText;
+				string caption = Properties.Resources.ErrorGenJSScriptCaption;
+				MessageBoxButton button = MessageBoxButton.OK;
+				MessageBoxImage icon = MessageBoxImage.Error;
+				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+			}
+			else if (result.Item1 == true)
+			{
+				CopyToClipboard(result.Item2);
+			}
+
 			GenJQueryScriptButtonIsEnabled = true;
+		}
+
+		private static void CopyToClipboard(string path)
+		{
+			try
+			{
+				TextReader reader = new StreamReader(path);
+				var text = reader.ReadToEnd();
+				Clipboard.SetText(text);
+			}
+			catch (Exception e)
+			{
+				Logger.Error($"Error while copy to clipboard: {e}");
+			}
+
 		}
 		#endregion
 	}

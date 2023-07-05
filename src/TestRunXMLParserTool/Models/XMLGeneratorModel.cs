@@ -8,17 +8,21 @@ namespace TestRunXMLParserTool.Models
 {
 	public class XMLGeneratorModel
 	{
+		#region fileds
+		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+		#endregion
+
 		#region Pablic Methods
 		/// <summary>
 		/// Generate xml file with selected test cases
 		/// </summary>
 		/// <param name="selectedTestCases"></param>
-		public static async Task<bool> GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		public static async Task<Tuple<bool, string>> GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			return await Task.Run(() => Generate(selectedTestCases));
 		}
 
-		public static bool Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		public static Tuple<bool, string> Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			try
 			{
@@ -35,7 +39,7 @@ namespace TestRunXMLParserTool.Models
 
 				bool? result = saveFileDialog.ShowDialog();
 
-				if (result == false) return false;
+				if (result == false) return new Tuple<bool, string>(false, "");
 
 				fileName = saveFileDialog.FileName;
 
@@ -79,13 +83,13 @@ namespace TestRunXMLParserTool.Models
 				writer.WriteEndElement();
 				writer.WriteEndDocument();
 				writer.Flush();
-				return true;
+				return new Tuple<bool, string>(true, "");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
-				//todo: add to log
+				Logger.Error($"Error while generate XML file: {e}");
 
-				return false;
+				return new Tuple<bool, string>(false, e.ToString());
 			}
 		}
 		#endregion

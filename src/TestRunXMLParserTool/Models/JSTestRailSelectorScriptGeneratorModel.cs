@@ -3,21 +3,23 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace TestRunXMLParserTool.Models
 {
 	public class JSTestRailSelectorScriptGeneratorModel
 	{
-		#region Pablic Methods
-		public static async Task<bool> GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		#region fileds
+		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+		#endregion
+
+		#region Public Methods
+		public static async Task<Tuple<bool, string, string>> GenerateAsync(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			var genResult = await Task.Run(() => Generate(selectedTestCases));
-			CopyToClipboard(genResult.Item2);
-			return genResult.Item1;
+			return genResult;
 		}
 
-		public static Tuple<bool, string> Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
+		public static Tuple<bool, string, string> Generate(ObservableCollection<TestCaseResultModel> selectedTestCases)
 		{
 			string filename = "";
 			try
@@ -65,25 +67,17 @@ namespace TestRunXMLParserTool.Models
 					writer.WriteLine($"console.log('TestCases are selected: ' + result.snapshotLength + ' from {cnt} expected');");
 				}
 
-				CopyToClipboard(filename);
-
-				return Tuple.Create(true, filename);
+				return Tuple.Create(true, filename, "");
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
-				//todo: add to log
+				Logger.Error($"Error while generate JS script file: {e}");
+
+				return Tuple.Create(false, filename, e.ToString());
 			}
-			return Tuple.Create(false, filename);
+
 		}
 		#endregion
 
-		#region Private Methods
-		private static void CopyToClipboard(string path)
-		{
-			TextReader reader = new StreamReader(path);
-			var text = reader.ReadToEnd();
-			Clipboard.SetText(text);
-		}
-		#endregion
 	}
 }
