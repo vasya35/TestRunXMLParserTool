@@ -117,24 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErrorGenJSScriptCaption" xml:space="preserve">
-    <value>Generate JS</value>
-  </data>
-  <data name="ErrorGenJSScriptText" xml:space="preserve">
-    <value>Error while generate JS file, read log file for get more details.</value>
-  </data>
-  <data name="ErrorGenOpenFileCaption" xml:space="preserve">
-    <value>Open XML file</value>
-  </data>
-  <data name="ErrorGenOpenFileText" xml:space="preserve">
-    <value>Error while open file, read log file for get more details.</value>
-  </data>
-  <data name="ErrorGenXMLCaption" xml:space="preserve">
-    <value>Generate XML</value>
-  </data>
-  <data name="ErrorGenXMLText" xml:space="preserve">
-    <value>Error while generate XML file, read log file for get more details.</value>
-  </data>
   <data name="FailSelectLabel" xml:space="preserve">
     <value>FAIL</value>
   </data>
@@ -188,5 +170,32 @@
   </data>
   <data name="SortLabel" xml:space="preserve">
     <value>SORT</value>
+  </data>
+  <data name="WindowGenJSScriptCaption" xml:space="preserve">
+    <value>Generate JS</value>
+  </data>
+  <data name="WindowGenJSScriptCopyToClipboardSuccessText" xml:space="preserve">
+    <value>Also the script was copied to the clipboard.</value>
+  </data>
+  <data name="WindowGenJSScriptErrorText" xml:space="preserve">
+    <value>Error while generate JS file, read log file for get more details.</value>
+  </data>
+  <data name="WindowGenJSScriptSuccessText" xml:space="preserve">
+    <value>JS script file generation and saving completed successfully. </value>
+  </data>
+  <data name="WindowGenOpenFileCaption" xml:space="preserve">
+    <value>Open XML file</value>
+  </data>
+  <data name="WindowGenOpenFileErrorText" xml:space="preserve">
+    <value>Error while open file, read log file for get more details.</value>
+  </data>
+  <data name="WindowGenXMLCaption" xml:space="preserve">
+    <value>Generate XML</value>
+  </data>
+  <data name="WindowGenXMLErrorText" xml:space="preserve">
+    <value>Error while generate XML file, read log file for get more details.</value>
+  </data>
+  <data name="WindowGenXMLSuccessText" xml:space="preserve">
+    <value>XML file generation and saving completed successfully.</value>
   </data>
 </root>

@@ -61,60 +61,6 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate JS.
-        /// </summary>
-        public static string ErrorGenJSScriptCaption {
-            get {
-                return ResourceManager.GetString("ErrorGenJSScriptCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error while generate JS file, read log file for get more details..
-        /// </summary>
-        public static string ErrorGenJSScriptText {
-            get {
-                return ResourceManager.GetString("ErrorGenJSScriptText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open XML file.
-        /// </summary>
-        public static string ErrorGenOpenFileCaption {
-            get {
-                return ResourceManager.GetString("ErrorGenOpenFileCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error while open file, read log file for get more details..
-        /// </summary>
-        public static string ErrorGenOpenFileText {
-            get {
-                return ResourceManager.GetString("ErrorGenOpenFileText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Generate XML.
-        /// </summary>
-        public static string ErrorGenXMLCaption {
-            get {
-                return ResourceManager.GetString("ErrorGenXMLCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error while generate XML file, read log file for get more details..
-        /// </summary>
-        public static string ErrorGenXMLText {
-            get {
-                return ResourceManager.GetString("ErrorGenXMLText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to FAIL.
         /// </summary>
         public static string FailSelectLabel {
@@ -273,6 +219,87 @@ namespace TestRunXMLParserTool.Properties {
         public static string SortLabel {
             get {
                 return ResourceManager.GetString("SortLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate JS.
+        /// </summary>
+        public static string WindowGenJSScriptCaption {
+            get {
+                return ResourceManager.GetString("WindowGenJSScriptCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Also the script was copied to the clipboard..
+        /// </summary>
+        public static string WindowGenJSScriptCopyToClipboardSuccessText {
+            get {
+                return ResourceManager.GetString("WindowGenJSScriptCopyToClipboardSuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while generate JS file, read log file for get more details..
+        /// </summary>
+        public static string WindowGenJSScriptErrorText {
+            get {
+                return ResourceManager.GetString("WindowGenJSScriptErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JS script file generation and saving completed successfully. .
+        /// </summary>
+        public static string WindowGenJSScriptSuccessText {
+            get {
+                return ResourceManager.GetString("WindowGenJSScriptSuccessText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open XML file.
+        /// </summary>
+        public static string WindowGenOpenFileCaption {
+            get {
+                return ResourceManager.GetString("WindowGenOpenFileCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while open file, read log file for get more details..
+        /// </summary>
+        public static string WindowGenOpenFileErrorText {
+            get {
+                return ResourceManager.GetString("WindowGenOpenFileErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate XML.
+        /// </summary>
+        public static string WindowGenXMLCaption {
+            get {
+                return ResourceManager.GetString("WindowGenXMLCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while generate XML file, read log file for get more details..
+        /// </summary>
+        public static string WindowGenXMLErrorText {
+            get {
+                return ResourceManager.GetString("WindowGenXMLErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XML file generation and saving completed successfully..
+        /// </summary>
+        public static string WindowGenXMLSuccessText {
+            get {
+                return ResourceManager.GetString("WindowGenXMLSuccessText", resourceCulture);
             }
         }
     }

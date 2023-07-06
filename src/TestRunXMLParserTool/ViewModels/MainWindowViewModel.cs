@@ -160,8 +160,8 @@ namespace TestRunXMLParserTool.ViewModels
 
 			if (result.Item1 == false && result.Item2 != "")
 			{
-				string messageBoxText = Properties.Resources.ErrorGenOpenFileText;
-				string caption = Properties.Resources.ErrorGenOpenFileCaption;
+				string messageBoxText = Properties.Resources.WindowGenOpenFileErrorText;
+				string caption = Properties.Resources.WindowGenOpenFileCaption;
 				MessageBoxButton button = MessageBoxButton.OK;
 				MessageBoxImage icon = MessageBoxImage.Error;
 				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
@@ -385,10 +385,17 @@ namespace TestRunXMLParserTool.ViewModels
 
 			if (result.Item1 == false && result.Item2 != "")
 			{
-				string messageBoxText = Properties.Resources.ErrorGenXMLText;
-				string caption = Properties.Resources.ErrorGenXMLCaption;
+				string messageBoxText = Properties.Resources.WindowGenXMLErrorText;
+				string caption = Properties.Resources.WindowGenXMLCaption;
 				MessageBoxButton button = MessageBoxButton.OK;
 				MessageBoxImage icon = MessageBoxImage.Error;
+				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+			} else if (result.Item1 == true)
+			{
+				string messageBoxText = Properties.Resources.WindowGenXMLSuccessText;
+				string caption = Properties.Resources.WindowGenXMLCaption;
+				MessageBoxButton button = MessageBoxButton.OK;
+				MessageBoxImage icon = MessageBoxImage.Information;
 				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
 			}
 
@@ -402,31 +409,44 @@ namespace TestRunXMLParserTool.ViewModels
 
 			if (result.Item1 == false && result.Item3 != "")
 			{
-				string messageBoxText = Properties.Resources.ErrorGenJSScriptText;
-				string caption = Properties.Resources.ErrorGenJSScriptCaption;
+				string messageBoxText = Properties.Resources.WindowGenJSScriptErrorText;
+				string caption = Properties.Resources.WindowGenJSScriptCaption;
 				MessageBoxButton button = MessageBoxButton.OK;
 				MessageBoxImage icon = MessageBoxImage.Error;
 				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
 			}
 			else if (result.Item1 == true)
 			{
-				CopyToClipboard(result.Item2);
+				string messageBoxText = Properties.Resources.WindowGenJSScriptErrorText;
+				string caption = Properties.Resources.WindowGenJSScriptCaption;
+				MessageBoxButton button = MessageBoxButton.OK;
+				MessageBoxImage icon = MessageBoxImage.Information;
+
+				if (CopyToClipboard(result.Item2))
+				{
+					messageBoxText += Properties.Resources.WindowGenJSScriptCopyToClipboardSuccessText;
+				}
+
+				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
 			}
 
 			GenJQueryScriptButtonIsEnabled = true;
 		}
 
-		private static void CopyToClipboard(string path)
+		private static bool CopyToClipboard(string path)
 		{
 			try
 			{
 				TextReader reader = new StreamReader(path);
 				var text = reader.ReadToEnd();
 				Clipboard.SetText(text);
+				return true;
 			}
 			catch (Exception e)
 			{
 				Logger.Error($"Error while copy to clipboard: {e}");
+
+				return false;
 			}
 
 		}
