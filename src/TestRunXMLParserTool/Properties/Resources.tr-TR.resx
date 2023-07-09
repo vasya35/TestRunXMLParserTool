@@ -171,6 +171,9 @@
   <data name="SettingWindowListenerNameLabel" xml:space="preserve">
     <value>DinleyiciAdı:</value>
   </data>
+  <data name="ShowOnlySelectedLabel" xml:space="preserve">
+    <value>Yalnızca seçilenleri göster</value>
+  </data>
   <data name="SkipSelectLabel" xml:space="preserve">
     <value>ATLAMAK</value>
   </data>
