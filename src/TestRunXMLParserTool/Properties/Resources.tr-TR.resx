@@ -153,6 +153,12 @@
   <data name="PassSelectLabel" xml:space="preserve">
     <value>GEÇMEK</value>
   </data>
+  <data name="SelectByFolderBtn" xml:space="preserve">
+    <value>Klasöre göre seç</value>
+  </data>
+  <data name="SelectByFolderBtnToolTip" xml:space="preserve">
+    <value>Ekran görüntüleri klasörüne göre seçin. Halihazırda seçili vakalar sıfırlanacaktır.</value>
+  </data>
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Ayarlar</value>
   </data>

@@ -153,6 +153,12 @@
   <data name="PassSelectLabel" xml:space="preserve">
     <value>PASS</value>
   </data>
+  <data name="SelectByFolderBtn" xml:space="preserve">
+    <value>Select by folder</value>
+  </data>
+  <data name="SelectByFolderBtnToolTip" xml:space="preserve">
+    <value>Select by screenshots folder. The currently selected cases will be reset.</value>
+  </data>
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Settings</value>
   </data>

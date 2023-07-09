@@ -49,6 +49,7 @@
 							<ColumnDefinition Width="*" MinWidth="60"/>
 							<ColumnDefinition Width="*" MinWidth="60"/>
 							<ColumnDefinition Width="*" MinWidth="60"/>
+							<ColumnDefinition Width="*" MinWidth="60"/>
 						</Grid.ColumnDefinitions>
 
 						<Grid Name="PassColumn"
@@ -161,6 +162,21 @@
 									  Margin="5"
 									  IsChecked="{Binding Path=SortSelected}" />
 						</Grid>
+
+						<Button Grid.Column="4" 
+								Style="{DynamicResource ButtonStyle}"
+								ToolTip="{x:Static properties:Resources.SelectByFolderBtnToolTip}"
+								Command="{Binding SelectByFolderCommand}" 
+								IsEnabled="{Binding SelectByFolderButtonIsEnabled}"
+								Padding="10,0,10,0"
+								Height="35"
+								Width="Auto"
+								MaxWidth="175" >
+							<Button.Content>
+								<TextBlock Text="{x:Static properties:Resources.SelectByFolderBtn}"/>
+							</Button.Content>
+						</Button>
+						
 					</Grid>
 				</Grid>
 			</TabItem>

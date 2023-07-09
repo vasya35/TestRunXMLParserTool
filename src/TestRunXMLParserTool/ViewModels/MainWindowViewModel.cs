@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using DynamicData;
+using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using NLog;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -97,6 +99,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		[Reactive] public int CurrentStep { get; set; }
 		[Reactive] public bool OpenXMLButtonIsEnabled { get; set; } = true;
+		[Reactive] public bool SelectByFolderButtonIsEnabled { get; set; } = true;
 		[Reactive] public bool GenXMLButtonIsEnabled { get; set; } = true;
 		[Reactive] public bool GenJQueryScriptButtonIsEnabled { get; set; } = true;
 
@@ -106,6 +109,7 @@ namespace TestRunXMLParserTool.ViewModels
 		private IReactiveCommand? genXMLCommand;
 		private IReactiveCommand? genJQueryScriptCommand;
 		private IReactiveCommand? openXMLCommand;
+		private IReactiveCommand? selectByFolderCommand;
 		private IReactiveCommand? settingsButtonCommand;
 
 		public IReactiveCommand GenXMLCommand
@@ -132,6 +136,15 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				openXMLCommand ??= ReactiveCommand.Create(ExecuteOpenFileDialog);
 				return openXMLCommand;
+			}
+		}
+
+		public IReactiveCommand SelectByFolderCommand
+		{
+			get
+			{
+				selectByFolderCommand ??= ReactiveCommand.Create(SelectByFolder);
+				return selectByFolderCommand;
 			}
 		}
 
@@ -271,6 +284,63 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 
 			OpenXMLButtonIsEnabled = true;
+		}
+
+		private async void SelectByFolder()
+		{
+			SelectByFolderButtonIsEnabled = false;
+
+			var dialog = new CommonOpenFileDialog();
+			dialog.IsFolderPicker = true;
+			CommonFileDialogResult result = dialog.ShowDialog();
+
+
+			if (result == CommonFileDialogResult.Ok)
+			{
+				SelectedPath = dialog.FileName;
+				var testCasesForSelect = await ScreenshotsFolderParsingModel.GetTestCasesByFolderAsync(SelectedPath);
+
+				if (testCasesForSelect.Item3.Count == 0)
+				{
+					return;
+				}
+
+				foreach (var item3 in OriginalTestCaseResults)
+				{
+					item3.IsSelected = false;
+				}
+
+				ObservableCollection<TestCaseResultModel> filteredData = new();
+
+				foreach (var item in testCasesForSelect.Item3)
+				{
+					var list = OriginalTestCaseResults.Where(x => x.getTestCaseNumber().ToString() == item).ToList();
+
+					filteredData.Add(list);
+				}
+
+				DisplayedTestCaseResults = new ObservableCollection<TestCaseResultModel> { };
+
+				if (SortSelected)
+				{
+					DisplayedTestCaseResults = sortData(filteredData);
+				}
+				else
+				{
+					DisplayedTestCaseResults = filteredData;
+				}
+
+				foreach (var item in filteredData)
+				{
+					
+					if (!item.IsSelected) item.IsSelected = true;
+				}
+
+				UpdateSelectedCount();
+			}
+			var test = OriginalTestCaseResults.Where(x => x.IsSelected == true).ToList();
+
+			SelectByFolderButtonIsEnabled = true;
 		}
 
 		private void OpenSettingsWindow()

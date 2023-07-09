@@ -153,6 +153,12 @@
   <data name="PassSelectLabel" xml:space="preserve">
     <value>ӨТУ</value>
   </data>
+  <data name="SelectByFolderBtn" xml:space="preserve">
+    <value>Қалта бойынша таңдаңыз</value>
+  </data>
+  <data name="SelectByFolderBtnToolTip" xml:space="preserve">
+    <value>Скриншоттар қалтасы бойынша таңдаңыз. Ағымдағы таңдалған істер бастапқы күйге қайтарылады.</value>
+  </data>
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Параметрлер</value>
   </data>

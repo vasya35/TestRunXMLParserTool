@@ -169,6 +169,24 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select by folder.
+        /// </summary>
+        public static string SelectByFolderBtn {
+            get {
+                return ResourceManager.GetString("SelectByFolderBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select by screenshots folder. The currently selected cases will be reset..
+        /// </summary>
+        public static string SelectByFolderBtnToolTip {
+            get {
+                return ResourceManager.GetString("SelectByFolderBtnToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string SettingsButtonTooltip {

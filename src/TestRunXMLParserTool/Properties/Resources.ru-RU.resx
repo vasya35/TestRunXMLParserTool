@@ -153,6 +153,12 @@
   <data name="PassSelectLabel" xml:space="preserve">
     <value>ПРОШЛИ</value>
   </data>
+  <data name="SelectByFolderBtn" xml:space="preserve">
+    <value>Выбор с помощью папки</value>
+  </data>
+  <data name="SelectByFolderBtnToolTip" xml:space="preserve">
+    <value>Выбор с помощью папки со скриншотами. Выбранные сейчас кейсы будут сброшены.</value>
+  </data>
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Настройки</value>
   </data>
