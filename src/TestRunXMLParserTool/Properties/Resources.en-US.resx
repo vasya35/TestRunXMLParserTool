@@ -171,6 +171,9 @@
   <data name="SettingWindowListenerNameLabel" xml:space="preserve">
     <value>ListenerName:</value>
   </data>
+  <data name="ShowOnlySelectedLabel" xml:space="preserve">
+    <value>Show only selected</value>
+  </data>
   <data name="SkipSelectLabel" xml:space="preserve">
     <value>SKIP</value>
   </data>

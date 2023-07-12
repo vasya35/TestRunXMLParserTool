@@ -223,6 +223,15 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show only selected.
+        /// </summary>
+        public static string ShowOnlySelectedLabel {
+            get {
+                return ResourceManager.GetString("ShowOnlySelectedLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SKIP.
         /// </summary>
         public static string SkipSelectLabel {

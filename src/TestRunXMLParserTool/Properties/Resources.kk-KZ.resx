@@ -171,6 +171,9 @@
   <data name="SettingWindowListenerNameLabel" xml:space="preserve">
     <value>Тыңдаушы аты:</value>
   </data>
+  <data name="ShowOnlySelectedLabel" xml:space="preserve">
+    <value>Тек таңдалғанды ​​көрсету</value>
+  </data>
   <data name="SkipSelectLabel" xml:space="preserve">
     <value>ӨТКІЗІП ЖІБЕРУ</value>
   </data>

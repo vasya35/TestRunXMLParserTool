@@ -28,6 +28,7 @@ namespace TestRunXMLParserTool.ViewModels
 			FailedSelected = false;
 			SkippedSelected = false;
 			SortSelected = true;
+			ShowOnlySelected = false;
 
 			Steps = new List<StepDescription>() {
 				new StepDescription()
@@ -65,6 +66,14 @@ namespace TestRunXMLParserTool.ViewModels
 		private readonly MainWindowView mainWindowView;
 		private readonly SettingsViewModel settingsViewModel = new();
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+		private List<IDisposable> isSelectedSubscriptions = new();
+		#endregion
+
+		#region Debug
+#if DEBUG
+		int UpdateCountsHidingAndSortingCount = 0;
+		int UpdateFilteringAndSortDataCount = 0;
+#endif
 		#endregion
 
 		#region Properties
@@ -80,6 +89,8 @@ namespace TestRunXMLParserTool.ViewModels
 		[Reactive] public bool? SkippedSelected { get; set; }
 
 		[Reactive] public bool SortSelected { get; set; }
+
+		[Reactive] public bool ShowOnlySelected { get; set; }
 
 		[Reactive] public string SelectedPath { get; set; } = string.Empty;
 
@@ -169,6 +180,8 @@ namespace TestRunXMLParserTool.ViewModels
 			FailedSelected = false;
 			SkippedSelected = false;
 			SortSelected = true;
+			ShowOnlySelected = false;
+
 			var result = await XMLParserModel.ParseAsync(SelectedPath);
 
 			if (result.Item1 == false && result.Item2 != "")
@@ -196,56 +209,123 @@ namespace TestRunXMLParserTool.ViewModels
 				this.WhenAnyValue(x => x.PassedSelected,
 					x => x.FailedSelected,
 					x => x.SkippedSelected,
-					x => x.SortSelected).Subscribe(_ => updateFilteredAndSortData());
+					x => x.SortSelected,
+					x => x.ShowOnlySelected).Subscribe(_ => UpdateFilteringAndSortData());
 
-				foreach (var testCase in OriginalTestCaseResults)
-				{
-					testCase.ObservableForProperty(r => r.IsSelected).Subscribe(_ => UpdateSelectedCount());
-				}
+				SubscribeOnTestCaseResultsSelected();
 			}
 		}
+
+		private void SubscribeOnTestCaseResultsSelected()
+		{
+			foreach (var testCase in OriginalTestCaseResults)
+			{
+				isSelectedSubscriptions.Add(testCase.ObservableForProperty(r => r.IsSelected).Subscribe(_ => UpdateCountsHidingAndSorting()));
+			}
+		}
+
+		private void UnsubscribeOnTestCaseResultsSelected()
+		{
+			foreach (var subscription in isSelectedSubscriptions)
+			{
+				subscription.Dispose();
+			}
+			isSelectedSubscriptions.Clear();
+		}
+
 
 		private static ObservableCollection<TestCaseResultModel> sortData(ObservableCollection<TestCaseResultModel> filteredData)
 		{
 			return new ObservableCollection<TestCaseResultModel>(filteredData.OrderBy(x => x.getTestCaseNumber()));
 		}
 
-		private void updateFilteredAndSortData()
+		private void UpdateFilteringAndSortData()
 		{
-			List<string> filteredStatus = new();
-			List<string> changingStatus = new();
+#if DEBUG
+			UpdateFilteringAndSortDataCount++;
+			Debug.WriteLine($"UpdateFilteringAndSortData  method called: {UpdateFilteringAndSortDataCount}");
+#endif
 
-			if (PassedSelected != false)
-			{
-				filteredStatus.Add(new string("PASS"));
-			}
+			UnsubscribeOnTestCaseResultsSelected();
+
+			List<string> selectedStatus = new();
+			List<string> unselectedStatus = new();
+
 			if (PassedSelected == true)
 			{
-				changingStatus.Add(new string("PASS"));
+				selectedStatus.Add(new string("PASS"));
+			}
+			else if (PassedSelected == false)
+			{
+				unselectedStatus.Add(new string("PASS"));
 			}
 
-			if (FailedSelected != false)
-			{
-				filteredStatus.Add(new string("FAIL"));
-			}
 			if (FailedSelected == true)
 			{
-				changingStatus.Add(new string("FAIL"));
+				selectedStatus.Add(new string("FAIL"));
+			}
+			else if (FailedSelected == false)
+			{
+				unselectedStatus.Add(new string("FAIL"));
 			}
 
-			if (SkippedSelected != false)
-			{
-				filteredStatus.Add(new string("SKIP"));
-			}
 			if (SkippedSelected == true)
 			{
-				changingStatus.Add(new string("SKIP"));
+				selectedStatus.Add(new string("SKIP"));
+			}
+			else if (SkippedSelected == false)
+			{
+				unselectedStatus.Add(new string("SKIP"));
 			}
 
+			foreach (var item in OriginalTestCaseResults)
+			{
+				foreach (var status in selectedStatus)
+				{
+					if (item.Result == status)
+					{
+						if (!item.IsSelected) item.IsSelected = true;
+					}
+				}
+
+				foreach (var status in unselectedStatus)
+				{
+					if (item.Result == status)
+					{
+						if (item.IsSelected) item.IsSelected = false;
+					}
+				}
+			}
+
+			UpdateCountsHidingAndSorting();
+
+			SubscribeOnTestCaseResultsSelected();
+		}
+
+		private void UpdateCountsHidingAndSorting()
+		{
+#if DEBUG
+			UpdateCountsHidingAndSortingCount++;
+			Debug.WriteLine($"UpdateCountsHidingAndSorting method called: {UpdateCountsHidingAndSortingCount}");
+#endif
+
+			UpdateSelectedCount();
+			HidingAndSorting();
+		}
+
+		private void HidingAndSorting()
+		{
 			ObservableCollection<TestCaseResultModel> filteredData = new();
 			if (OriginalTestCaseResults != null)
 			{
-				filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => filteredStatus.Contains(x.Result) == true).ToList());
+				if (!ShowOnlySelected)
+				{
+					filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.ToList());
+				}
+				else
+				{
+					filteredData = new ObservableCollection<TestCaseResultModel>((IEnumerable<TestCaseResultModel>)OriginalTestCaseResults.Where(x => x.IsSelected == true).ToList());
+				}
 			}
 
 			if (SortSelected)
@@ -256,19 +336,6 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				DisplayedTestCaseResults = filteredData;
 			}
-
-			foreach (var item in filteredData)
-			{
-				foreach (var status in changingStatus)
-				{
-					if (item.Result == status)
-					{
-						if (!item.IsSelected) item.IsSelected = true;
-					}
-				}
-			}
-
-			UpdateSelectedCount();
 		}
 
 		private async void ExecuteOpenFileDialog()
@@ -332,7 +399,6 @@ namespace TestRunXMLParserTool.ViewModels
 
 				foreach (var item in filteredData)
 				{
-					
 					if (!item.IsSelected) item.IsSelected = true;
 				}
 
@@ -406,7 +472,7 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void UpdateSelectedCount()
 		{
-			PassedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "PASS" && x.IsSelected).ToList().Count;
+			PassedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "PASS" && x.IsSelected).ToList().Count;
 			if (PassedSelectedCount == 0)
 			{
 				PassedSelected = false;
@@ -419,7 +485,7 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				PassedSelected = true;
 			}
-			FailedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
+			FailedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "FAIL" && x.IsSelected).ToList().Count;
 			if (FailedSelectedCount == 0)
 			{
 				FailedSelected = false;
@@ -432,7 +498,7 @@ namespace TestRunXMLParserTool.ViewModels
 			{
 				FailedSelected = true;
 			}
-			SkippedSelectedCount = DisplayedTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
+			SkippedSelectedCount = OriginalTestCaseResults.Where(x => x.Result == "SKIP" && x.IsSelected).ToList().Count;
 			if (SkippedSelectedCount == 0)
 			{
 				SkippedSelected = false;
@@ -460,7 +526,8 @@ namespace TestRunXMLParserTool.ViewModels
 				MessageBoxButton button = MessageBoxButton.OK;
 				MessageBoxImage icon = MessageBoxImage.Error;
 				_ = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
-			} else if (result.Item1 == true)
+			}
+			else if (result.Item1 == true)
 			{
 				string messageBoxText = Properties.Resources.WindowGenXMLSuccessText;
 				string caption = Properties.Resources.WindowGenXMLCaption;
@@ -487,7 +554,7 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 			else if (result.Item1 == true)
 			{
-				string messageBoxText = Properties.Resources.WindowGenJSScriptErrorText;
+				string messageBoxText = Properties.Resources.WindowGenJSScriptSuccessText;
 				string caption = Properties.Resources.WindowGenJSScriptCaption;
 				MessageBoxButton button = MessageBoxButton.OK;
 				MessageBoxImage icon = MessageBoxImage.Information;
