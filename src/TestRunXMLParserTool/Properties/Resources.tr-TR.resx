@@ -159,6 +159,9 @@
   <data name="SelectByFolderBtnToolTip" xml:space="preserve">
     <value>Ekran görüntüleri klasörüne göre seçin. Halihazırda seçili vakalar sıfırlanacaktır.</value>
   </data>
+  <data name="SelectingGroupBoxHeader" xml:space="preserve">
+    <value>Seçme</value>
+  </data>
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Ayarlar</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="SettingWindowListenerNameLabel" xml:space="preserve">
     <value>DinleyiciAdı:</value>
+  </data>
+  <data name="ShowingGroupBoxHeader" xml:space="preserve">
+    <value>Görüntülemek</value>
   </data>
   <data name="ShowOnlySelectedLabel" xml:space="preserve">
     <value>Yalnızca seçilenleri göster</value>

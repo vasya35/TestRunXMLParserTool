@@ -43,7 +43,7 @@
 					</Grid.ColumnDefinitions>
 
 					<DockPanel Grid.Column="1" >
-						<GroupBox Header="Selecting" >
+						<GroupBox Header="{x:Static properties:Resources.SelectingGroupBoxHeader}" >
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
@@ -160,8 +160,8 @@
 
 							</Grid>
 						</GroupBox>
-						
-						<GroupBox Header="Showing" >
+
+						<GroupBox Header="{x:Static properties:Resources.ShowingGroupBoxHeader}" >
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>

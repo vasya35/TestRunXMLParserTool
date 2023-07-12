@@ -159,6 +159,9 @@
   <data name="SelectByFolderBtnToolTip" xml:space="preserve">
     <value>Скриншоттар қалтасы бойынша таңдаңыз. Ағымдағы таңдалған істер бастапқы күйге қайтарылады.</value>
   </data>
+  <data name="SelectingGroupBoxHeader" xml:space="preserve">
+    <value>Таңдау</value>
+  </data>
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Параметрлер</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="SettingWindowListenerNameLabel" xml:space="preserve">
     <value>Тыңдаушы аты:</value>
+  </data>
+  <data name="ShowingGroupBoxHeader" xml:space="preserve">
+    <value>Көрсету</value>
   </data>
   <data name="ShowOnlySelectedLabel" xml:space="preserve">
     <value>Тек таңдалғанды ​​көрсету</value>

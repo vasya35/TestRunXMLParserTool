@@ -159,6 +159,9 @@
   <data name="SelectByFolderBtnToolTip" xml:space="preserve">
     <value>Выбор с помощью папки со скриншотами. Выбранные сейчас кейсы будут сброшены.</value>
   </data>
+  <data name="SelectingGroupBoxHeader" xml:space="preserve">
+    <value>Выбор</value>
+  </data>
   <data name="SettingsButtonTooltip" xml:space="preserve">
     <value>Настройки</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="SettingWindowListenerNameLabel" xml:space="preserve">
     <value>Имя слушателя:</value>
+  </data>
+  <data name="ShowingGroupBoxHeader" xml:space="preserve">
+    <value>Отображение</value>
   </data>
   <data name="ShowOnlySelectedLabel" xml:space="preserve">
     <value>Показать только выделенные</value>

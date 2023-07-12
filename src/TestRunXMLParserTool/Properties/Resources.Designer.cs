@@ -187,6 +187,15 @@ namespace TestRunXMLParserTool.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecting.
+        /// </summary>
+        public static string SelectingGroupBoxHeader {
+            get {
+                return ResourceManager.GetString("SelectingGroupBoxHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string SettingsButtonTooltip {
@@ -219,6 +228,15 @@ namespace TestRunXMLParserTool.Properties {
         public static string SettingWindowListenerNameLabel {
             get {
                 return ResourceManager.GetString("SettingWindowListenerNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display.
+        /// </summary>
+        public static string ShowingGroupBoxHeader {
+            get {
+                return ResourceManager.GetString("ShowingGroupBoxHeader", resourceCulture);
             }
         }
         
