@@ -37,8 +37,16 @@
 			HorizontalAlignment="Right" 
 			VerticalAlignment="Top"
 			Margin="5, 10, 10, 5" />
-		<localView:StepProgressBarControl Grid.Row="0" Grid.RowSpan="2" DataContext="{Binding}" VerticalAlignment="Top"/>
-		<localView:SortAndFilterUserControl Grid.Row="2" DataContext="{Binding}" VerticalAlignment="Stretch"/>
+		<localView:StepProgressBarControl 
+			Grid.Row="0" 
+			Grid.RowSpan="2" 
+			DataContext="{Binding}" 
+			VerticalAlignment="Top"/>
+		<localView:SortAndFilterUserControl 
+			Grid.Row="2" 
+			DataContext="{Binding}" 
+			VerticalAlignment="Stretch" 
+			Margin="5"/>
 		<ListBox Name="TestCaseResultsList" 
 				 Grid.Row="3" 
 				 ItemsSource="{Binding DisplayedTestCaseResults}" 

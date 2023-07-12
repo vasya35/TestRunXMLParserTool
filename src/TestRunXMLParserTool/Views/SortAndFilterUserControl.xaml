@@ -16,7 +16,6 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 	<Grid>
-		
 		<TabControl SelectedIndex="{Binding CurrentStep}" BorderThickness="0">
 			<TabItem Header="Step 1"
 					 HorizontalAlignment="Stretch" 
@@ -43,163 +42,176 @@
 						<ColumnDefinition Width="0.10*"/>
 					</Grid.ColumnDefinitions>
 
-					<Grid Grid.Column="1">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" MinWidth="60"/>
-							<ColumnDefinition Width="*" MinWidth="60"/>
-							<ColumnDefinition Width="*" MinWidth="60"/>
-							<ColumnDefinition Width="*" MinWidth="60"/>
-							<ColumnDefinition Width="*" MinWidth="60"/>
-							<ColumnDefinition Width="*" MinWidth="60"/>
-						</Grid.ColumnDefinitions>
+					<DockPanel Grid.Column="1" >
+						<GroupBox Header="Selecting" >
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+								
+								<Grid Name="PassColumn"
+									  Grid.Column="0"
+									  Margin="5,0,5,0">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
 
-						<Grid Name="PassColumn"
-							  Grid.Column="0" 
-							  Margin="5,0,5,0">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-							</Grid.RowDefinitions>
-							<Label Name="PassLabel" 
-								   Grid.Row="0"	
-								   VerticalAlignment="Center"
-								   HorizontalAlignment="Center"
-								   Content="{x:Static properties:Resources.PassSelectLabel}"/>
-							<DockPanel  Grid.Row="1"
-										Grid.Column="1">
-								<CheckBox Name="PassCheckbox"
-										  Grid.Column="0"
-										  VerticalAlignment="Center"
-										  IsChecked="{Binding Path=PassedSelected}" />
-								<Label Name="PassSelectedLabel"
-									   Grid.Column="1"
-									   VerticalAlignment="Center"
-									   HorizontalAlignment="Center">
-									<Label.Content>
-										<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
-											<Binding Path="PassedSelectedCount"/>
-											<Binding Path="PassedCount"/>
-										</MultiBinding>
-									</Label.Content>
-								</Label>
-							</DockPanel>
-						</Grid>
+									<Label Name="PassLabel" 
+										   Grid.Row="0"	
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center"
+										   Content="{x:Static properties:Resources.PassSelectLabel}"/>	
+									<DockPanel  Grid.Row="1"
+												Grid.Column="1">
+										<CheckBox Name="PassCheckbox"
+												  Grid.Column="0"
+												  VerticalAlignment="Center"
+												  IsChecked="{Binding Path=PassedSelected}" />
+										<Label Name="PassSelectedLabel"
+											   Grid.Column="1"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Center">	
+											<Label.Content>
+												<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
+													<Binding Path="PassedSelectedCount"/>
+													<Binding Path="PassedCount"/>
+												</MultiBinding>
+											</Label.Content>
+										</Label>
+									</DockPanel>
+								</Grid>
 
-						<Grid Name="FailColumn"
-							  Grid.Column="1"
-							  Margin="5,0,5,0" >
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
-							<Label Name="FailLabel" 
-								   Grid.Row="0"
-								   VerticalAlignment="Center"
-								   HorizontalAlignment="Center"
-								   Content="{x:Static properties:Resources.FailSelectLabel}"/>
-							<DockPanel  Grid.Row="1"
-										Grid.Column="1">
-								<CheckBox Name="FailedCheckbox"
-										  VerticalAlignment="Center"
-										  IsChecked="{Binding Path=FailedSelected}"/>
-								<Label Name="FailedSelectedLabel"
-									   HorizontalAlignment="Center"
-									   VerticalAlignment="Center">
-									<Label.Content>
-										<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
-											<Binding Path="FailedSelectedCount"/>
-											<Binding Path="FailedCount"/>
-										</MultiBinding>
-									</Label.Content>
-								</Label>
-							</DockPanel>
-						</Grid>
+								<Grid Name="FailColumn"
+									  Grid.Column="1"
+									  Margin="5,0,5,0" >
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+									<Label Name="FailLabel" 
+										   Grid.Row="0"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center"
+										   Content="{x:Static properties:Resources.FailSelectLabel}"/>
+									<DockPanel  Grid.Row="1"
+												Grid.Column="1">
+										<CheckBox Name="FailedCheckbox"
+												  VerticalAlignment="Center"
+												  IsChecked="{Binding Path=FailedSelected}"/>
+										<Label Name="FailedSelectedLabel"
+											   HorizontalAlignment="Center"
+											   VerticalAlignment="Center">
+											<Label.Content>
+												<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
+													<Binding Path="FailedSelectedCount"/>
+													<Binding Path="FailedCount"/>
+												</MultiBinding>
+											</Label.Content>
+										</Label>
+									</DockPanel>
+								</Grid>
 
-						<Grid Name="SkipColumn"
-							  Grid.Column="2" 
-							  Margin="5,0,5,0" >
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-							</Grid.RowDefinitions>
-							<Label Name="SkipLabel" 
-								   Grid.Row="0"
-								   VerticalAlignment="Center"
-								   HorizontalAlignment="Center"
-								   Content="{x:Static properties:Resources.SkipSelectLabel}"/>
-							<DockPanel Grid.Row="1" >
-								<CheckBox Name="SkippedCheckbox"
-										  VerticalAlignment="Center"
-										  IsChecked="{Binding Path=SkippedSelected}" />
-								<Label Name="SkippedSelectedLabel"
-									   HorizontalAlignment="Center"
-									   VerticalAlignment="Top" >
-									<Label.Content>
-										<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
-											<Binding Path="SkippedSelectedCount"/>
-											<Binding Path="SkippedCount"/>
-										</MultiBinding>
-									</Label.Content>
-								</Label>
-							</DockPanel>
-						</Grid>
+								<Grid Name="SkipColumn"
+									  Grid.Column="2" 
+									  Margin="5,0,5,0" >
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+									<Label Name="SkipLabel" 
+										   Grid.Row="0"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center"
+										   Content="{x:Static properties:Resources.SkipSelectLabel}"/>
+									<DockPanel Grid.Row="1" >
+										<CheckBox Name="SkippedCheckbox"
+												  VerticalAlignment="Center"
+												  IsChecked="{Binding Path=SkippedSelected}" />
+										<Label Name="SkippedSelectedLabel"
+											   HorizontalAlignment="Center"
+											   VerticalAlignment="Top" >
+											<Label.Content>
+												<MultiBinding Converter="{StaticResource SplitTestsLabelConverter}" >
+													<Binding Path="SkippedSelectedCount"/>
+													<Binding Path="SkippedCount"/>
+												</MultiBinding>
+											</Label.Content>
+										</Label>
+									</DockPanel>
+								</Grid>
 
-						<Grid Name="SortColumn"
-							  Grid.Column="3"
-							  Margin="5,0,5,0" >
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-							</Grid.RowDefinitions>
-							<Label Name="SortLabel"
-								   Grid.Row="0"
-								   VerticalAlignment="Center"
-								   HorizontalAlignment="Center"
-								   Content="{x:Static properties:Resources.SortLabel}"/>
-							<CheckBox Name="SortCheckbox"
-									  Grid.Row="1"
-									  HorizontalAlignment="Center"
-									  VerticalAlignment="Center"
-									  Margin="5"
-									  IsChecked="{Binding Path=SortSelected}" />
-						</Grid>
+								<Button Grid.Column="3" 
+										Style="{DynamicResource ButtonStyle}"
+										ToolTip="{x:Static properties:Resources.SelectByFolderBtnToolTip}"
+										Command="{Binding SelectByFolderCommand}" 
+										IsEnabled="{Binding SelectByFolderButtonIsEnabled}"
+										Padding="10,0,10,0"
+										Height="35"
+										Width="Auto"
+										MaxWidth="175" >
+									<Button.Content>
+										<TextBlock Text="{x:Static properties:Resources.SelectByFolderBtn}"/>
+									</Button.Content>
+								</Button>
 
-						<Button Grid.Column="4" 
-								Style="{DynamicResource ButtonStyle}"
-								ToolTip="{x:Static properties:Resources.SelectByFolderBtnToolTip}"
-								Command="{Binding SelectByFolderCommand}" 
-								IsEnabled="{Binding SelectByFolderButtonIsEnabled}"
-								Padding="10,0,10,0"
-								Height="35"
-								Width="Auto"
-								MaxWidth="175" >
-							<Button.Content>
-								<TextBlock Text="{x:Static properties:Resources.SelectByFolderBtn}"/>
-							</Button.Content>
-						</Button>
-
-						<Grid Name="ShowOnlySelectedColumn"
-							  Grid.Column="5"
-							  Margin="5,0,5,0" >
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-							</Grid.RowDefinitions>
-							<Label Name="ShowOnlySelectedLabel"
-								   Grid.Row="0"
-								   VerticalAlignment="Center"
-								   HorizontalAlignment="Center"
-								   Content="{x:Static properties:Resources.ShowOnlySelectedLabel}"/>
-							<CheckBox Name="ShowOnlySelectedCheckbox"
-									  Grid.Row="1"
-									  HorizontalAlignment="Center"
-									  VerticalAlignment="Center"
-									  Margin="5"
-									  IsChecked="{Binding Path=ShowOnlySelected}" />
-							
-						</Grid>
+							</Grid>
+						</GroupBox>
 						
-					</Grid>
+						<GroupBox Header="Showing" >
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+
+								<Grid Name="SortColumn"
+									  Grid.Column="0"
+									  Margin="5,0,5,0" >
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+									<Label Name="SortLabel"
+										   Grid.Row="0"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center"
+										   Content="{x:Static properties:Resources.SortLabel}"/>
+									<CheckBox Name="SortCheckbox"
+											  Grid.Row="1"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center"
+											  Margin="5"
+											  IsChecked="{Binding Path=SortSelected}" />
+								</Grid>
+
+								<Grid Name="ShowOnlySelectedColumn"
+									  Grid.Column="1"
+									  Margin="5,0,5,0" >
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+									<Label Name="ShowOnlySelectedLabel"
+										   Grid.Row="0"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center"
+										   Content="{x:Static properties:Resources.ShowOnlySelectedLabel}"/>
+									<CheckBox Name="ShowOnlySelectedCheckbox"
+											  Grid.Row="1"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center"
+											  Margin="5"
+											  IsChecked="{Binding Path=ShowOnlySelected}" />
+
+								</Grid>
+							</Grid>							
+						</GroupBox>
+					</DockPanel>
+
 				</Grid>
 			</TabItem>
 			<TabItem Header="Step 3"

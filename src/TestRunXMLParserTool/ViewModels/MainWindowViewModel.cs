@@ -15,6 +15,10 @@ using System.Windows;
 using TestRunXMLParserTool.Models;
 using TestRunXMLParserTool.Views;
 
+#if DEBUG
+using System.Diagnostics;
+#endif
+
 namespace TestRunXMLParserTool.ViewModels
 {
 	public class MainWindowViewModel : ReactiveObject
