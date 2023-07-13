@@ -13,8 +13,84 @@
 				<ResourceDictionary Source="../Styles/Default.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 			<converters:SplitTestsLabelConverter x:Key="SplitTestsLabelConverter"/>
+			<converters:CenterBorderGapMaskConverter x:Key="CenterBorderGapMaskConverter"/>			
+			<BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+			<Style x:Key="GroupBoxCustomStyle" TargetType="{x:Type GroupBox}">
+				<Setter Property="BorderBrush" Value="#D5DFE5"/>
+				<Setter Property="BorderThickness" Value="1"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type GroupBox}">
+							<Grid SnapsToDevicePixels="true">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="6"/>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="6"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="6"/>
+								</Grid.RowDefinitions>
+								<Border CornerRadius="4"
+										Grid.Row="1"
+										Grid.RowSpan="3"
+										Grid.Column="0"
+										Grid.ColumnSpan="5"
+										BorderThickness="{TemplateBinding BorderThickness}"
+										BorderBrush="Transparent"
+										Background="{TemplateBinding Background}"/>
+														<Border x:Name="Header"
+										Padding="3,1,3,0"
+										Grid.Row="0"
+										Grid.RowSpan="2"
+										Grid.Column="2">
+									<ContentPresenter ContentSource="Header" 
+													  RecognizesAccessKey="True" 
+													  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+								</Border>
+								<ContentPresenter Grid.Row="2"
+												  Grid.Column="1"
+												  Grid.ColumnSpan="3"
+												  Margin="{TemplateBinding Padding}"
+												  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+								<Border CornerRadius="4"
+										Grid.Row="1"
+										Grid.RowSpan="3"
+										Grid.ColumnSpan="5"
+										BorderThickness="{TemplateBinding BorderThickness}"
+										BorderBrush="White">
+									<Border.OpacityMask>
+										<MultiBinding Converter="{StaticResource CenterBorderGapMaskConverter}">
+											<Binding ElementName="Header" 
+													 Path="ActualWidth"/>
+											<Binding RelativeSource="{RelativeSource Self}"
+													 Path="ActualWidth"/>
+											<Binding RelativeSource="{RelativeSource Self}"
+													 Path="ActualHeight"/>
+										</MultiBinding>
+									</Border.OpacityMask>
+
+									<Border BorderThickness="{TemplateBinding BorderThickness}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											CornerRadius="3">
+										<Border BorderThickness="{TemplateBinding BorderThickness}"
+												BorderBrush="White"
+												CornerRadius="2"/>
+									</Border>
+								</Border>
+							</Grid>
+						</ControlTemplate>
+
+					</Setter.Value>
+				</Setter>
+			</Style>
 		</ResourceDictionary>
 	</UserControl.Resources>
+	
 	<Grid>
 		<TabControl SelectedIndex="{Binding CurrentStep}" BorderThickness="0">
 			<TabItem Header="Step 1"
@@ -43,7 +119,9 @@
 					</Grid.ColumnDefinitions>
 
 					<DockPanel Grid.Column="1" >
-						<GroupBox Header="{x:Static properties:Resources.SelectingGroupBoxHeader}" >
+						
+						<GroupBox Header="{x:Static properties:Resources.SelectingGroupBoxHeader}" 
+								  Style="{DynamicResource GroupBoxCustomStyle}" >
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
@@ -161,7 +239,8 @@
 							</Grid>
 						</GroupBox>
 
-						<GroupBox Header="{x:Static properties:Resources.ShowingGroupBoxHeader}" >
+						<GroupBox Header="{x:Static properties:Resources.ShowingGroupBoxHeader}" 
+								  Style="{DynamicResource GroupBoxCustomStyle}" >
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
