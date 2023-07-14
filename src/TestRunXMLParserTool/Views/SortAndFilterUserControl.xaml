@@ -13,8 +13,9 @@
 				<ResourceDictionary Source="../Styles/Default.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 			<converters:SplitTestsLabelConverter x:Key="SplitTestsLabelConverter"/>
-			<converters:CenterBorderGapMaskConverter x:Key="CenterBorderGapMaskConverter"/>			
-			<BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+			<converters:CenterBorderGapMaskConverter x:Key="CenterBorderGapMaskConverter"/>
+			<converters:SelectingGridLabeMinWidthConverter x:Key="SelectingGridLabeMinWidthConverter"/>
+
 			<Style x:Key="GroupBoxCustomStyle" TargetType="{x:Type GroupBox}">
 				<Setter Property="BorderBrush" Value="#D5DFE5"/>
 				<Setter Property="BorderThickness" Value="1"/>
@@ -132,7 +133,8 @@
 								
 								<Grid Name="PassColumn"
 									  Grid.Column="0"
-									  Margin="5,0,5,0">
+									  Margin="5,0,5,0"
+									  MinWidth="{Binding Path=PassedCount, Converter={StaticResource SelectingGridLabeMinWidthConverter}}">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="Auto"/>
 										<RowDefinition Height="Auto"/>
@@ -165,7 +167,8 @@
 
 								<Grid Name="FailColumn"
 									  Grid.Column="1"
-									  Margin="5,0,5,0" >
+									  Margin="5,0,5,0"
+									  MinWidth="{Binding Path=FailedCount, Converter={StaticResource SelectingGridLabeMinWidthConverter}}" >
 									<Grid.RowDefinitions>
 										<RowDefinition Height="Auto"/>
 										<RowDefinition Height="Auto"/>
@@ -195,7 +198,8 @@
 
 								<Grid Name="SkipColumn"
 									  Grid.Column="2" 
-									  Margin="5,0,5,0" >
+									  Margin="5,0,5,0"
+									  MinWidth="{Binding Path=SkippedCount, Converter={StaticResource SelectingGridLabeMinWidthConverter}}">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="Auto"/>
 										<RowDefinition Height="Auto"/>
