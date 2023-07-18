@@ -24,9 +24,11 @@
 		<Setter Property="Background" Value="{StaticResource wizardBarBrush}" />
 		<Setter Property="Foreground" Value="Black" />
 		<Setter Property="MaxWidth" Value="150"/>
-		<Setter Property="MaxHeight" Value="60"/>
+		<Setter Property="MaxHeight" Value="175"/>
 		<Setter Property="Width" Value="Auto"/>
+		<Setter Property="Height" Value="40"/>
 		<Setter Property="Margin" Value="5,5,5,5" />
+		<Setter Property="Padding" Value="10,0,10,0" />
 		<Setter Property="HorizontalAlignment" Value="Center"/>
 		
 		<Style.Resources>
@@ -35,6 +37,7 @@
 			</Style>
 			<Style TargetType="TextBlock">
 				<Setter Property="TextWrapping" Value="Wrap"/>
+				<Setter Property="TextAlignment" Value="Center"/>
 				<Setter Property="HorizontalAlignment" Value="Center"/>
 			</Style>
 		</Style.Resources>
