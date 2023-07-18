@@ -8,7 +8,7 @@ namespace TestRunXMLParserTool.Models
 {
 	public class JSTestRailSelectorScriptGeneratorModel
 	{
-		#region fileds
+		#region Fileds
 		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 		#endregion
 

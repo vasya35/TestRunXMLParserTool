@@ -27,8 +27,8 @@
 
 		<Button 
 			Name="SettingsButton"
-			Grid.Row="0" 			
-			Content="🔧" 			
+			Grid.Row="0"
+			Content="🔧"
 			Style="{DynamicResource ButtonStyle}"
 			ToolTip="{x:Static properties:Resources.SettingsButtonTooltip}"
 			Command="{Binding SettingsButtonCommand}"
@@ -36,7 +36,8 @@
 			Width="25" 
 			HorizontalAlignment="Right" 
 			VerticalAlignment="Top"
-			Margin="5, 10, 10, 5" />
+			Margin="5, 10, 10, 5"
+			Padding="0" />
 		<localView:StepProgressBarControl 
 			Grid.Row="0" 
 			Grid.RowSpan="2" 

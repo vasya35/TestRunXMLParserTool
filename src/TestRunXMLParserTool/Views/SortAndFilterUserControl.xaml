@@ -5,8 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:TestRunXMLParserTool.Converters"
 			 xmlns:properties = "clr-namespace:TestRunXMLParserTool.Properties"
+			 xmlns:localView="clr-namespace:TestRunXMLParserTool.Views"
 			 mc:Ignorable="d"
-			 Height="100">
+			 MaxHeight="150"
+			 MinHeight="90"
+			 Margin="0"
+			 Padding="0"
+			 VerticalContentAlignment="Center">
+	
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -44,7 +50,7 @@
 										BorderThickness="{TemplateBinding BorderThickness}"
 										BorderBrush="Transparent"
 										Background="{TemplateBinding Background}"/>
-														<Border x:Name="Header"
+								<Border x:Name="Header"
 										Padding="3,1,3,0"
 										Grid.Row="0"
 										Grid.RowSpan="2"
@@ -91,11 +97,14 @@
 			</Style>
 		</ResourceDictionary>
 	</UserControl.Resources>
-	
+
 	<Grid>
-		<TabControl SelectedIndex="{Binding CurrentStep}" BorderThickness="0">
+		<TabControl SelectedIndex="{Binding CurrentStep}" 
+					Padding="0"
+					BorderThickness="0" >
 			<TabItem Header="Step 1"
 					 HorizontalAlignment="Stretch" 
+					 Height="0" 
 					 Visibility="Hidden" >
 				<Button 
 					Command="{Binding OpenXMLCommand}" 
@@ -111,7 +120,8 @@
 			</TabItem>
 			<TabItem Header="Step 2"
 					 HorizontalAlignment="Stretch"
-					 Visibility="Hidden" >
+					 Height="0" 
+					 Visibility="Hidden">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="0.10*"/>
@@ -231,10 +241,7 @@
 										ToolTip="{x:Static properties:Resources.SelectByFolderBtnToolTip}"
 										Command="{Binding SelectByFolderCommand}" 
 										IsEnabled="{Binding SelectByFolderButtonIsEnabled}"
-										Padding="10,0,10,0"
-										Height="35"
-										Width="Auto"
-										MaxWidth="175" >
+										HorizontalContentAlignment="Center" >
 									<Button.Content>
 										<TextBlock Text="{x:Static properties:Resources.SelectByFolderBtn}"/>
 									</Button.Content>
@@ -263,12 +270,12 @@
 										   VerticalAlignment="Center"
 										   HorizontalAlignment="Center"
 										   Content="{x:Static properties:Resources.SortLabel}"/>
-									<CheckBox Name="SortCheckbox"
-											  Grid.Row="1"
-											  HorizontalAlignment="Center"
-											  VerticalAlignment="Center"
-											  Margin="5"
-											  IsChecked="{Binding Path=SortSelected}" />
+									<localView:ToggleSwitchUserControl 
+										   Grid.Row="1" 
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center"
+										   Margin="5"
+										   DataContext="{Binding Path=SortSelected, Mode=TwoWay}" />
 								</Grid>
 
 								<Grid Name="ShowOnlySelectedColumn"
@@ -283,15 +290,15 @@
 										   VerticalAlignment="Center"
 										   HorizontalAlignment="Center"
 										   Content="{x:Static properties:Resources.ShowOnlySelectedLabel}"/>
-									<CheckBox Name="ShowOnlySelectedCheckbox"
-											  Grid.Row="1"
-											  HorizontalAlignment="Center"
-											  VerticalAlignment="Center"
-											  Margin="5"
-											  IsChecked="{Binding Path=ShowOnlySelected}" />
-
+									<localView:ToggleSwitchUserControl 
+										   Grid.Row="1" 
+										   HorizontalAlignment="Center"
+										   VerticalAlignment="Center"
+										   Margin="5"
+										   DataContext="{Binding Path=ShowOnlySelected, Mode=TwoWay}" />
 								</Grid>
-							</Grid>							
+								
+							</Grid>
 						</GroupBox>
 					</DockPanel>
 
@@ -299,6 +306,7 @@
 			</TabItem>
 			<TabItem Header="Step 3"
 					 HorizontalAlignment="Stretch"
+					 Height="0" 
 					 Visibility="Hidden" >
 				<Grid>
 					<Grid.ColumnDefinitions>
