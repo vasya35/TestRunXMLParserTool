@@ -31,8 +31,11 @@ namespace TestRunXMLParserTool.ViewModels
 			PassedSelected = false;
 			FailedSelected = false;
 			SkippedSelected = false;
-			SortSelected = true;
-			ShowOnlySelected = false;
+			SortSelected = AppConfiguration.GetSortEnabled();
+			ShowOnlySelected = AppConfiguration.GetShowOnlySelectedEnabled();
+
+			this.WhenAnyValue(x => x.SortSelected).Subscribe(_ => SetSortSelectedToConfig());
+			this.WhenAnyValue(x => x.ShowOnlySelected).Subscribe(_ => SetShowOnlySelectedToConfig());
 
 			Steps = new List<StepDescription>() {
 				new StepDescription()
@@ -183,8 +186,8 @@ namespace TestRunXMLParserTool.ViewModels
 			PassedSelected = false;
 			FailedSelected = false;
 			SkippedSelected = false;
-			SortSelected = true;
-			ShowOnlySelected = false;
+			SortSelected = AppConfiguration.GetSortEnabled();
+			ShowOnlySelected = AppConfiguration.GetShowOnlySelectedEnabled();
 
 			var result = await XMLParserModel.ParseAsync(SelectedPath);
 
@@ -590,6 +593,16 @@ namespace TestRunXMLParserTool.ViewModels
 				return false;
 			}
 
+		}
+
+		private void SetSortSelectedToConfig()
+		{
+			AppConfiguration.SetSortEnabled(SortSelected);
+		}
+
+		private void SetShowOnlySelectedToConfig()
+		{
+			AppConfiguration.SetShowOnlySelectedEnabled(ShowOnlySelected);
 		}
 		#endregion
 	}

@@ -55,7 +55,7 @@ namespace TestRunXMLParserTool.Models
 				writer.WriteAttributeString("name", "selectedTestCases");
 				writer.WriteStartElement("listeners");
 				writer.WriteStartElement("listener");
-				var listenerName = AppConfiguration.GetCurrentListenerName();
+				var listenerName = AppConfiguration.GetListenerName();
 				writer.WriteAttributeString("class-name", listenerName);
 				writer.WriteEndElement();
 				writer.WriteEndElement();

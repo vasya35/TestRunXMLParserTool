@@ -15,7 +15,7 @@ namespace TestRunXMLParserTool
 
 		private void setCurrentCulture()
 		{
-			var culture = AppConfiguration.GetCurrentCulture();
+			var culture = AppConfiguration.GetCulture();
 
 			if (culture != null)
 			{

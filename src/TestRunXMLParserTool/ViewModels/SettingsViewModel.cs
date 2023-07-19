@@ -20,19 +20,19 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			Languages = new();
 			Languages = AppConfiguration.GetLanguagesList();
-			ListenerName = AppConfiguration.GetCurrentListenerName();
-			LanguageSelected = AppConfiguration.GetCurrentLanguage();
+			ListenerName = AppConfiguration.GetListenerName();
+			LanguageSelected = AppConfiguration.GetLanguage();
 
-			this.WhenAnyValue(x => x.ListenerName).Subscribe(_ => SetNewListenerName());
-			this.WhenAnyValue(x => x.LanguageSelected).Subscribe(_ => SetNewLanguage());
+			this.WhenAnyValue(x => x.ListenerName).Subscribe(_ => SaveListenerNameToConfig());
+			this.WhenAnyValue(x => x.LanguageSelected).Subscribe(_ => SaveLanguageToConfig());
 		}
 		#endregion
 
 		#region Private Methods
-		private void SetNewListenerName()
+		private void SaveListenerNameToConfig()
 		{
 			AppConfiguration.SetListenerName(ListenerName);
-			var newListenerName = AppConfiguration.GetCurrentListenerName();
+			var newListenerName = AppConfiguration.GetListenerName();
 
 			if (newListenerName != ListenerName)
 			{
@@ -40,10 +40,10 @@ namespace TestRunXMLParserTool.ViewModels
 			}
 		}
 
-		private void SetNewLanguage()
+		private void SaveLanguageToConfig()
 		{
 			AppConfiguration.SetCulture(LanguageSelected);
-			var newLanguageSelected = AppConfiguration.GetCurrentLanguage();
+			var newLanguageSelected = AppConfiguration.GetLanguage();
 
 			if (newLanguageSelected != LanguageSelected)
 			{
@@ -59,7 +59,7 @@ namespace TestRunXMLParserTool.ViewModels
 		{
 			get
 			{
-				setNewListenerNameCommand ??= ReactiveCommand.Create(SetNewListenerName);
+				setNewListenerNameCommand ??= ReactiveCommand.Create(SaveListenerNameToConfig);
 				return setNewListenerNameCommand;
 			}
 		}
