@@ -42,20 +42,25 @@ namespace TestRunXMLParserTool.Models
 						};
 
 						XmlNodeList? testClass = test.SelectNodes("class");
-						if (testClass == null || testClass.Count == 0 || testClass[0] == null || testClass[0].Attributes == null) continue;
+						if (testClass == null || testClass.Count == 0) continue;
 
-						testCaseResult.XMLPath = (testClass[0].Attributes.GetNamedItem("name") != null) ? testClass[0].Attributes.GetNamedItem("name").Value! : "";
-
-						XmlNodeList? testMethods = testClass[0].SelectNodes("test-method");
-
-						foreach (XmlNode testMethod in testMethods)
+						for (int i = 0; i < testClass.Count; i++)
 						{
-							if (testMethod.Attributes.GetNamedItem("is-config") != null)
+							if (testClass[i] == null || testClass[i].Attributes == null) continue;
+
+							testCaseResult.XMLPath = (testClass[i].Attributes.GetNamedItem("name") != null) ? testClass[i].Attributes.GetNamedItem("name").Value! : "";
+
+							XmlNodeList? testMethods = testClass[i].SelectNodes("test-method");
+
+							foreach (XmlNode testMethod in testMethods)
 							{
-								continue;
+								if (testMethod.Attributes.GetNamedItem("is-config") != null)
+								{
+									continue;
+								}
+								testCaseResult.Result = (testMethod.Attributes.GetNamedItem("status") != null) ? testMethod.Attributes.GetNamedItem("status").Value! : "SKIP";
+								testCaseResult.MethodName = (testMethod.Attributes.GetNamedItem("name") != null || testMethod.Attributes.GetNamedItem("name").Value != null) ? testMethod.Attributes.GetNamedItem("name").Value! : "";
 							}
-							testCaseResult.Result = (testMethod.Attributes.GetNamedItem("status") != null) ? testMethod.Attributes.GetNamedItem("status").Value! : "SKIP";
-							testCaseResult.MethodName = (testMethod.Attributes.GetNamedItem("name") != null || testMethod.Attributes.GetNamedItem("name").Value != null) ? testMethod.Attributes.GetNamedItem("name").Value! : "";
 						}
 						testCaseResults.Add(testCaseResult);
 					}
