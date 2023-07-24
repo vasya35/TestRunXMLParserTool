@@ -44,8 +44,12 @@ namespace TestRunXMLParserTool.Models
 						XmlNodeList? testClass = test.SelectNodes("class");
 						if (testClass == null || testClass.Count == 0) continue;
 
+						var isAdded = false;
+
 						for (int i = 0; i < testClass.Count; i++)
 						{
+							if (isAdded) continue;
+
 							if (testClass[i] == null || testClass[i].Attributes == null) continue;
 
 							testCaseResult.XMLPath = (testClass[i].Attributes.GetNamedItem("name") != null) ? testClass[i].Attributes.GetNamedItem("name").Value! : "";
@@ -60,9 +64,15 @@ namespace TestRunXMLParserTool.Models
 								}
 								testCaseResult.Result = (testMethod.Attributes.GetNamedItem("status") != null) ? testMethod.Attributes.GetNamedItem("status").Value! : "SKIP";
 								testCaseResult.MethodName = (testMethod.Attributes.GetNamedItem("name") != null || testMethod.Attributes.GetNamedItem("name").Value != null) ? testMethod.Attributes.GetNamedItem("name").Value! : "";
+
+								if (!isAdded)
+								{
+									testCaseResults.Add(testCaseResult);
+									isAdded = true;
+									continue;
+								}
 							}
 						}
-						testCaseResults.Add(testCaseResult);
 					}
 				}
 				return Tuple.Create(true, "", testCaseResults);
