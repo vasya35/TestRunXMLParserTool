@@ -69,7 +69,7 @@ namespace TestRunXMLParserTool.ViewModels
 		}
 		#endregion
 
-		#region fields
+		#region Fields
 		private readonly MainWindowView mainWindowView;
 		private readonly SettingsViewModel settingsViewModel = new();
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
