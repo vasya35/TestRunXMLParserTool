@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="1" total="1" passed="0">
+	
+<test name="C4 - TestCaseNumber_4" >
+      <class name="com.test.case.GenerateTestCaseNumber4">
+        <test-method status="PASS" signature="beforeMethod()" name="beforeMethod" is-config="true" />
+        <test-method status="PASS" signature="configuration()" name="configuration" is-config="true" />
+        <test-method status="FAIL" signature="init()" name="init" is-config="true" />         
+        <test-method status="SKIP" signature="testCaseNumber_4()" name="testCaseNumber_4" description="C4 - TestCaseNumber_4" />
+        <test-method status="SKIP" signature="clear()" name="clear" is-config="true" />
+      </class>
+    </test> 
+</testng-results>

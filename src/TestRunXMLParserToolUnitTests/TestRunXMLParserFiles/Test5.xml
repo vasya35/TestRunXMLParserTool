@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="1" total="1" passed="0">
+	<test name="C5 - TestCaseNumber_5" >
+      <class name="com.test.case.GenerateTestCaseNumber5">
+        <test-method status="PASS" signature="beforeSuite()" name="beforeSuite" is-config="true" />       
+        <test-method status="PASS" signature="afterSuite()" name="afterSuite" is-config="true" />        
+      </class>
+      <class name="com.test.case.GenerateTestCaseNumber5">
+        <test-method status="PASS" signature="beforeMethod()" name="beforeMethod" is-config="true" />      
+        <test-method status="PASS" signature="configuration()" name="configuration" is-config="true" />         
+        <test-method status="PASS" signature="init()" name="init" is-config="true" />       
+        <test-method status="FAIL" signature="testCaseGenerator_5()" name="testCaseGenerator_5" description="C5 - TestCaseNumber_5" />        
+        <test-method status="PASS" signature="clear()" name="deleteEntities" is-config="true" />
+      </class>
+    </test>
+</testng-results>
