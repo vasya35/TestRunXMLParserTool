@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testng-results skipped="0" failed="0" passed="1" total="1">
+  <test name="C1 - TestCaseNumber_1">
+    <class name="com.test.case.GenerateTestCaseNumber1">
+      <test-method status="PASS" name="testCaseGenerator_1" />
+    </class>
+  </test>
+</testng-results>

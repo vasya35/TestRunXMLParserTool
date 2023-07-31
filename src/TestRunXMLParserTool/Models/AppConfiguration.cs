@@ -5,7 +5,7 @@ namespace TestRunXMLParserTool.Models
 {
 	static internal class AppConfiguration
 	{
-		#region fields
+		#region Fields
 		private static readonly Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 		private static readonly List<string> languages = new() { "English", "Russian", "Kazakh", "Turkish" };
@@ -17,7 +17,7 @@ namespace TestRunXMLParserTool.Models
 		private static readonly bool ShowOnlySelectedEnabledDefault = false;
 		#endregion
 
-		#region event
+		#region Event
 		public delegate void Notify();
 		public static event Notify? CultereChangedEvent;
 		#endregion

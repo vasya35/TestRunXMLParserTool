@@ -9,7 +9,7 @@ namespace TestRunXMLParserTool.Models
 {
 	public class ScreenshotsFolderParsingModel
 	{
-		#region fileds
+		#region Fileds
 		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 		#endregion
 

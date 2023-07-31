@@ -7,7 +7,7 @@ namespace TestRunXMLParserTool.Models
 {
 	public class XMLParserModel
 	{
-		#region fileds
+		#region Fileds
 		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 		#endregion
 
@@ -44,12 +44,8 @@ namespace TestRunXMLParserTool.Models
 						XmlNodeList? testClass = test.SelectNodes("class");
 						if (testClass == null || testClass.Count == 0) continue;
 
-						var isAdded = false;
-
 						for (int i = 0; i < testClass.Count; i++)
 						{
-							if (isAdded) continue;
-
 							if (testClass[i] == null || testClass[i].Attributes == null) continue;
 
 							testCaseResult.XMLPath = (testClass[i].Attributes.GetNamedItem("name") != null) ? testClass[i].Attributes.GetNamedItem("name").Value! : "";
@@ -58,21 +54,25 @@ namespace TestRunXMLParserTool.Models
 
 							foreach (XmlNode testMethod in testMethods)
 							{
-								if (testMethod.Attributes.GetNamedItem("is-config") != null)
+								if (testMethod.Attributes.GetNamedItem("is-config") == null)
 								{
-									continue;
+									testCaseResult.MethodName = (testMethod.Attributes.GetNamedItem("name") != null || testMethod.Attributes.GetNamedItem("name").Value != null) ? testMethod.Attributes.GetNamedItem("name").Value! : "";
 								}
-								testCaseResult.Result = (testMethod.Attributes.GetNamedItem("status") != null) ? testMethod.Attributes.GetNamedItem("status").Value! : "SKIP";
-								testCaseResult.MethodName = (testMethod.Attributes.GetNamedItem("name") != null || testMethod.Attributes.GetNamedItem("name").Value != null) ? testMethod.Attributes.GetNamedItem("name").Value! : "";
 
-								if (!isAdded)
+								var nextResult = (testMethod.Attributes.GetNamedItem("status") != null) ? testMethod.Attributes.GetNamedItem("status").Value! : "SKIP";
+								switch (testCaseResult.Result)
 								{
-									testCaseResults.Add(testCaseResult);
-									isAdded = true;
-									continue;
+									case "FAIL":
+										break;
+									case "PASS":
+									case "SKIP":
+									default:
+										testCaseResult.Result = nextResult;
+										break;
 								}
 							}
 						}
+						testCaseResults.Add(testCaseResult);
 					}
 				}
 				return Tuple.Create(true, "", testCaseResults);
@@ -83,7 +83,6 @@ namespace TestRunXMLParserTool.Models
 
 				return Tuple.Create(false, e.ToString(), new ObservableCollection<TestCaseResultModel>());
 			}
-
 		}
 		#endregion
 	}
