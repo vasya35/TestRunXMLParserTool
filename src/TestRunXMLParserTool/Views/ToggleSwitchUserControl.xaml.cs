@@ -8,7 +8,7 @@ namespace TestRunXMLParserTool.Views
 	/// </summary>
 	public partial class ToggleSwitchUserControl : UserControl
 	{
-		#region fileds
+		#region Fileds
 		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 		#endregion
 
