@@ -8,11 +8,11 @@ namespace TestRunXMLParserTool.Views
 	/// </summary>
 	public partial class SettingsWindowView : Window
 	{
-		public SettingsWindowView(SettingsViewModel settingsViewModel)
+		public SettingsWindowView()
 		{
 			InitializeComponent();
 
-			DataContext = settingsViewModel;
+			DataContext = new SettingsViewModel();
 		}
 
 	}

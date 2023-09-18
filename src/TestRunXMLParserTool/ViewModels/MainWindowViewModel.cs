@@ -24,7 +24,7 @@ namespace TestRunXMLParserTool.ViewModels
 	public class MainWindowViewModel : ReactiveObject
 	{
 		#region .ctor
-		public MainWindowViewModel(MainWindowView mainWindowView)
+		public MainWindowViewModel()
 		{
 			SelectedTestCaseResult = new TestCaseResultModel();
 			DisplayedTestCaseResults = new ObservableCollection<TestCaseResultModel>();
@@ -65,12 +65,10 @@ namespace TestRunXMLParserTool.ViewModels
 			};
 
 			ExecuteOpenFileDialog();
-			this.mainWindowView = mainWindowView;
 		}
 		#endregion
 
 		#region Fields
-		private readonly MainWindowView mainWindowView;
 		private readonly SettingsViewModel settingsViewModel = new();
 		private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		private List<IDisposable> isSelectedSubscriptions = new();
@@ -418,18 +416,8 @@ namespace TestRunXMLParserTool.ViewModels
 
 		private void OpenSettingsWindow()
 		{
-			if (mainWindowView.OwnedWindows.Count == 0)
-			{
-				var settingsWindow = new SettingsWindowView(settingsViewModel)
-				{
-					Owner = mainWindowView
-				};
-				settingsWindow.Show();
-			}
-			else
-			{
-				mainWindowView.OwnedWindows[0].Activate();
-			}
+			new SettingsWindowView().Show();
+			
 		}
 
 		private void UpdateCounts()
