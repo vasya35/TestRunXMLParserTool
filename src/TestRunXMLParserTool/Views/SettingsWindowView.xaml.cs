@@ -1,19 +1,14 @@
 ﻿using System.Windows;
 using TestRunXMLParserTool.ViewModels;
 
-namespace TestRunXMLParserTool.Views
+namespace TestRunXMLParserTool.Views;
+
+public partial class SettingsWindowView : Window
 {
-	/// <summary>
-	/// Interaction logic for SettingsWindowView.xaml
-	/// </summary>
-	public partial class SettingsWindowView : Window
+	public SettingsWindowView(SettingsViewModel settingsViewModel)
 	{
-		public SettingsWindowView()
-		{
-			InitializeComponent();
+		InitializeComponent();
 
-			DataContext = new SettingsViewModel();
-		}
-
+		DataContext = settingsViewModel;
 	}
 }
