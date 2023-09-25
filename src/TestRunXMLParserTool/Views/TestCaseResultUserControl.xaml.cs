@@ -1,15 +1,10 @@
 ﻿using System.Windows.Controls;
 
-namespace TestRunXMLParserTool.Views
+namespace TestRunXMLParserTool.Views;
+public partial class TestCaseResultUserControl : UserControl
 {
-	/// <summary>
-	/// Interaction logic for TestCaseResultUserControl.xaml
-	/// </summary>
-	public partial class TestCaseResultUserControl : UserControl
+	public TestCaseResultUserControl()
 	{
-		public TestCaseResultUserControl()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

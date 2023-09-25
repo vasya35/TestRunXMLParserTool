@@ -2,44 +2,43 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace TestRunXMLParserTool.Converters
-{
-	class ToggleSwitchPinPositionConverter : IValueConverter
-	{
-		#region Fields
-		private const int disablePinPosition = 0;
-		private const int enablePinPosition = 2;
-		#endregion
+namespace TestRunXMLParserTool.Converters;
 
-		#region Implement IValueConverter
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+class ToggleSwitchPinPositionConverter : IValueConverter
+{
+	#region Fields
+	private const int disablePinPosition = 0;
+	private const int enablePinPosition = 2;
+	#endregion
+
+	#region Implement IValueConverter
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		try
 		{
-			try
+			if (value == null)
 			{
-				if (value == null)
-				{
-					return disablePinPosition;
-				}
-				bool.TryParse(value.ToString(), out var enabled);
-				if (enabled)
-				{
-					return enablePinPosition;
-				}
-				else
-				{
-					return disablePinPosition;
-				}
+				return disablePinPosition;
 			}
-			catch (Exception)
+			bool.TryParse(value.ToString(), out var enabled);
+			if (enabled)
+			{
+				return enablePinPosition;
+			}
+			else
 			{
 				return disablePinPosition;
 			}
 		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		catch (Exception)
 		{
-			throw new NotImplementedException();
+			return disablePinPosition;
 		}
-		#endregion
 	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		throw new NotImplementedException();
+	}
+	#endregion
 }

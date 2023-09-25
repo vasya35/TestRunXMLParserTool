@@ -3,24 +3,23 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace TestRunXMLParserTool.Converters
+namespace TestRunXMLParserTool.Converters;
+
+class PercentageConverter : MarkupExtension, IValueConverter
 {
-	class PercentageConverter : MarkupExtension, IValueConverter
+	private static PercentageConverter? instance;
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-		private static PercentageConverter? instance;
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return System.Convert.ToDouble(value) * System.Convert.ToDouble(parameter);
-		}
+		return System.Convert.ToDouble(value) * System.Convert.ToDouble(parameter);
+	}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		throw new NotImplementedException();
+	}
 
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			return instance ??= new PercentageConverter();
-		}
+	public override object ProvideValue(IServiceProvider serviceProvider)
+	{
+		return instance ??= new PercentageConverter();
 	}
 }

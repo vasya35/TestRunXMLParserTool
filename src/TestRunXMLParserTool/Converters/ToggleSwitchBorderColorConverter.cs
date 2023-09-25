@@ -3,44 +3,43 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace TestRunXMLParserTool.Converters
-{
-	class ToggleSwitchBorderColorConverter : IValueConverter
-	{
-		#region Fields
-		private readonly string enabledBorderColor = "#0067c0";
-		private readonly string disabledBorderColor = Colors.White.ToString();
-		#endregion
+namespace TestRunXMLParserTool.Converters;
 
-		#region Implement IValueConverter
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+class ToggleSwitchBorderColorConverter : IValueConverter
+{
+	#region Fields
+	private readonly string enabledBorderColor = "#0067c0";
+	private readonly string disabledBorderColor = Colors.White.ToString();
+	#endregion
+
+	#region Implement IValueConverter
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		try
 		{
-			try
+			if (value == null)
 			{
-				if (value == null)
-				{
-					return disabledBorderColor;
-				}
-				bool.TryParse(value.ToString(), out var enabled);
-				if (enabled)
-				{
-					return enabledBorderColor;
-				}
-				else
-				{
-					return disabledBorderColor;
-				}
+				return disabledBorderColor;
 			}
-			catch (Exception)
+			bool.TryParse(value.ToString(), out var enabled);
+			if (enabled)
+			{
+				return enabledBorderColor;
+			}
+			else
 			{
 				return disabledBorderColor;
 			}
 		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		catch (Exception)
 		{
-			throw new NotImplementedException();
+			return disabledBorderColor;
 		}
-		#endregion
 	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		throw new NotImplementedException();
+	}
+	#endregion
 }

@@ -1,15 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace TestRunXMLParserTool.Views
+namespace TestRunXMLParserTool.Views;
+
+public partial class SortAndFilterUserControl : UserControl
 {
-	/// <summary>
-	/// Interaction logic for SortAndFilterUserControl1.xaml
-	/// </summary>
-	public partial class SortAndFilterUserControl : UserControl
+	public SortAndFilterUserControl()
 	{
-		public SortAndFilterUserControl()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }

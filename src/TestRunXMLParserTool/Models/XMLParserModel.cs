@@ -3,87 +3,86 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace TestRunXMLParserTool.Models
+namespace TestRunXMLParserTool.Models;
+
+public class XMLParserModel
 {
-	public class XMLParserModel
+	#region Fileds
+	private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+	#endregion
+
+	#region Public Methods
+	public static async Task<Tuple<bool, string, ObservableCollection<TestCaseResultModel>>> ParseAsync(string path)
 	{
-		#region Fileds
-		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-		#endregion
+		return await Task.Run(() => Parse(path));
+	}
 
-		#region Public Methods
-		public static async Task<Tuple<bool, string, ObservableCollection<TestCaseResultModel>>> ParseAsync(string path)
+	public static Tuple<bool, string, ObservableCollection<TestCaseResultModel>> Parse(string path)
+	{
+		try
 		{
-			return await Task.Run(() => Parse(path));
-		}
+			ObservableCollection<TestCaseResultModel> testCaseResults = new();
+			XmlDocument xDoc = new();
 
-		public static Tuple<bool, string, ObservableCollection<TestCaseResultModel>> Parse(string path)
-		{
-			try
+			xDoc.Load(path);
+			// Get root element
+			XmlElement? xRoot = xDoc.DocumentElement;
+			if (xRoot != null)
 			{
-				ObservableCollection<TestCaseResultModel> testCaseResults = new();
-				XmlDocument xDoc = new();
+				XmlNodeList tests = xRoot.GetElementsByTagName("test");
 
-				xDoc.Load(path);
-				// Get root element
-				XmlElement? xRoot = xDoc.DocumentElement;
-				if (xRoot != null)
+				// Testcases traversal
+				foreach (XmlNode test in tests)
 				{
-					XmlNodeList tests = xRoot.GetElementsByTagName("test");
+					if (test == null || test.Attributes == null) continue;
 
-					// Testcases traversal
-					foreach (XmlNode test in tests)
+					var testCaseResult = new TestCaseResultModel
 					{
-						if (test == null || test.Attributes == null) continue;
+						Name = (test.Attributes.GetNamedItem("name") != null) ? test.Attributes.GetNamedItem("name").Value! : ""
+					};
 
-						var testCaseResult = new TestCaseResultModel
+					XmlNodeList? testClass = test.SelectNodes("class");
+					if (testClass == null || testClass.Count == 0) continue;
+
+					for (int i = 0; i < testClass.Count; i++)
+					{
+						if (testClass[i] == null || testClass[i].Attributes == null) continue;
+
+						testCaseResult.XMLPath = (testClass[i].Attributes.GetNamedItem("name") != null) ? testClass[i].Attributes.GetNamedItem("name").Value! : "";
+
+						XmlNodeList? testMethods = testClass[i].SelectNodes("test-method");
+
+						foreach (XmlNode testMethod in testMethods)
 						{
-							Name = (test.Attributes.GetNamedItem("name") != null) ? test.Attributes.GetNamedItem("name").Value! : ""
-						};
-
-						XmlNodeList? testClass = test.SelectNodes("class");
-						if (testClass == null || testClass.Count == 0) continue;
-
-						for (int i = 0; i < testClass.Count; i++)
-						{
-							if (testClass[i] == null || testClass[i].Attributes == null) continue;
-
-							testCaseResult.XMLPath = (testClass[i].Attributes.GetNamedItem("name") != null) ? testClass[i].Attributes.GetNamedItem("name").Value! : "";
-
-							XmlNodeList? testMethods = testClass[i].SelectNodes("test-method");
-
-							foreach (XmlNode testMethod in testMethods)
+							if (testMethod.Attributes.GetNamedItem("is-config") == null)
 							{
-								if (testMethod.Attributes.GetNamedItem("is-config") == null)
-								{
-									testCaseResult.MethodName = (testMethod.Attributes.GetNamedItem("name") != null || testMethod.Attributes.GetNamedItem("name").Value != null) ? testMethod.Attributes.GetNamedItem("name").Value! : "";
-								}
+								testCaseResult.MethodName = (testMethod.Attributes.GetNamedItem("name") != null || testMethod.Attributes.GetNamedItem("name").Value != null) ? testMethod.Attributes.GetNamedItem("name").Value! : "";
+							}
 
-								var nextResult = (testMethod.Attributes.GetNamedItem("status") != null) ? testMethod.Attributes.GetNamedItem("status").Value! : "SKIP";
-								switch (testCaseResult.Result)
-								{
-									case "FAIL":
-										break;
-									case "PASS":
-									case "SKIP":
-									default:
-										testCaseResult.Result = nextResult;
-										break;
-								}
+							var nextResult = (testMethod.Attributes.GetNamedItem("status") != null) ? testMethod.Attributes.GetNamedItem("status").Value! : "SKIP";
+							switch (testCaseResult.Result)
+							{
+								case "FAIL":
+									break;
+								case "PASS":
+								case "SKIP":
+								default:
+									testCaseResult.Result = nextResult;
+									break;
 							}
 						}
-						testCaseResults.Add(testCaseResult);
 					}
+					testCaseResults.Add(testCaseResult);
 				}
-				return Tuple.Create(true, "", testCaseResults);
 			}
-			catch (Exception e)
-			{
-				Logger.Error($"Error while open XML file: {e}");
-
-				return Tuple.Create(false, e.ToString(), new ObservableCollection<TestCaseResultModel>());
-			}
+			return Tuple.Create(true, "", testCaseResults);
 		}
-		#endregion
+		catch (Exception e)
+		{
+			Logger.Error($"Error while open XML file: {e}");
+
+			return Tuple.Create(false, e.ToString(), new ObservableCollection<TestCaseResultModel>());
+		}
 	}
+	#endregion
 }

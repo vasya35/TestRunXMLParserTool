@@ -1,15 +1,11 @@
 ﻿using System.Windows.Controls;
 
-namespace TestRunXMLParserTool.Views
+namespace TestRunXMLParserTool.Views;
+
+public partial class StepProgressBarControl : UserControl
 {
-	/// <summary>
-	/// Interaction logic for StepProgressBarControl.xaml
-	/// </summary>
-	public partial class StepProgressBarControl : UserControl
+	public StepProgressBarControl()
 	{
-		public StepProgressBarControl()
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
 	}
 }
